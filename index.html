@@ -806,6 +806,22 @@
     details:  'Baraat 5:00 pm · Pheras 7:00 pm · Reception 9:00 pm. Details at ShivamAyushi.com'
   };
 
+  const SUPABASE_URL = 'https://qedejzirlehmnomgruhc.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFlZGVqemlybGVobW5vbWdydWhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5ODM3MzcsImV4cCI6MjEwMjU1OTczN30.uo6ELimEU8oRQWYnnI15RAZjBwIdjs1yQxmQODt62Rg';
+
+  function supabaseInsert(table, row) {
+    return fetch(SUPABASE_URL + '/rest/v1/' + table, {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal'
+      },
+      body: JSON.stringify(row)
+    });
+  }
+
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ─────────── IN-PAGE LINKS: manual scroll instead of native hash nav ───────────
@@ -1044,7 +1060,7 @@
     input.style.borderColor = on ? '#C98A80' : '';
   }
 
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     const name = document.getElementById('g-name');
     const email = document.getElementById('g-email');
@@ -1053,27 +1069,49 @@
     if (!/^\S+@\S+\.\S+$/.test(email.value)) { showErr(email, true); bad = true; } else showErr(email, false);
     if (bad) { form.querySelector('[style*="C98A80"]').focus(); return; }
 
-    // ── Wire this up to your backend (Formspree, Google Forms, Netlify Forms):
-    //    fetch('https://formspree.io/f/XXXX', { method:'POST', body: new FormData(form) })
     const going = form.attending.value === 'yes';
     const evts = [...form.querySelectorAll('input[name="events"]:checked')].map(i => i.value);
     const song = document.getElementById('g-song').value.trim();
+    const submitBtn = form.querySelector('button[type="submit"]');
 
-    document.getElementById('rsvpDoneMsg').textContent = going
-      ? 'We have you down for ' + (evts.length ? evts.join(', ').toLowerCase() : 'the wedding')
-        + (song ? '. "' + song + '" is going to the DJ.' : '.')
-      : 'We\'ll miss you — thank you for letting us know.';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    try {
+      const res = await supabaseInsert('rsvps', {
+        name: name.value.trim(),
+        email: email.value.trim(),
+        attending: going,
+        events: evts,
+        party: Number(document.getElementById('g-count').value),
+        plus_one: document.getElementById('g-plus').value.trim() || null,
+        diet: document.getElementById('g-diet').value,
+        diet_notes: document.getElementById('g-diet-notes').value.trim() || null,
+        song: song || null,
+        note: document.getElementById('g-note').value.trim() || null
+      });
+      if (!res.ok) throw new Error('RSVP request failed: ' + res.status);
 
-    document.getElementById('rsvpDone').classList.remove('hidden');
-    form.querySelectorAll('input, select, textarea, button[type="submit"]').forEach(el => el.disabled = true);
-    document.getElementById('rsvpDone').scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
-    toast(going ? 'RSVP sent. See you in December.' : 'RSVP sent.');
+      document.getElementById('rsvpDoneMsg').textContent = going
+        ? 'We have you down for ' + (evts.length ? evts.join(', ').toLowerCase() : 'the wedding')
+          + (song ? '. "' + song + '" is going to the DJ.' : '.')
+        : 'We\'ll miss you — thank you for letting us know.';
+
+      document.getElementById('rsvpDone').classList.remove('hidden');
+      form.querySelectorAll('input, select, textarea, button[type="submit"]').forEach(el => el.disabled = true);
+      document.getElementById('rsvpDone').scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+      toast(going ? 'RSVP sent. See you in December.' : 'RSVP sent.');
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send your RSVP';
+      toast('Could not send your RSVP — please try again.');
+    }
   });
 
   document.getElementById('rsvpAgain').addEventListener('click', () => {
     form.reset(); syncPlus();
     attendFields.classList.remove('hidden');
     form.querySelectorAll('input, select, textarea, button[type="submit"]').forEach(el => el.disabled = false);
+    form.querySelector('button[type="submit"]').textContent = 'Send your RSVP';
     document.getElementById('rsvpDone').classList.add('hidden');
     document.getElementById('g-name').focus();
   });
@@ -1163,13 +1201,7 @@
   renderQuiz();
 
   /* ─────────── GUESTBOOK ─────────── */
-  // Messages live in memory for this visit. Swap `messages` for a fetch()
-  // to your backend (Supabase, Firebase, a Google Sheet) to keep them.
-  const messages = [
-    { n: 'Priya & Kunal', s: 'Both', m: 'Eight years of watching you two argue about restaurants. Finally you can do it legally.', d: '4 Aug 2026' },
-    { n: 'Dadi',          s: "Shivam's family & friends", m: 'Beta, eat properly and call your mother. Blessings to you both.',                          d: '2 Aug 2026' },
-    { n: 'The EY crew',   s: 'Both', m: 'Booking leave now. Warning: we have prepared a sangeet performance and it is unstoppable.',  d: '29 Jul 2026' }
-  ];
+  let messages = [];
   const wall = document.getElementById('gbWall');
   function renderWall() {
     wall.innerHTML = '';
@@ -1193,20 +1225,48 @@
       wall.appendChild(d);
     });
   }
-  renderWall();
 
-  document.getElementById('gbForm').addEventListener('submit', e => {
+  function fmtDate(iso) {
+    return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  async function loadGuestbook() {
+    try {
+      const res = await fetch(
+        SUPABASE_URL + '/rest/v1/guestbook_messages?select=name,side,message,created_at&order=created_at.desc',
+        { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } }
+      );
+      if (!res.ok) throw new Error('Guestbook request failed: ' + res.status);
+      const rows = await res.json();
+      messages = rows.map(r => ({ n: r.name, s: r.side, m: r.message, d: fmtDate(r.created_at) }));
+      renderWall();
+    } catch (err) {
+      wall.innerHTML = '<p class="text-sm text-ink-faint sm:col-span-2 lg:col-span-3 text-center">Messages couldn\'t be loaded right now — check back soon.</p>';
+    }
+  }
+  loadGuestbook();
+
+  document.getElementById('gbForm').addEventListener('submit', async e => {
     e.preventDefault();
     const n = document.getElementById('gb-name');
     const s = document.getElementById('gb-side');
     const m = document.getElementById('gb-msg');
     if (!n.value.trim() || !m.value.trim()) { toast('Add your name and a message.'); return; }
-    messages.unshift({
-      n: n.value.trim(), s: s.value, m: m.value.trim(),
-      d: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
-    });
-    renderWall(); e.target.reset(); toast('Message added. Thank you.');
-    wall.firstElementChild.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    try {
+      const res = await supabaseInsert('guestbook_messages', {
+        name: n.value.trim(), side: s.value || null, message: m.value.trim()
+      });
+      if (!res.ok) throw new Error('Guestbook post failed: ' + res.status);
+      messages.unshift({ n: n.value.trim(), s: s.value, m: m.value.trim(), d: fmtDate(new Date().toISOString()) });
+      renderWall(); e.target.reset(); toast('Message added. Thank you.');
+      wall.firstElementChild.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+    } catch (err) {
+      toast('Could not post your message — please try again.');
+    } finally {
+      submitBtn.disabled = false;
+    }
   });
 
   /* ─────────── COPY HOTEL CODES ─────────── */

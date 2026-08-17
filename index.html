@@ -70,6 +70,12 @@
   /* Timeline thread inside Our Story */
   .tl-line { background: linear-gradient(#DDE3D4 0 60%, transparent); }
 
+  /* Smooth expand/collapse for conditional form fields (grid-rows trick — no JS height measuring needed) */
+  .grid-collapse { display: grid; grid-template-rows: 0fr; opacity: 0;
+                   transition: grid-template-rows .45s cubic-bezier(.2,.7,.3,1), opacity .35s ease; }
+  .grid-collapse.is-open { grid-template-rows: 1fr; opacity: 1; }
+  .grid-collapse-inner { overflow: hidden; min-height: 0; }
+
   /* Accordion */
   .acc-panel { max-height: 0; overflow: hidden; transition: max-height .4s cubic-bezier(.2,.7,.3,1); }
   .acc-item[open-state="true"] .acc-panel { max-height: 420px; }
@@ -123,7 +129,24 @@
   .frame .ph { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.5rem; }
   .frame img { position: relative; width:100%; height:100%; object-fit: cover; display:block; }
 
-  .hero-img { filter: saturate(.78) contrast(1.02); }
+  .hero-img { filter: saturate(.78) contrast(1.02); animation: kenburns 9s ease-out forwards; }
+  @keyframes kenburns { from { transform: scale(1.09); } to { transform: scale(1); } }
+
+  /* Photos fade in as they load, instead of popping in */
+  .frame img, .hero-img { opacity: 0; transition: opacity .6s ease; }
+  .frame img.loaded, .hero-img.loaded { opacity: 1; }
+
+  /* Card lift on hover */
+  .card-lift { transition: transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s cubic-bezier(.2,.7,.3,1), border-color .3s; }
+  .card-lift:hover { transform: translateY(-5px); box-shadow: 0 18px 34px -18px rgba(42,46,39,.28); }
+
+  /* Countdown digit pulse when a unit changes */
+  @keyframes cdPulse { 0% { opacity:.35; transform: translateY(-5px); } 100% { opacity:1; transform: translateY(0); } }
+  .cd-pulse { animation: cdPulse .5s cubic-bezier(.2,.7,.3,1); }
+
+  /* Guestbook card entrance */
+  @keyframes cardIn { from { opacity:0; transform: translateY(14px); } to { opacity:1; transform: none; } }
+  .gb-card { animation: cardIn .55s cubic-bezier(.2,.7,.3,1) backwards; }
 
   /* Lightbox */
   #lightbox { transition: opacity .3s ease; }
@@ -365,7 +388,7 @@
       </div>
       <div class="grid sm:grid-cols-2 gap-5 mb-14">
         <!-- card -->
-        <article class="border border-beige-deep p-7 sm:p-8 bg-beige-paper hover:border-sage-300 transition-colors">
+        <article class="border border-beige-deep p-7 sm:p-8 bg-beige-paper hover:border-sage-300 card-lift">
           <div class="flex items-start justify-between gap-4">
             <div>
               <p class="eyebrow text-gold">11:00 am – 4:00 pm</p>
@@ -378,7 +401,7 @@
           <p class="mt-4 eyebrow text-sage-700">Dress: bright, breathable</p>
         </article>
 
-        <article class="border border-beige-deep p-7 sm:p-8 bg-beige-paper hover:border-sage-300 transition-colors">
+        <article class="border border-beige-deep p-7 sm:p-8 bg-beige-paper hover:border-sage-300 card-lift">
           <div class="flex items-start justify-between gap-4">
             <div>
               <p class="eyebrow text-gold">7:30 pm – late</p>
@@ -401,7 +424,7 @@
         <span class="flex-1 h-px bg-beige-deep"></span>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        <article class="border border-beige-deep p-7 sm:p-8 bg-beige-paper hover:border-sage-300 transition-colors">
+        <article class="border border-beige-deep p-7 sm:p-8 bg-beige-paper hover:border-sage-300 card-lift">
           <p class="eyebrow text-gold">9:00 am</p>
           <h3 class="font-display text-2xl font-light mt-2">Haldi</h3>
           <p class="mt-4 text-ink-soft leading-relaxed">Close family and friends. Wear something you don't mind losing to turmeric.</p>
@@ -409,7 +432,7 @@
           <p class="mt-4 eyebrow text-sage-700">Dress: yellow, casual</p>
         </article>
 
-        <article class="border-2 border-sage p-7 sm:p-8 bg-sage-50 relative">
+        <article class="border-2 border-sage p-7 sm:p-8 bg-sage-50 relative card-lift">
           <span class="absolute -top-[11px] left-7 bg-sage-50 px-2 eyebrow text-sage-700">Ceremony</span>
           <p class="eyebrow text-gold">5:00 pm baraat · 7:00 pm pheras</p>
           <h3 class="font-display text-2xl font-light mt-2">The wedding</h3>
@@ -418,7 +441,7 @@
           <p class="mt-4 eyebrow text-sage-700">Dress: traditional formal</p>
         </article>
 
-        <article class="border border-beige-deep p-7 sm:p-8 bg-beige-paper hover:border-sage-300 transition-colors">
+        <article class="border border-beige-deep p-7 sm:p-8 bg-beige-paper hover:border-sage-300 card-lift">
           <p class="eyebrow text-gold">9:00 pm – 1:00 am</p>
           <h3 class="font-display text-2xl font-light mt-2">Reception</h3>
           <p class="mt-4 text-ink-soft leading-relaxed">Dinner, bar, and a dance floor that opens at 10:30 pm. Requests welcome below.</p>
@@ -610,7 +633,8 @@
             </div>
           </fieldset>
 
-          <div id="attendingFields" class="space-y-6">
+          <div id="attendingFields" class="grid-collapse is-open">
+           <div class="grid-collapse-inner space-y-6">
             <fieldset>
               <legend class="label">Which events will you attend?</legend>
               <div class="flex flex-wrap gap-3">
@@ -632,9 +656,11 @@
                   <option value="4">Four</option>
                 </select>
               </div>
-              <div id="plusOneWrap" class="hidden">
-                <label class="label" for="g-plus">Name of your plus-one</label>
-                <input class="field" id="g-plus" name="plusone" placeholder="Their full name">
+              <div id="plusOneWrap" class="grid-collapse">
+                <div class="grid-collapse-inner">
+                  <label class="label" for="g-plus">Name of your plus-one</label>
+                  <input class="field" id="g-plus" name="plusone" placeholder="Their full name">
+                </div>
               </div>
             </div>
 
@@ -662,6 +688,7 @@
               <input class="field" id="g-song" name="song" placeholder="Song and artist — the one that gets you up">
               <p class="text-xs text-ink-faint mt-2">Every request goes onto the reception playlist. Yes, we will check who asked for what.</p>
             </div>
+           </div>
           </div>
 
           <div>
@@ -824,6 +851,14 @@
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* Fade an image in once it's actually loaded, instead of popping in mid-layout */
+  function fadeInWhenLoaded(img) {
+    const show = () => img.classList.add('loaded');
+    if (img.complete && img.naturalWidth) show();
+    else img.addEventListener('load', show, { once: true });
+  }
+  document.querySelectorAll('.frame img, .hero-img').forEach(fadeInWhenLoaded);
+
   /* ─────────── IN-PAGE LINKS: manual scroll instead of native hash nav ───────────
      Some hosting/preview environments block same-page fragment navigation
      (e.g. sandboxed iframes). Handling the scroll ourselves and updating the
@@ -852,10 +887,21 @@
       return clearInterval(timer);
     }
     const s = Math.floor(diff / 1000);
-    els.d.textContent = pad(Math.floor(s / 86400));
-    els.h.textContent = pad(Math.floor(s / 3600) % 24);
-    els.m.textContent = pad(Math.floor(s / 60) % 60);
-    els.s.textContent = pad(s % 60);
+    const next = {
+      d: pad(Math.floor(s / 86400)),
+      h: pad(Math.floor(s / 3600) % 24),
+      m: pad(Math.floor(s / 60) % 60),
+      s: pad(s % 60)
+    };
+    Object.keys(next).forEach(k => {
+      if (els[k].textContent === next[k]) return;
+      els[k].textContent = next[k];
+      if (!reduce) {
+        els[k].classList.remove('cd-pulse');
+        void els[k].offsetWidth; // restart the animation
+        els[k].classList.add('cd-pulse');
+      }
+    });
   }
   tick();
   const timer = setInterval(tick, 1000);
@@ -987,6 +1033,7 @@
       ' class="transition-transform duration-700 group-hover:scale-[1.04]">';
     b.addEventListener('click', () => openLb(i));
     grid.appendChild(b);
+    fadeInWhenLoaded(b.querySelector('img'));
   });
 
   const lb = document.getElementById('lightbox');
@@ -1046,12 +1093,12 @@
   const plusWrap = document.getElementById('plusOneWrap');
   const attendFields = document.getElementById('attendingFields');
 
-  const syncPlus = () => plusWrap.classList.toggle('hidden', partySel.value === '1');
+  const syncPlus = () => { plusWrap.classList.toggle('is-open', partySel.value !== '1'); };
   partySel.addEventListener('change', syncPlus); syncPlus();
 
   form.querySelectorAll('input[name="attending"]').forEach(r =>
     r.addEventListener('change', () => {
-      attendFields.classList.toggle('hidden', form.attending.value === 'no');
+      attendFields.classList.toggle('is-open', form.attending.value !== 'no');
     }));
 
   function showErr(input, on) {
@@ -1109,7 +1156,7 @@
 
   document.getElementById('rsvpAgain').addEventListener('click', () => {
     form.reset(); syncPlus();
-    attendFields.classList.remove('hidden');
+    attendFields.classList.add('is-open');
     form.querySelectorAll('input, select, textarea, button[type="submit"]').forEach(el => el.disabled = false);
     form.querySelector('button[type="submit"]').textContent = 'Send your RSVP';
     document.getElementById('rsvpDone').classList.add('hidden');
@@ -1205,9 +1252,10 @@
   const wall = document.getElementById('gbWall');
   function renderWall() {
     wall.innerHTML = '';
-    messages.forEach(msg => {
+    messages.forEach((msg, i) => {
       const d = document.createElement('figure');
-      d.className = 'bg-beige-paper border border-beige-deep p-6 reveal in';
+      d.className = 'bg-beige-paper border border-beige-deep p-6 gb-card card-lift';
+      d.style.animationDelay = Math.min(i, 6) * 0.07 + 's';
       d.innerHTML =
         '<div class="flex items-start justify-between gap-3">' +
           '<span class="block font-display text-3xl text-gold-light leading-none">&ldquo;</span>' +

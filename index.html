@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Shivam &amp; Ayushi — 2 December 2026</title>
 <meta name="description" content="Shivam and Ayushi are getting married on 2 December 2026 in Ujjain, Madhya Pradesh. Schedule, travel, stay, and RSVP." />
-<meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)" />
-<meta name="theme-color" content="#14150F" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#F7F4EE" />
 
 <!-- Open Graph -->
 <meta property="og:title" content="Shivam & Ayushi — 2 December 2026" />
@@ -55,13 +54,16 @@
 
 <style>
   /* ══════════════════════════════════════════════════════════════
-     TOKENS — the whole palette lives here. Dark mode is one swap.
+     TOKENS — the whole palette lives here. Always light: this is a
+     wedding invitation, not an app, and should look the same for
+     every guest regardless of their device's system theme.
      ══════════════════════════════════════════════════════════════ */
   :root {
     --c-ink: 42 46 39;          --c-ink-soft: 90 97 85;      --c-ink-faint: 138 144 130;
     --c-sage-900: 61 74 58;     --c-sage-700: 92 110 85;     --c-sage: 124 139 111;
     --c-sage-300: 169 183 156;  --c-sage-100: 228 234 221;
     --c-gold: 176 141 79;       --c-gold-light: 211 178 122; --c-gold-pale: 239 226 200;
+    --c-blush: 199 121 111;     --c-blush-light: 224 168 159; --c-blush-pale: 250 231 226;
     --c-paper: 247 244 238;     --c-surface: 255 255 255;    --c-surface-alt: 241 244 236;
     --c-line: 226 214 194;      --c-line-soft: 235 227 213;
     --c-deep: 61 74 58;         --c-deep-fg: 247 244 238;
@@ -75,23 +77,7 @@
     --ease: cubic-bezier(.16,.84,.36,1);
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --c-ink: 236 232 221;       --c-ink-soft: 180 184 170;   --c-ink-faint: 134 140 126;
-      --c-sage-900: 26 32 24;     --c-sage-700: 156 175 144;   --c-sage: 132 150 120;
-      --c-sage-300: 96 112 90;    --c-sage-100: 44 53 41;
-      --c-gold: 199 165 105;      --c-gold-light: 216 186 133; --c-gold-pale: 92 76 48;
-      --c-paper: 20 21 15;        --c-surface: 28 30 23;       --c-surface-alt: 34 40 30;
-      --c-line: 56 60 46;         --c-line-soft: 44 48 37;
-      --c-deep: 13 14 10;         --c-deep-fg: 236 232 221;
-      --c-danger: 214 128 116;
-
-      --shadow-card: 0 1px 2px rgb(0 0 0/.4), 0 10px 24px -14px rgb(0 0 0/.7);
-      --shadow-lift: 0 2px 6px rgb(0 0 0/.45), 0 28px 48px -22px rgb(0 0 0/.8);
-      --grain-opacity: .022;
-    }
-    html { color-scheme: dark; }
-  }
+  html { color-scheme: only light; }
 
   html { overflow-x: clip; }
   /* Base styling lives here, not only in Tailwind utilities, so a blocked or
@@ -145,10 +131,12 @@
   @keyframes growY { from { transform: scaleY(0) } to { transform: scaleY(1) } }
   #rail a { position: absolute; left: 0; width: 44px; height: 44px; transform: translate(-50%, -50%);
             display: grid; place-items: center; }
-  #rail .knot { width: 7px; height: 7px; rotate: 45deg; background: rgb(var(--c-paper));
-                border: 1px solid rgb(var(--c-sage-300)); transition: background .35s, border-color .35s, scale .35s; }
-  #rail a:hover .knot, #rail a:focus-visible .knot { scale: 1.25; }
-  #rail .knot.tied { background: rgb(var(--c-gold)); border-color: rgb(var(--c-gold)); scale: 1.3; }
+  #rail .knot { display: block; width: 11px; height: 11px; color: rgb(var(--c-sage-300));
+                transition: color .35s, scale .35s; }
+  #rail .knot svg { display: block; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.7; }
+  #rail a:hover .knot, #rail a:focus-visible .knot { scale: 1.2; }
+  #rail .knot.tied { color: rgb(var(--c-blush)); scale: 1.3; }
+  #rail .knot.tied svg { fill: currentColor; stroke: none; }
   #rail .knot-label { position: absolute; left: 34px; top: 50%; translate: 0 -50%;
                       font-family: Jost, sans-serif; font-size: .62rem; letter-spacing: .22em; text-transform: uppercase;
                       color: rgb(var(--c-ink-faint)); white-space: nowrap; opacity: 0; transition: opacity .25s; }
@@ -294,10 +282,6 @@
   .btn-out { border: 1px solid rgb(var(--c-sage)); color: rgb(var(--c-sage-700)); background: transparent; }
   .btn-out:hover { background: rgb(var(--c-surface-alt)); }
   html.reduce .btn { translate: none !important; }
-  @media (prefers-color-scheme: dark) {
-    .btn-solid { background: rgb(var(--c-sage-700)); color: rgb(var(--c-paper)); }
-    .btn-solid:hover { background: rgb(var(--c-sage)); }
-  }
 
   /* ══════════ RSVP STEPPER ══════════ */
   .step[hidden] { display: none; }
@@ -378,7 +362,7 @@
   #toast { transition: opacity .3s, translate .3s var(--ease); }
 
   :focus-visible { outline: 2px solid rgb(var(--c-gold)); outline-offset: 3px; border-radius: 2px; }
-  ::selection { background: rgb(var(--c-gold-pale)); color: rgb(var(--c-ink)); }
+  ::selection { background: rgb(var(--c-blush-pale)); color: rgb(var(--c-ink)); }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -467,7 +451,7 @@
       <img class="hero-img w-full h-full object-cover" alt="Shivam and Ayushi" id="heroImg">
     </div>
     <div class="absolute inset-0" aria-hidden="true"
-         style="background:linear-gradient(180deg, rgb(var(--c-ink)/.42) 0%, rgb(var(--c-ink)/.14) 38%, rgb(var(--c-paper)/.12) 64%, rgb(var(--c-paper)/.98) 100%)"></div>
+         style="background:linear-gradient(180deg, rgb(var(--c-ink)/.42) 0%, rgb(var(--c-ink)/.14) 38%, rgb(var(--c-blush-pale)/.28) 64%, rgb(var(--c-paper)/.98) 100%)"></div>
 
     <div id="heroCopy" class="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
       <p class="eyebrow text-white/90 fade-up" style="animation-delay:.15s;text-shadow:0 1px 12px rgb(0 0 0/.4)">Together with our families</p>
@@ -478,7 +462,10 @@
         <span class="mask"><span class="block" style="animation-delay:.46s;font-size:clamp(3rem,13vw,8rem)">Ayushi</span></span>
       </h1>
 
-      <p class="mt-8 text-white/95 uppercase fade-up" style="animation-delay:.72s;letter-spacing:.32em;font-size:clamp(.65rem,2.4vw,.85rem);text-shadow:0 1px 12px rgb(0 0 0/.45)">
+      <svg class="mt-7 fade-up" style="animation-delay:.64s;width:16px;height:16px;color:rgb(var(--c-blush-light))" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M12 21s-7.5-4.6-10-9.1C.5 8.4 2 4.9 5.5 4A5 5 0 0112 7a5 5 0 016.5-3C22 4.9 23.5 8.4 22 11.9 19.5 16.4 12 21 12 21z"/>
+      </svg>
+      <p class="mt-5 text-white/95 uppercase fade-up" style="animation-delay:.72s;letter-spacing:.32em;font-size:clamp(.65rem,2.4vw,.85rem);text-shadow:0 1px 12px rgb(0 0 0/.45)">
         02 · 12 · 2026 &nbsp;—&nbsp; Ujjain
       </p>
       <p class="mt-6 font-display italic text-white font-light fade-up" style="animation-delay:.82s;font-size:clamp(1.25rem,4vw,2rem);text-shadow:0 2px 16px rgb(0 0 0/.45)">
@@ -887,7 +874,10 @@
       <a href="#gallery"  class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">Gallery</a>
       <a href="#rsvp"     class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">RSVP</a>
     </nav>
-    <p class="mt-10 text-xs" style="color:rgb(var(--c-deep-fg)/.45)">#ShivamAndAyushi2026</p>
+    <svg class="mx-auto mt-10" style="width:13px;height:13px;color:rgb(var(--c-blush-light))" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="currentColor" d="M12 21s-7.5-4.6-10-9.1C.5 8.4 2 4.9 5.5 4A5 5 0 0112 7a5 5 0 016.5-3C22 4.9 23.5 8.4 22 11.9 19.5 16.4 12 21 12 21z"/>
+    </svg>
+    <p class="mt-3 text-xs" style="color:rgb(var(--c-deep-fg)/.45)">#ShivamAndAyushi2026</p>
   </div>
 </footer>
 
@@ -1037,6 +1027,16 @@
   const $  = s => document.querySelector(s);
   const $$ = s => [...document.querySelectorAll(s)];
   const el = (tag, cls, txt) => { const n = document.createElement(tag); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; };
+  const HEART_PATH = 'M12 21s-7.5-4.6-10-9.1C.5 8.4 2 4.9 5.5 4A5 5 0 0112 7a5 5 0 016.5-3C22 4.9 23.5 8.4 22 11.9 19.5 16.4 12 21 12 21z';
+  function heartSVG() {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('aria-hidden', 'true');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', HEART_PATH);
+    svg.appendChild(path);
+    return svg;
+  }
 
   function supabaseInsert(table, row) {
     return fetch(CONFIG.supabase.url + '/rest/v1/' + table, {
@@ -1237,9 +1237,13 @@
       const flip = i % 2 === 1;
       const li = el('li', 'relative pl-12 md:pl-0 reveal ' + (i < CONFIG.story.length - 1 ? 'pb-16 md:pb-28' : ''));
 
-      const knot = el('span', 'absolute left-3 md:left-1/2 md:-translate-x-1/2 top-2 w-[9px] h-[9px] bg-gold');
-      knot.style.rotate = '45deg';
+      const knot = el('span', 'absolute left-3 md:left-1/2 md:-translate-x-1/2 top-2 w-[11px] h-[11px]');
+      knot.style.color = 'rgb(var(--c-blush))';
       knot.setAttribute('aria-hidden', 'true');
+      const knotSvg = heartSVG();
+      knotSvg.setAttribute('fill', 'currentColor');
+      knotSvg.style.display = 'block';
+      knot.appendChild(knotSvg);
       li.appendChild(knot);
 
       const grid = el('div', 'md:grid md:grid-cols-2 md:gap-14 md:items-center');
@@ -1734,8 +1738,9 @@
       const quote = el('span', 'font-display text-3xl text-gold-light leading-none', '“');
       top.appendChild(quote);
       if (m.s) {
-        const tag = el('span', 'eyebrow text-sage-700 border rounded-full px-2.5 py-1 whitespace-nowrap', m.s);
-        tag.style.borderColor = 'rgb(var(--c-sage-300))';
+        const tag = el('span', 'eyebrow border rounded-full px-2.5 py-1 whitespace-nowrap', m.s);
+        tag.style.borderColor = 'rgb(var(--c-blush-light))';
+        tag.style.color = 'rgb(var(--c-blush))';
         tag.style.fontSize = '.56rem';
         top.appendChild(tag);
       }
@@ -1849,7 +1854,9 @@
       a.dataset.t = s.id;
       a.style.top = Math.min((node.offsetTop / docH) * 100, 98) + '%';
       a.setAttribute('aria-label', 'Go to ' + s.label);
-      a.append(el('span', 'knot'), el('span', 'knot-label', s.label));
+      const knot = el('span', 'knot');
+      knot.appendChild(heartSVG());
+      a.append(knot, el('span', 'knot-label', s.label));
       a.addEventListener('click', e => {
         e.preventDefault();
         node.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });

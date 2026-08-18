@@ -419,11 +419,7 @@
     <p id="introTitle" class="font-display font-light mt-4 fade-up" style="font-size:clamp(1.3rem,4.5vw,1.9rem);animation-delay:.25s">
       2 December 2026
     </p>
-    <div class="mt-7 fade-up" style="animation-delay:.35s;max-width:280px;margin-inline:auto">
-      <div id="introSpotify"></div>
-      <p class="mt-2" style="font-size:.72rem;color:rgb(var(--c-ink-faint))">Gehra Hua — Arijit Singh, Armaan Khan</p>
-    </div>
-    <button id="introBtn" class="btn btn-out mt-8 fade-up" style="animation-delay:.45s">Tap to enter</button>
+    <button id="introBtn" class="btn btn-out mt-8 fade-up" style="animation-delay:.35s">Tap to enter</button>
   </div>
 </div>
 
@@ -461,21 +457,25 @@
       </button>
     </div>
   </div>
-
-  <div id="mobileMenu" class="lg:hidden fixed inset-0 bg-paper" style="padding-top:calc(var(--nav-h) + env(safe-area-inset-top))">
-    <div class="flex flex-col h-full pb-10 px-8 overflow-y-auto" style="padding-bottom:max(2.5rem,env(safe-area-inset-bottom))">
-      <a href="#story"     class="m-link">Our Story</a>
-      <a href="#schedule"  class="m-link">Schedule</a>
-      <a href="#travel"    class="m-link">Travel &amp; Stay</a>
-      <a href="#gallery"   class="m-link">Gallery</a>
-      <a href="#quiz"      class="m-link">Quiz</a>
-      <a href="#guestbook" class="m-link">Guestbook</a>
-      <a href="#faq"       class="m-link">FAQ</a>
-      <a href="#rsvp" class="btn btn-solid w-full mt-8">RSVP</a>
-      <p class="mt-auto pt-8 eyebrow text-ink-faint">2 December 2026 · Ujjain</p>
-    </div>
-  </div>
 </header>
+
+<!-- Sibling of <header>, not a descendant: #nav.solid applies backdrop-filter when
+     scrolled, and backdrop-filter creates a new containing block for fixed-position
+     descendants — nesting this inside header broke its full-viewport coverage the
+     instant the page scrolled past the "solid" threshold. -->
+<div id="mobileMenu" class="lg:hidden fixed inset-0 z-50 bg-paper" style="padding-top:calc(var(--nav-h) + env(safe-area-inset-top))">
+  <div class="flex flex-col h-full pb-10 px-8 overflow-y-auto" style="padding-bottom:max(2.5rem,env(safe-area-inset-bottom))">
+    <a href="#story"     class="m-link">Our Story</a>
+    <a href="#schedule"  class="m-link">Schedule</a>
+    <a href="#travel"    class="m-link">Travel &amp; Stay</a>
+    <a href="#gallery"   class="m-link">Gallery</a>
+    <a href="#quiz"      class="m-link">Quiz</a>
+    <a href="#guestbook" class="m-link">Guestbook</a>
+    <a href="#faq"       class="m-link">FAQ</a>
+    <a href="#rsvp" class="btn btn-solid w-full mt-8">RSVP</a>
+    <p class="mt-auto pt-8 eyebrow text-ink-faint">2 December 2026 · Ujjain</p>
+  </div>
+</div>
 
 <main id="main">
 
@@ -1114,36 +1114,6 @@
     toastT = setTimeout(() => { t.style.opacity = '0'; t.style.translate = '-50% 0'; }, 2800);
   }
 
-  /* ═══════════════════ INTRO SONG ═══════════════════
-     Loaded via Spotify's own iFrame API so playback can be started
-     programmatically from the same tap that dismisses the intro —
-     the browser's autoplay-with-sound gate needs a real user gesture,
-     and this keeps the play() call inside that gesture's call stack. */
-  let spotifyController = null;
-  let spotifyPending = false;
-  (function loadIntroSong() {
-    const mount = $('#introSpotify');
-    if (!mount || !CONFIG.intro.enabled) return;
-    const tag = document.createElement('script');
-    tag.src = 'https://open.spotify.com/embed/iframe-api/v1';
-    tag.async = true;
-    document.head.appendChild(tag);
-    window.onSpotifyIframeApiReady = IFrameAPI => {
-      IFrameAPI.createController(
-        mount,
-        { uri: 'spotify:track:3ZH0fN14oAwAc6XtZeFJCL', width: '100%', height: '80' },
-        controller => {
-          spotifyController = controller;
-          if (spotifyPending) { spotifyPending = false; try { controller.play(); } catch (e) {} }
-        }
-      );
-    };
-  })();
-  function playIntroSong() {
-    if (spotifyController) { try { spotifyController.play(); } catch (e) {} }
-    else { spotifyPending = true; } // API still loading — plays as soon as it's ready
-  }
-
   /* ═══════════════════ INTRO ═══════════════════ */
   (function intro() {
     const box = $('#intro');
@@ -1153,19 +1123,18 @@
     const btn = $('#introBtn');
     btn.focus({ preventScroll: true });
     let done = false;
-    function enter(gestured) {
+    function enter() {
       if (done) return;
       done = true;
-      if (gestured) playIntroSong();
       box.classList.add('gone');
       document.body.classList.remove('locked');
       startHero();
       setTimeout(() => box.remove(), reduce ? 0 : 800);
     }
-    btn.addEventListener('click', () => enter(true));
-    box.addEventListener('click', () => enter(true));
-    document.addEventListener('keydown', e => { if (e.key === 'Escape' || e.key === 'Enter') enter(true); }, { once: true });
-    setTimeout(() => enter(false), 10000); // never trap anyone — but no tap means no gesture, so no audio here
+    btn.addEventListener('click', enter);
+    box.addEventListener('click', enter);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' || e.key === 'Enter') enter(); }, { once: true });
+    setTimeout(enter, 10000); // never trap anyone
   })();
 
   function startHero() { $('#heroCopy').classList.add('hero-ready'); }

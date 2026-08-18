@@ -215,7 +215,7 @@
   @keyframes cdOut { from { transform: none; opacity: 1 } to { transform: translateY(-105%); opacity: 0 } }
 
   /* ══════════ EDITORIAL DATE BAND ══════════ */
-  .date-xl { font-size: clamp(4.5rem, 21vw, 17rem); line-height: .82; letter-spacing: -.045em; }
+  .date-xl { font-size: clamp(3rem, 11vw, 8rem); line-height: .82; letter-spacing: -.045em; }
 
   /* ══════════ CARDS ══════════ */
   .card { background: rgb(var(--c-surface)); border: 1px solid rgb(var(--c-line-soft));
@@ -525,11 +525,28 @@
 <!-- ══════════ EDITORIAL DATE ══════════ -->
 <section aria-label="Wedding date" class="py-20 sm:py-28 border-y overflow-hidden" style="border-color:rgb(var(--c-line-soft));background:rgb(var(--c-surface-alt))">
   <div class="wrap">
-    <p class="eyebrow text-gold reveal">Save the date</p>
-    <p class="date-xl font-display font-light mt-4 reveal" data-d="1">02<span class="text-gold-light">.</span>12<span class="text-gold-light">.</span>26</p>
-    <div class="mt-8 flex flex-wrap items-baseline justify-between gap-4 reveal" data-d="2">
-      <p class="font-display italic text-ink-soft" style="font-size:clamp(1.1rem,3.4vw,1.8rem)">Parmeshwari Garden &amp; Resort, Ujjain</p>
-      <p class="eyebrow text-ink-faint">Wednesday · Madhya Pradesh</p>
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div>
+        <p class="eyebrow text-gold reveal">Save the date</p>
+        <p class="date-xl font-display font-light mt-4 reveal" data-d="1">02<span class="text-gold-light">.</span>12<span class="text-gold-light">.</span>26</p>
+        <div class="mt-8 flex flex-wrap items-baseline gap-x-6 gap-y-2 reveal" data-d="2">
+          <p class="font-display italic text-ink-soft" style="font-size:clamp(1.6rem,4.2vw,2.4rem)">Parmeshwari Garden &amp; Resort, Ujjain</p>
+          <p class="eyebrow text-ink-faint">Wednesday · Madhya Pradesh</p>
+        </div>
+      </div>
+
+      <div class="reveal" data-d="1">
+        <div class="card p-2">
+          <iframe title="Map to Parmeshwari Garden &amp; Resort, Ujjain"
+            src="https://www.google.com/maps?q=Parmeshwari+Garden+%26+Resort+Ujjain&output=embed"
+            class="w-full block" style="border:0;height:clamp(18rem,32vw,22rem)" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-3">
+          <a class="btn btn-out !py-3 !px-5" target="_blank" rel="noopener"
+             href="https://maps.app.goo.gl/HF5HxmQJ4HE9XyqV6">Get directions</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -546,31 +563,16 @@
     </header>
     <div id="scheduleDays" class="mt-16"></div>
 
-    <!-- Dress code + map -->
-    <div class="mt-24 grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-      <div class="reveal">
-        <p class="eyebrow text-gold">What to wear</p>
-        <h3 class="font-display font-light mt-3" style="font-size:clamp(1.6rem,4vw,2.2rem)">A dress code guide</h3>
-        <p class="mt-4 text-ink-soft leading-relaxed">
-          No rules you have to follow, only colours we'd love to see. December evenings in Ujjain drop to
-          about 8–10°C, so bring a shawl or jacket for the lawn.
-        </p>
-        <dl id="dressList" class="mt-8 border-t" style="border-color:rgb(var(--c-line-soft))"></dl>
-        <p class="mt-6 text-sm text-ink-faint">One ask: please avoid red and full white for the ceremony.</p>
-      </div>
-
-      <div class="reveal" data-d="1">
-        <div class="card p-2">
-          <iframe title="Map to Parmeshwari Garden &amp; Resort, Ujjain"
-            src="https://www.google.com/maps?q=Parmeshwari+Garden+%26+Resort+Ujjain&output=embed"
-            class="w-full block" style="border:0;height:clamp(20rem,45vh,26rem)" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-        </div>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <a class="btn btn-out !py-3 !px-5" target="_blank" rel="noopener"
-             href="https://maps.app.goo.gl/HF5HxmQJ4HE9XyqV6">Get directions</a>
-        </div>
-      </div>
+    <!-- Dress code -->
+    <div class="mt-24 max-w-2xl reveal">
+      <p class="eyebrow text-gold">What to wear</p>
+      <h3 class="font-display font-light mt-3" style="font-size:clamp(1.6rem,4vw,2.2rem)">A dress code guide</h3>
+      <p class="mt-4 text-ink-soft leading-relaxed">
+        No rules you have to follow, only colours we'd love to see. December evenings in Ujjain drop to
+        about 8–10°C, so bring a shawl or jacket for the lawn.
+      </p>
+      <dl id="dressList" class="mt-8 border-t" style="border-color:rgb(var(--c-line-soft))"></dl>
+      <p class="mt-6 text-sm text-ink-faint">One ask: please avoid red and full white for the ceremony.</p>
     </div>
   </div>
 </section>

@@ -178,8 +178,22 @@
                opacity: 0; transition: opacity .7s ease; }
   .frame img.loaded { opacity: 1; }
   /* Schedule cards: shrink the photo down without cropping it */
-  .frame.frame-contain { background: rgb(var(--c-surface)); }
-  .frame.frame-contain img { object-fit: contain; }
+  /* Transparent while a real illustration shows, so no empty tinted bands sit
+     beside it; the tinted panel returns for frames still awaiting artwork. */
+  .frame.frame-contain { box-sizing: border-box; background: none; }
+  .frame.frame-contain.ph-static { background: rgb(var(--c-surface-alt)); }
+  .frame.frame-contain img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+
+  /* ══════════ SCHEDULE EVENT CARD ══════════
+     One padded shell so the illustration sits inset rather than bleeding to
+     the card edge, and every line shares the same centred axis. */
+  .ev-card { display: flex; flex-direction: column;
+             padding: clamp(1.1rem, 2.4vw, 1.5rem); text-align: center; }
+  .ev-card .frame { flex: none; border-radius: 2px; }
+  .ev-body { display: flex; flex-direction: column;
+             padding: clamp(1.35rem, 3vw, 1.75rem) clamp(.35rem, 1.6vw, 1rem) clamp(.25rem, 1vw, .5rem); }
+  .ev-body > * { margin-left: auto; margin-right: auto; max-width: 34rem; }
+  .ev-body .eyebrow { width: 100%; }
   /* Skeleton shimmer, retired once the photo lands */
   .frame::after { content: ''; position: absolute; inset: 0; pointer-events: none;
                   background: linear-gradient(100deg, transparent 20%, rgb(var(--c-surface)/.55) 50%, transparent 80%);
@@ -515,10 +529,7 @@
         02 · 12 · 2026 &nbsp;—&nbsp; Ujjain
       </p>
       <p class="mt-6 font-display italic text-white font-light fade-up" style="animation-delay:.82s;font-size:clamp(1.25rem,4vw,2rem);text-shadow:0 2px 16px rgb(0 0 0/.45)">
-        We're getting married
-      </p>
-      <p class="mt-2 text-white/90 fade-up" style="animation-delay:.9s;font-size:clamp(.85rem,2.6vw,1rem);text-shadow:0 1px 10px rgb(0 0 0/.5)">
-        Join us in celebrating on 2nd December 2026
+        We're getting married!!!
       </p>
     </div>
   </div>
@@ -1379,7 +1390,7 @@
 
       const events = el('div', 'grid sm:grid-cols-2 lg:grid-cols-1 gap-5 mt-6 lg:mt-0');
       day.events.forEach((ev, i) => {
-        const card = el('article', 'card card-lift overflow-hidden reveal relative');
+        const card = el('article', 'card card-lift ev-card reveal relative');
         if (ev.feature) {
           card.style.borderColor = 'rgb(var(--c-sage-300))';
         }
@@ -1391,7 +1402,7 @@
         const ph = el('div', 'ph');
         ph.appendChild(el('span', 'eyebrow text-sage-700', 'Add illustration'));
         ph.appendChild(el('span', 'text-xs text-ink-faint', slug + '.png'));
-        const img = el('img', 'w-full h-full');
+        const img = el('img');
         frame.append(ph, img);
         if (ev.img) {
           mountImg(img, ev.img, ev.imgAlt || ev.name);
@@ -1400,18 +1411,19 @@
         }
         card.appendChild(frame);
 
-        const body = el('div', 'p-7 sm:p-8');
+        const body = el('div', 'ev-body');
 
         if (ev.feature) {
-          body.appendChild(el('p', 'eyebrow text-sage-700 text-center', 'Ceremony'));
+          body.appendChild(el('p', 'eyebrow text-sage-700', 'Ceremony'));
         }
 
-        const h3 = el('h3', 'font-display font-light text-center mt-1', ev.name);
+        const h3 = el('h3', 'font-display font-light', ev.name);
         h3.style.fontSize = 'clamp(1.4rem,3.4vw,1.75rem)';
+        h3.style.marginTop = ev.feature ? '.35rem' : '0';
         body.appendChild(h3);
 
-        const divider = el('div', 'items-center justify-center gap-3 mt-3');
-        divider.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:.75rem;margin-top:.75rem';
+        const divider = el('div');
+        divider.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:.75rem;margin-top:.85rem';
         const mkLine = () => {
           const s = el('span');
           s.style.cssText = 'display:inline-block;width:2rem;height:1px;background:rgb(var(--c-line))';
@@ -1426,7 +1438,7 @@
         divider.append(mkLine(), heart, mkLine());
         body.appendChild(divider);
 
-        body.appendChild(el('p', 'eyebrow text-gold mt-3 text-center', ev.time));
+        body.appendChild(el('p', 'eyebrow text-gold mt-4', ev.time));
         body.appendChild(el('p', 'mt-4 text-ink-soft leading-relaxed', ev.desc));
 
         if (day.venue || day.city) {
@@ -1439,7 +1451,9 @@
           body.appendChild(place);
         }
 
-        body.appendChild(el('p', 'mt-4 eyebrow text-sage-700', 'Dress: ' + ev.dress));
+        const dress = el('p', 'eyebrow text-sage-700', 'Dress: ' + ev.dress);
+        dress.style.cssText = 'margin-top:1.35rem;padding-top:1.1rem;border-top:1px solid rgb(var(--c-line-soft))';
+        body.appendChild(dress);
         card.appendChild(body);
         events.appendChild(card);
       });

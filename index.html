@@ -439,7 +439,7 @@
         <span class="italic">S</span><span class="text-gold mx-[2px]">&amp;</span><span class="italic">A</span>
       </a>
 
-      <ul class="hidden lg:flex items-center gap-8" id="navLinks">
+      <ul class="hidden md:flex items-center gap-6 lg:gap-8" id="navLinks">
         <li><a href="#story"    class="nav-a eyebrow eyebrow-tight">Story</a></li>
         <li><a href="#schedule" class="nav-a eyebrow eyebrow-tight">Schedule</a></li>
         <li><a href="#travel"   class="nav-a eyebrow eyebrow-tight">Travel</a></li>
@@ -449,7 +449,7 @@
         <li><a href="#rsvp" class="btn btn-solid !py-3 !px-6 !min-h-[44px]" data-magnetic>RSVP</a></li>
       </ul>
 
-      <button id="burger" class="lg:hidden w-12 h-12 -mr-2 flex flex-col items-center justify-center gap-[6px]"
+      <button id="burger" class="md:hidden w-12 h-12 -mr-2 flex flex-col items-center justify-center gap-[6px]"
               aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <span class="block w-6 h-px bg-ink transition-transform duration-300"></span>
         <span class="block w-6 h-px bg-ink transition-opacity duration-300"></span>
@@ -463,7 +463,7 @@
      scrolled, and backdrop-filter creates a new containing block for fixed-position
      descendants — nesting this inside header broke its full-viewport coverage the
      instant the page scrolled past the "solid" threshold. -->
-<div id="mobileMenu" class="lg:hidden fixed inset-0 z-50 bg-paper" style="padding-top:calc(var(--nav-h) + env(safe-area-inset-top))">
+<div id="mobileMenu" class="md:hidden fixed inset-0 z-50 bg-paper" style="padding-top:calc(var(--nav-h) + env(safe-area-inset-top))">
   <div class="flex flex-col h-full pb-10 px-8 overflow-y-auto" style="padding-bottom:max(2.5rem,env(safe-area-inset-bottom))">
     <a href="#story"     class="m-link">Our Story</a>
     <a href="#schedule"  class="m-link">Schedule</a>
@@ -1126,6 +1126,9 @@
     function enter() {
       if (done) return;
       done = true;
+      // body.locked blocks scrolling but not a residual scroll position (e.g. from
+      // browser scroll restoration or a URL hash) — force back to the hero on entry.
+      scrollTo(0, 0);
       box.classList.add('gone');
       document.body.classList.remove('locked');
       startHero();

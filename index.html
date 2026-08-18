@@ -182,6 +182,8 @@
   .frame.is-loaded::after { content: none; }
   @keyframes shimmer { from { background-position: 140% 0 } to { background-position: -60% 0 } }
   html.reduce .frame::after { animation: none; opacity: .35; }
+  /* Frames awaiting a real photo: still content, no infinite shimmer, caption stays visible */
+  .frame.ph-static::after { animation: none; opacity: .35; }
   .ph { position: absolute; inset: 0; display: grid; place-content: center; gap: .4rem; text-align: center; padding: 1rem; }
   .frame.is-loaded .ph { opacity: 0; }
 
@@ -1367,21 +1369,58 @@
 
       const events = el('div', 'grid sm:grid-cols-2 lg:grid-cols-1 gap-5 mt-6 lg:mt-0');
       day.events.forEach((ev, i) => {
-        const card = el('article', 'card card-lift p-7 sm:p-8 reveal relative');
+        const card = el('article', 'card card-lift overflow-hidden reveal relative');
         if (ev.feature) {
-          card.style.background = 'rgb(var(--c-surface-alt))';
           card.style.borderColor = 'rgb(var(--c-sage-300))';
-          const tag = el('span', 'absolute -top-[10px] left-7 px-2 eyebrow text-sage-700', 'Ceremony');
-          tag.style.background = 'rgb(var(--c-surface-alt))';
-          card.appendChild(tag);
         }
         if (i) card.dataset.d = String(Math.min(i, 3));
 
-        card.appendChild(el('p', 'eyebrow text-gold', ev.time));
-        const h3 = el('h3', 'font-display font-light mt-2', ev.name);
+        const slug = ev.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        const frame = el('div', 'frame');
+        frame.style.aspectRatio = '1/1';
+        const ph = el('div', 'ph');
+        ph.appendChild(el('span', 'eyebrow text-sage-700', 'Add illustration'));
+        ph.appendChild(el('span', 'text-xs text-ink-faint', slug + '.png · square, 1600×1600'));
+        const img = el('img', 'w-full h-full object-cover');
+        frame.append(ph, img);
+        if (ev.img) {
+          mountImg(img, ev.img, ev.imgAlt || ev.name);
+        } else {
+          frame.classList.add('ph-static');
+        }
+        card.appendChild(frame);
+
+        if (ev.feature) {
+          const tag = el('span', 'absolute top-4 left-4 px-3 py-1 eyebrow text-sage-700', 'Ceremony');
+          tag.style.background = 'rgb(var(--c-paper)/.88)';
+          tag.style.backdropFilter = 'blur(6px)';
+          card.appendChild(tag);
+        }
+
+        const body = el('div', 'p-7 sm:p-8');
+
+        const h3 = el('h3', 'font-display font-light text-center', ev.name);
         h3.style.fontSize = 'clamp(1.4rem,3.4vw,1.75rem)';
-        card.appendChild(h3);
-        card.appendChild(el('p', 'mt-4 text-ink-soft leading-relaxed', ev.desc));
+        body.appendChild(h3);
+
+        const divider = el('div', 'items-center justify-center gap-3 mt-3');
+        divider.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:.75rem;margin-top:.75rem';
+        const mkLine = () => {
+          const s = el('span');
+          s.style.cssText = 'display:inline-block;width:2rem;height:1px;background:rgb(var(--c-line))';
+          return s;
+        };
+        const heart = el('span');
+        heart.style.cssText = 'display:inline-block;width:11px;height:11px;color:rgb(var(--c-blush))';
+        const heartSvg = heartSVG();
+        heartSvg.setAttribute('fill', 'currentColor');
+        heartSvg.style.cssText = 'display:block;width:100%;height:100%';
+        heart.appendChild(heartSvg);
+        divider.append(mkLine(), heart, mkLine());
+        body.appendChild(divider);
+
+        body.appendChild(el('p', 'eyebrow text-gold mt-3 text-center', ev.time));
+        body.appendChild(el('p', 'mt-4 text-ink-soft leading-relaxed', ev.desc));
 
         if (day.venue || day.city) {
           const place = el('p', 'mt-5 text-sm text-ink-soft');
@@ -1390,10 +1429,11 @@
             place.appendChild(el('br'));
           }
           place.appendChild(document.createTextNode(day.city || ''));
-          card.appendChild(place);
+          body.appendChild(place);
         }
 
-        card.appendChild(el('p', 'mt-4 eyebrow text-sage-700', 'Dress: ' + ev.dress));
+        body.appendChild(el('p', 'mt-4 eyebrow text-sage-700', 'Dress: ' + ev.dress));
+        card.appendChild(body);
         events.appendChild(card);
       });
 

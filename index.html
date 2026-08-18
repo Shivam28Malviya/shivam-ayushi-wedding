@@ -353,10 +353,28 @@
   ::view-transition-old(photo), ::view-transition-new(photo) { animation-duration: .38s; }
 
   /* ══════════ INTRO OVERLAY ══════════ */
-  #intro { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center;
+  #intro { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; overflow: hidden;
            background: rgb(var(--c-paper)); transition: opacity .7s var(--ease), visibility .7s; }
   #intro.gone { opacity: 0; visibility: hidden; pointer-events: none; }
   html.reduce #intro { transition: none; }
+
+  /* Two rings, a small pulse to suggest "I do" without being literal */
+  @keyframes ringPulse { 0%, 100% { transform: scale(1); opacity: .85; } 50% { transform: scale(1.08); opacity: 1; } }
+  .intro-rings { animation: ringPulse 2.6s ease-in-out infinite; }
+  html.reduce .intro-rings { animation: none; }
+
+  /* Hearts drifting up through the intro, ambient and out of the way of the text */
+  .intro-hearts { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .intro-hearts span { position: absolute; bottom: -8%; display: block; color: rgb(var(--c-blush-light));
+                        opacity: 0; animation: heartFloat linear infinite; }
+  .intro-hearts svg { display: block; width: 100%; height: 100%; }
+  @keyframes heartFloat {
+    0% { transform: translateY(0) scale(.9); opacity: 0; }
+    12% { opacity: .5; }
+    85% { opacity: .35; }
+    100% { transform: translateY(-112vh) scale(1.05); opacity: 0; }
+  }
+  html.reduce .intro-hearts { display: none; }
 
   /* ══════════ TOAST ══════════ */
   #toast { transition: opacity .3s, translate .3s var(--ease); }
@@ -379,12 +397,33 @@
 
 <!-- ══════════ INTRO (JS shows it; no-JS readers never see it) ══════════ -->
 <div id="intro" hidden role="dialog" aria-modal="true" aria-labelledby="introTitle">
-  <div class="text-center px-6">
-    <p class="eyebrow text-gold fade-up" style="animation-delay:.1s">Shivam &amp; Ayushi</p>
-    <p id="introTitle" class="font-display font-light mt-5 fade-up" style="font-size:clamp(2rem,9vw,4rem);line-height:1;animation-delay:.2s">
+  <div class="intro-hearts" aria-hidden="true">
+    <span style="left:8%;width:14px;height:14px;animation-duration:9s;animation-delay:.2s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-10-9.1C.5 8.4 2 4.9 5.5 4A5 5 0 0112 7a5 5 0 016.5-3C22 4.9 23.5 8.4 22 11.9 19.5 16.4 12 21 12 21z"/></svg></span>
+    <span style="left:22%;width:9px;height:9px;animation-duration:7s;animation-delay:1.6s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-10-9.1C.5 8.4 2 4.9 5.5 4A5 5 0 0112 7a5 5 0 016.5-3C22 4.9 23.5 8.4 22 11.9 19.5 16.4 12 21 12 21z"/></svg></span>
+    <span style="left:38%;width:11px;height:11px;animation-duration:10.5s;animation-delay:.8s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-10-9.1C.5 8.4 2 4.9 5.5 4A5 5 0 0112 7a5 5 0 016.5-3C22 4.9 23.5 8.4 22 11.9 19.5 16.4 12 21 12 21z"/></svg></span>
+    <span style="left:58%;width:16px;height:16px;animation-duration:8.5s;animation-delay:2.4s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-10-9.1C.5 8.4 2 4.9 5.5 4A5 5 0 0112 7a5 5 0 016.5-3C22 4.9 23.5 8.4 22 11.9 19.5 16.4 12 21 12 21z"/></svg></span>
+    <span style="left:74%;width:10px;height:10px;animation-duration:9.5s;animation-delay:0s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-10-9.1C.5 8.4 2 4.9 5.5 4A5 5 0 0112 7a5 5 0 016.5-3C22 4.9 23.5 8.4 22 11.9 19.5 16.4 12 21 12 21z"/></svg></span>
+    <span style="left:88%;width:13px;height:13px;animation-duration:11s;animation-delay:1.2s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-10-9.1C.5 8.4 2 4.9 5.5 4A5 5 0 0112 7a5 5 0 016.5-3C22 4.9 23.5 8.4 22 11.9 19.5 16.4 12 21 12 21z"/></svg></span>
+  </div>
+
+  <div class="text-center px-6" style="position:relative">
+    <div class="fade-up" style="animation-delay:.05s">
+      <svg class="intro-rings" style="width:32px;height:32px;color:rgb(var(--c-gold))" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="9" cy="14" r="5.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="15" cy="14" r="5.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <p class="font-display fade-up mt-5" style="font-size:clamp(2.2rem,7.5vw,3.8rem);line-height:1.05;animation-delay:.15s">
+      <span class="italic">Shivam</span> <span class="text-gold mx-1">&amp;</span> <span class="italic">Ayushi</span>
+    </p>
+    <p id="introTitle" class="font-display font-light mt-4 fade-up" style="font-size:clamp(1.3rem,4.5vw,1.9rem);animation-delay:.25s">
       2 December 2026
     </p>
-    <button id="introBtn" class="btn btn-out mt-10 fade-up" style="animation-delay:.35s">Tap to enter</button>
+    <div class="mt-7 fade-up" style="animation-delay:.35s;max-width:280px;margin-inline:auto">
+      <div id="introSpotify"></div>
+      <p class="mt-2" style="font-size:.72rem;color:rgb(var(--c-ink-faint))">Gehra Hua — Arijit Singh, Armaan Khan</p>
+    </div>
+    <button id="introBtn" class="btn btn-out mt-8 fade-up" style="animation-delay:.45s">Tap to enter</button>
   </div>
 </div>
 
@@ -1075,6 +1114,36 @@
     toastT = setTimeout(() => { t.style.opacity = '0'; t.style.translate = '-50% 0'; }, 2800);
   }
 
+  /* ═══════════════════ INTRO SONG ═══════════════════
+     Loaded via Spotify's own iFrame API so playback can be started
+     programmatically from the same tap that dismisses the intro —
+     the browser's autoplay-with-sound gate needs a real user gesture,
+     and this keeps the play() call inside that gesture's call stack. */
+  let spotifyController = null;
+  let spotifyPending = false;
+  (function loadIntroSong() {
+    const mount = $('#introSpotify');
+    if (!mount || !CONFIG.intro.enabled) return;
+    const tag = document.createElement('script');
+    tag.src = 'https://open.spotify.com/embed/iframe-api/v1';
+    tag.async = true;
+    document.head.appendChild(tag);
+    window.onSpotifyIframeApiReady = IFrameAPI => {
+      IFrameAPI.createController(
+        mount,
+        { uri: 'spotify:track:3ZH0fN14oAwAc6XtZeFJCL', width: '100%', height: '80' },
+        controller => {
+          spotifyController = controller;
+          if (spotifyPending) { spotifyPending = false; try { controller.play(); } catch (e) {} }
+        }
+      );
+    };
+  })();
+  function playIntroSong() {
+    if (spotifyController) { try { spotifyController.play(); } catch (e) {} }
+    else { spotifyPending = true; } // API still loading — plays as soon as it's ready
+  }
+
   /* ═══════════════════ INTRO ═══════════════════ */
   (function intro() {
     const box = $('#intro');
@@ -1084,18 +1153,19 @@
     const btn = $('#introBtn');
     btn.focus({ preventScroll: true });
     let done = false;
-    function enter() {
+    function enter(gestured) {
       if (done) return;
       done = true;
+      if (gestured) playIntroSong();
       box.classList.add('gone');
       document.body.classList.remove('locked');
       startHero();
       setTimeout(() => box.remove(), reduce ? 0 : 800);
     }
-    btn.addEventListener('click', enter);
-    box.addEventListener('click', enter);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape' || e.key === 'Enter') enter(); }, { once: true });
-    setTimeout(enter, 6000); // never trap anyone
+    btn.addEventListener('click', () => enter(true));
+    box.addEventListener('click', () => enter(true));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' || e.key === 'Enter') enter(true); }, { once: true });
+    setTimeout(() => enter(false), 10000); // never trap anyone — but no tap means no gesture, so no audio here
   })();
 
   function startHero() { $('#heroCopy').classList.add('hero-ready'); }

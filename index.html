@@ -175,6 +175,9 @@
   .frame img { position: relative; width: 100%; height: 100%; object-fit: cover; display: block;
                opacity: 0; transition: opacity .7s ease; }
   .frame img.loaded { opacity: 1; }
+  /* Schedule cards: shrink the photo down without cropping it */
+  .frame.frame-contain { background: rgb(var(--c-surface)); }
+  .frame.frame-contain img { object-fit: contain; }
   /* Skeleton shimmer, retired once the photo lands */
   .frame::after { content: ''; position: absolute; inset: 0; pointer-events: none;
                   background: linear-gradient(100deg, transparent 20%, rgb(var(--c-surface)/.55) 50%, transparent 80%);
@@ -1378,12 +1381,12 @@
         if (i) card.dataset.d = String(Math.min(i, 3));
 
         const slug = ev.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-        const frame = el('div', 'frame');
-        frame.style.aspectRatio = '16/9';
+        const frame = el('div', 'frame frame-contain');
+        frame.style.height = 'clamp(110px, 20vw, 160px)';
         const ph = el('div', 'ph');
         ph.appendChild(el('span', 'eyebrow text-sage-700', 'Add illustration'));
-        ph.appendChild(el('span', 'text-xs text-ink-faint', slug + '.png · landscape, 1600×900'));
-        const img = el('img', 'w-full h-full object-cover');
+        ph.appendChild(el('span', 'text-xs text-ink-faint', slug + '.png'));
+        const img = el('img', 'w-full h-full');
         frame.append(ph, img);
         if (ev.img) {
           mountImg(img, ev.img, ev.imgAlt || ev.name);
@@ -1392,16 +1395,13 @@
         }
         card.appendChild(frame);
 
-        if (ev.feature) {
-          const tag = el('span', 'absolute top-4 left-4 px-3 py-1 eyebrow text-sage-700', 'Ceremony');
-          tag.style.background = 'rgb(var(--c-paper)/.88)';
-          tag.style.backdropFilter = 'blur(6px)';
-          card.appendChild(tag);
-        }
-
         const body = el('div', 'p-7 sm:p-8');
 
-        const h3 = el('h3', 'font-display font-light text-center', ev.name);
+        if (ev.feature) {
+          body.appendChild(el('p', 'eyebrow text-sage-700 text-center', 'Ceremony'));
+        }
+
+        const h3 = el('h3', 'font-display font-light text-center mt-1', ev.name);
         h3.style.fontSize = 'clamp(1.4rem,3.4vw,1.75rem)';
         body.appendChild(h3);
 

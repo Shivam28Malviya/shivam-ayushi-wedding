@@ -1379,10 +1379,10 @@
 
         const slug = ev.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
         const frame = el('div', 'frame');
-        frame.style.aspectRatio = '1/1';
+        frame.style.aspectRatio = '16/9';
         const ph = el('div', 'ph');
         ph.appendChild(el('span', 'eyebrow text-sage-700', 'Add illustration'));
-        ph.appendChild(el('span', 'text-xs text-ink-faint', slug + '.png · square, 1600×1600'));
+        ph.appendChild(el('span', 'text-xs text-ink-faint', slug + '.png · landscape, 1600×900'));
         const img = el('img', 'w-full h-full object-cover');
         frame.append(ph, img);
         if (ev.img) {

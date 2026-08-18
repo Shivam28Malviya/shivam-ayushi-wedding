@@ -154,11 +154,11 @@
   html.js .reveal[data-d="3"].in { transition-delay: .24s }
 
   @supports (animation-timeline: view()) {
-    html.sda .reveal { animation: revealIn linear both; animation-timeline: view();
+    html.sda:not(.reduce) .reveal { animation: revealIn linear both; animation-timeline: view();
                        animation-range: entry 4% cover 26%; transform: none; }
-    html.sda .reveal[data-d="1"] { animation-range: entry 8% cover 30%; }
-    html.sda .reveal[data-d="2"] { animation-range: entry 12% cover 34%; }
-    html.sda .reveal[data-d="3"] { animation-range: entry 16% cover 38%; }
+    html.sda:not(.reduce) .reveal[data-d="1"] { animation-range: entry 8% cover 30%; }
+    html.sda:not(.reduce) .reveal[data-d="2"] { animation-range: entry 12% cover 34%; }
+    html.sda:not(.reduce) .reveal[data-d="3"] { animation-range: entry 16% cover 38%; }
     @keyframes revealIn { from { opacity: 0; transform: translateY(18px) } to { opacity: 1; transform: none } }
 
     /* Parallax — transform only, driven by the scroll timeline */
@@ -166,8 +166,10 @@
     @keyframes parY { from { transform: translate3d(0,-2.2%,0) scale(1.07) } to { transform: translate3d(0,2.2%,0) scale(1.07) } }
   }
 
+  /* Reduced motion: drop the scroll-linked movement, but still fade content in via the JS
+     fallback below rather than snapping it straight to visible with no animation at all. */
   html.reduce .reveal,
-  html.reduce.js .reveal { opacity: 1 !important; transform: none !important; animation: none !important; }
+  html.reduce.js .reveal { transform: none !important; animation: none !important; }
   html.reduce .parallax { animation: none !important; transform: none !important; }
 
   /* ══════════ MEDIA / FRAMES ══════════ */
@@ -207,7 +209,10 @@
   html:not(.js) .fade-up { opacity: 1; transform: none; }
   @keyframes fadeUp { to { opacity: 1; transform: none } }
   html.reduce .mask > span { animation: none !important; transform: none !important; }
-  html.reduce .fade-up { animation: none !important; opacity: 1 !important; transform: none !important; }
+  html.reduce .fade-up { animation: none !important; transform: none !important;
+                          transition: opacity .9s var(--ease); }
+  html.reduce.js .hero-ready .fade-up,
+  html.reduce.js #intro:not([hidden]) .fade-up { opacity: 1 !important; }
 
   /* ══════════ COUNTDOWN — digits roll into place ══════════ */
   .cd-num { display: inline-flex; justify-content: center; font-variant-numeric: tabular-nums;
@@ -1382,7 +1387,7 @@
 
         const slug = ev.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
         const frame = el('div', 'frame frame-contain');
-        frame.style.height = 'clamp(110px, 20vw, 160px)';
+        frame.style.height = 'clamp(180px, 30vw, 280px)';
         const ph = el('div', 'ph');
         ph.appendChild(el('span', 'eyebrow text-sage-700', 'Add illustration'));
         ph.appendChild(el('span', 'text-xs text-ink-faint', slug + '.png'));
@@ -1999,7 +2004,7 @@
      Only runs where scroll-driven animations are unavailable. */
   let revealObserver = null;
   function observeReveals() {
-    if (sda || reduce) return;
+    if (sda && !reduce) return;
     if (!revealObserver) {
       revealObserver = new IntersectionObserver((entries, obs) => {
         entries.forEach(en => {

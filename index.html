@@ -210,6 +210,7 @@
   @keyframes maskUp { to { transform: none } }
   .fade-up { opacity: 0; transform: translateY(14px); }
   html.js .hero-ready .fade-up { animation: fadeUp .9s var(--ease) forwards; }
+  html.js #intro:not([hidden]) .fade-up { animation: fadeUp .9s var(--ease) forwards; }
   html:not(.js) .fade-up { opacity: 1; transform: none; }
   @keyframes fadeUp { to { opacity: 1; transform: none } }
   html.reduce .mask > span { animation: none !important; transform: none !important; }

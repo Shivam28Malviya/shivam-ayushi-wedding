@@ -946,11 +946,11 @@
      ══════════════════════════════════════════════════════════════════════ */
   const CONFIG = {
     wedding: {
-      startISO: '2026-12-02T17:00:00+05:30',   // baraat, IST
+      startISO: '2026-12-02T13:00:00+05:30',   // day baraat, IST
       endISO:   '2026-12-03T01:00:00+05:30',
       title:    'Shivam & Ayushi — Wedding',
       location: 'Parmeshwari Garden & Resort, Ujjain, Madhya Pradesh, India',
-      details:  'Baraat 5:00 pm · Pheras 7:00 pm · Reception 9:00 pm. Details at ShivamAyushi.com'
+      details:  'Day Baraat 1:00 pm · Phere 3:00 pm · Night Baraat 7:00 pm · Reception 7:30 pm. Details at ShivamAyushi.com'
     },
 
     supabase: {
@@ -979,20 +979,38 @@
         more: "The photo was taken by a stranger who insisted on twelve retakes. We owe him everything, and we never got his name." }
     ],
 
-    venue: { name: 'Parmeshwari Garden & Resort', city: 'Ujjain, Madhya Pradesh' },
-
     schedule: [
-      { day: 'Tuesday, 1 December', note: '',
+      { day: 'Monday, 30 November', city: 'Bhopal', venue: null, note: '',
         events: [
-          { time: '11:00 am – 4:00 pm', name: 'Mehendi', desc: 'Lunch, live dholak, and henna for anyone who sits still long enough.', dress: 'Bright, breathable' },
-          { time: '7:30 pm – late',     name: 'Sangeet', desc: 'Family performances first, open floor after. Dinner from 9:00 pm.',    dress: 'Indo-western, cocktail' }
+          { time: '10:00 am onwards', name: 'Ganesh & Mata Poojan',
+            desc: 'A traditional puja inviting blessings before the celebrations begin.', dress: 'Traditional, comfortable' }
         ] },
-      { day: 'Wednesday, 2 December', note: 'The wedding day',
+      { day: 'Tuesday, 1 December', city: 'Ujjain, Madhya Pradesh', venue: 'Parmeshwari Garden & Resort', note: '',
         events: [
-          { time: '9:00 am', name: 'Haldi', desc: "Close family and friends. Wear something you don't mind losing to turmeric.", dress: 'Yellow, casual' },
-          { time: '5:00 pm baraat · 7:00 pm pheras', name: 'The wedding', feature: true,
-            desc: 'Baraat gathers at the north gate. Please be seated by 6:45 pm — the muhurat waits for no one.', dress: 'Traditional formal' },
-          { time: '9:00 pm – 1:00 am', name: 'Reception', desc: 'Dinner, bar, and a dance floor that opens at 10:30 pm.', dress: 'Black tie optional' }
+          { time: '12:00 pm – 4:00 pm', name: 'Haldi',
+            desc: "Close family and friends. Wear something you don't mind losing to turmeric.", dress: 'Yellow, casual' },
+          { time: '5:00 pm – 7:00 pm', name: 'Mehendi',
+            desc: 'Henna and music — settle in, this one takes a while.', dress: 'Bright, breathable' },
+          { time: '9:00 pm – 10:00 pm', name: 'Engagement',
+            desc: 'Rings exchanged, right before the dance floor opens.', dress: 'Indo-western, cocktail' },
+          { time: '10:00 pm – 12:00 am', name: 'Sangeet',
+            desc: 'Family performances first, open floor after.', dress: 'Indo-western, cocktail' }
+        ] },
+      { day: 'Wednesday, 2 December', city: 'Ujjain, Madhya Pradesh', venue: 'Parmeshwari Garden & Resort', note: 'The wedding day',
+        events: [
+          { time: '1:00 pm – 2:00 pm', name: 'Day Baraat',
+            desc: "The groom's procession arrives at the venue.", dress: 'Traditional formal' },
+          { time: '3:00 pm – 5:00 pm', name: 'Phere', feature: true,
+            desc: 'The wedding ceremony — please be seated by 3:00 pm.', dress: 'Traditional formal' },
+          { time: '7:00 pm – 7:30 pm', name: 'Night Baraat',
+            desc: "A second procession, into the evening's celebrations.", dress: 'Traditional formal' },
+          { time: '7:30 pm – 1:00 am', name: 'Reception',
+            desc: 'Dinner, bar, and a dance floor that opens late.', dress: 'Black tie optional' }
+        ] },
+      { day: 'Thursday, 3 December', city: 'Bhopal', venue: null, note: '',
+        events: [
+          { time: '12:00 pm onwards', name: 'Grah Pravesh, Pooja & Reception',
+            desc: "The bride's welcome home, a blessing, and a small reception to close the celebrations.", dress: 'Traditional formal' }
         ] }
     ],
 
@@ -1045,7 +1063,7 @@
     faqs: [
       ['Can I bring a plus-one?', 'If your invitation names two guests, absolutely — add their name in the RSVP form. If you are unsure, ask us; we would rather sort it now than at the seating chart stage.'],
       ['Are children invited?', "Yes, and there is a supervised kids' corner at the sangeet and reception with food, games and a quiet room for naps. Tell us ages in the RSVP notes."],
-      ['What time should I actually arrive for the ceremony?', 'Doors open at 4:30 pm. The baraat starts at 5:00 pm sharp from the north gate, and the pheras begin at 7:00 pm. Please be seated by 6:45 pm.'],
+      ['What time should I actually arrive for the ceremony?', 'The day baraat arrives from 1:00 pm, with the phere ceremony from 3:00 pm to 5:00 pm — please plan to be seated by 3:00 pm. The night baraat and reception follow from 7:00 pm.'],
       ['Is there parking at the venue?', 'Free on-site parking is available for wedding guests at Parmeshwari Garden & Resort. Cabs drop at the main gate — leave a buffer of twenty minutes for local traffic near the temples.'],
       ['Will there be a bar?', 'A full bar runs at the sangeet and reception. The mehendi, haldi and ceremony are dry, with fresh juice, chai and coffee throughout.'],
       ['What is the weather like in December?', 'Pleasant days around 28°C and cool evenings near 12°C. Both evening events are partly outdoors, so bring a shawl, stole or jacket.'],
@@ -1339,7 +1357,8 @@
       const t = el('p', 'font-display font-light', day.day);
       t.style.fontSize = 'clamp(1.4rem,3.6vw,1.9rem)';
       inner.appendChild(t);
-      if (day.note) inner.appendChild(el('p', 'eyebrow text-gold mt-2', day.note));
+      if (day.city) inner.appendChild(el('p', 'eyebrow text-sage-700 mt-2', day.city));
+      if (day.note) inner.appendChild(el('p', 'eyebrow text-gold mt-1', day.note));
       const rule = el('div', 'hidden lg:block h-px mt-6');
       rule.style.background = 'rgb(var(--c-line))';
       inner.appendChild(rule);
@@ -1363,11 +1382,15 @@
         card.appendChild(h3);
         card.appendChild(el('p', 'mt-4 text-ink-soft leading-relaxed', ev.desc));
 
-        const place = el('p', 'mt-5 text-sm text-ink-soft');
-        place.appendChild(el('span', 'text-ink', CONFIG.venue.name));
-        place.appendChild(el('br'));
-        place.appendChild(document.createTextNode(CONFIG.venue.city));
-        card.appendChild(place);
+        if (day.venue || day.city) {
+          const place = el('p', 'mt-5 text-sm text-ink-soft');
+          if (day.venue) {
+            place.appendChild(el('span', 'text-ink', day.venue));
+            place.appendChild(el('br'));
+          }
+          place.appendChild(document.createTextNode(day.city || ''));
+          card.appendChild(place);
+        }
 
         card.appendChild(el('p', 'mt-4 eyebrow text-sage-700', 'Dress: ' + ev.dress));
         events.appendChild(card);

@@ -980,7 +980,8 @@
     ],
 
     schedule: [
-      { day: 'Monday, 30 November', city: 'Bhopal', venue: null, note: '',
+      { day: 'Monday, 30 November', city: 'Bhopal, Madhya Pradesh', venue: 'Police Community Hall (near 1st Smart Park)',
+        mapUrl: 'https://maps.app.goo.gl/JUgNaXEkaHemDUAh7', note: '',
         events: [
           { time: '10:00 am onwards', name: 'Ganesh & Mata Poojan',
             desc: 'A traditional puja inviting blessings before the celebrations begin.', dress: 'Traditional, comfortable' }
@@ -1007,7 +1008,8 @@
           { time: '7:30 pm – 1:00 am', name: 'Reception',
             desc: 'Dinner, bar, and a dance floor that opens late.', dress: 'Black tie optional' }
         ] },
-      { day: 'Thursday, 3 December', city: 'Bhopal', venue: null, note: '',
+      { day: 'Thursday, 3 December', city: 'Bhopal, Madhya Pradesh', venue: 'Police Community Hall (near 1st Smart Park)',
+        mapUrl: 'https://maps.app.goo.gl/JUgNaXEkaHemDUAh7', note: '',
         events: [
           { time: '12:00 pm onwards', name: 'Grah Pravesh, Pooja & Reception',
             desc: "The bride's welcome home, a blessing, and a small reception to close the celebrations.", dress: 'Traditional formal' }
@@ -1359,6 +1361,13 @@
       inner.appendChild(t);
       if (day.city) inner.appendChild(el('p', 'eyebrow text-sage-700 mt-2', day.city));
       if (day.note) inner.appendChild(el('p', 'eyebrow text-gold mt-1', day.note));
+      if (day.mapUrl) {
+        const dirLink = el('a', 'btn btn-out !py-2.5 !px-4 !min-h-0 mt-4', 'Get directions');
+        dirLink.href = day.mapUrl;
+        dirLink.target = '_blank';
+        dirLink.rel = 'noopener';
+        inner.appendChild(dirLink);
+      }
       const rule = el('div', 'hidden lg:block h-px mt-6');
       rule.style.background = 'rgb(var(--c-line))';
       inner.appendChild(rule);

@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Shivam &amp; Ayushi — 2 December 2026</title>
-<meta name="description" content="Shivam and Ayushi are getting married on 2 December 2026 in Ujjain, Madhya Pradesh. Schedule, travel, stay, and RSVP." />
+<meta name="description" content="Shivam and Ayushi are getting married on 2 December 2026 in Ujjain, Madhya Pradesh. Schedule, travel, and stay." />
 <meta name="theme-color" content="#F7F4EE" />
 
 <!-- Open Graph -->
@@ -283,14 +283,6 @@
   select.field { appearance: none; padding-right: 2.4rem;
                  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' fill='none' stroke='%237C8B6F' stroke-width='1.4'/></svg>");
                  background-repeat: no-repeat; background-position: right .95rem center; }
-  .chip { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px;
-          border: 1px solid rgb(var(--c-line)); background: rgb(var(--c-surface)); border-radius: 999px;
-          padding: .6rem 1.05rem; font-size: .9rem; cursor: pointer; transition: border-color .2s, background .2s, color .2s; }
-  .chip input { position: absolute; opacity: 0; width: 0; height: 0; }
-  .chip:has(input:checked) { border-color: rgb(var(--c-sage)); background: rgb(var(--c-surface-alt)); color: rgb(var(--c-sage-700)); }
-  .chip:has(input:focus-visible) { box-shadow: 0 0 0 3px rgb(var(--c-sage)/.22); }
-  .err { color: rgb(var(--c-danger)); font-size: .78rem; margin-top: .5rem; }
-
   /* ══════════ BUTTONS (magnetic offset via custom props) ══════════ */
   .btn { display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
          font-family: Jost, sans-serif; font-size: .78rem; letter-spacing: .18em; text-transform: uppercase;
@@ -303,45 +295,6 @@
   .btn-out { border: 1px solid rgb(var(--c-sage)); color: rgb(var(--c-sage-700)); background: transparent; }
   .btn-out:hover { background: rgb(var(--c-surface-alt)); }
   html.reduce .btn { translate: none !important; }
-
-  /* ══════════ RSVP STEPPER ══════════ */
-  .step[hidden] { display: none; }
-  .step { animation: stepIn .5s var(--ease) both; }
-  @keyframes stepIn { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
-  html.reduce .step { animation: none; }
-  .pip { height: 3px; flex: 1; border-radius: 999px; background: rgb(var(--c-line));
-         overflow: hidden; position: relative; }
-  .pip::after { content: ''; position: absolute; inset: 0; transform-origin: 0 50%; transform: scaleX(0);
-                background: rgb(var(--c-sage)); transition: transform .5s var(--ease); }
-  .pip.done::after, .pip.current::after { transform: scaleX(1); }
-  .pip.current::after { background: rgb(var(--c-gold)); }
-
-  /* Drawn checkmark for the success state */
-  .tick circle, .tick path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-  .tick circle { stroke: rgb(var(--c-sage)/.35); stroke-width: 2; stroke-dasharray: 170; stroke-dashoffset: 170;
-                 animation: draw .8s var(--ease) forwards; }
-  .tick path { stroke: rgb(var(--c-sage)); stroke-width: 3; stroke-dasharray: 40; stroke-dashoffset: 40;
-               animation: draw .5s var(--ease) .45s forwards; }
-  @keyframes draw { to { stroke-dashoffset: 0 } }
-  html.reduce .tick circle, html.reduce .tick path { animation: none; stroke-dashoffset: 0; }
-
-  /* ══════════ COLLAPSE (conditional fields) ══════════ */
-  .collapse { display: grid; grid-template-rows: 0fr; opacity: 0;
-              transition: grid-template-rows .45s var(--ease), opacity .35s ease; }
-  .collapse.is-open { grid-template-rows: 1fr; opacity: 1; }
-  .collapse > div { overflow: hidden; min-height: 0; }
-  html.reduce .collapse { transition: none; }
-
-  /* ══════════ QUIZ ══════════ */
-  .quiz-opt { display: flex; align-items: center; width: 100%; text-align: left; min-height: 48px;
-              background: rgb(var(--c-surface-alt)); color: rgb(var(--c-ink)); border: 1px solid rgb(var(--c-line));
-              border-radius: 999px; padding: .85rem 1.35rem; font-family: Jost, sans-serif; font-size: .95rem;
-              transition: background .2s, border-color .2s, color .2s, transform .15s var(--ease); }
-  .quiz-opt:hover:not(:disabled) { border-color: rgb(var(--c-gold)); background: rgb(var(--c-gold-pale)/.5); }
-  .quiz-opt:active:not(:disabled) { transform: scale(.99); }
-  .quiz-opt:disabled { cursor: default; }
-  .quiz-opt.is-correct { background: rgb(var(--c-sage)); border-color: rgb(var(--c-sage)); color: #fff; }
-  .quiz-opt.is-incorrect { background: rgb(var(--c-danger)); border-color: rgb(var(--c-danger)); color: #fff; }
   .bar { height: 4px; border-radius: 999px; background: rgb(var(--c-line)); overflow: hidden; }
   .bar > i { display: block; height: 100%; background: rgb(var(--c-sage-700));
              transition: width .45s var(--ease); }
@@ -465,9 +418,7 @@
         <li><a href="#schedule" class="nav-a eyebrow eyebrow-tight">Schedule</a></li>
         <li><a href="#travel"   class="nav-a eyebrow eyebrow-tight">Travel</a></li>
         <li><a href="#gallery"  class="nav-a eyebrow eyebrow-tight">Gallery</a></li>
-        <li><a href="#quiz"     class="nav-a eyebrow eyebrow-tight">Quiz</a></li>
         <li><a href="#faq"      class="nav-a eyebrow eyebrow-tight">FAQ</a></li>
-        <li><a href="#rsvp" class="btn btn-solid !py-3 !px-6 !min-h-[44px]" data-magnetic>RSVP</a></li>
       </ul>
 
       <button id="burger" class="md:hidden w-12 h-12 -mr-2 flex flex-col items-center justify-center gap-[6px]"
@@ -490,10 +441,8 @@
     <a href="#schedule"  class="m-link">Schedule</a>
     <a href="#travel"    class="m-link">Travel &amp; Stay</a>
     <a href="#gallery"   class="m-link">Gallery</a>
-    <a href="#quiz"      class="m-link">Quiz</a>
     <a href="#guestbook" class="m-link">Guestbook</a>
     <a href="#faq"       class="m-link">FAQ</a>
-    <a href="#rsvp" class="btn btn-solid w-full mt-8">RSVP</a>
     <p class="mt-auto pt-8 eyebrow text-ink-faint">2 December 2026 · Ujjain</p>
   </div>
 </div>
@@ -558,8 +507,7 @@
       </div>
       <p class="sr-only" id="cdLive" role="status" aria-live="polite"></p>
       <div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
-        <a href="#rsvp" class="btn btn-solid" data-magnetic>RSVP by 20 October</a>
-        <a id="gcalBtn" class="btn btn-out" target="_blank" rel="noopener" data-magnetic>Add to Google Calendar</a>
+        <a id="gcalBtn" class="btn btn-solid" target="_blank" rel="noopener" data-magnetic>Add to Google Calendar</a>
       </div>
     </div>
   </div>
@@ -688,176 +636,6 @@
   </div>
 </section>
 
-<!-- ══════════ QUIZ ══════════ -->
-<section id="quiz" class="py-24 sm:py-36 border-y" style="border-color:rgb(var(--c-line-soft));background:rgb(var(--c-surface-alt))">
-  <div class="wrap wrap-narrow">
-    <header class="text-center reveal">
-      <p class="eyebrow text-gold">Test your knowledge</p>
-      <h2 class="font-display font-light mt-4" style="font-size:clamp(2.1rem,6vw,3.6rem)">The couple quiz</h2>
-      <p class="mt-5 text-ink-soft leading-relaxed max-w-md mx-auto">No prizes, just bragging rights at the sangeet.</p>
-    </header>
-
-    <div class="max-w-[560px] mx-auto mt-12 reveal" data-d="1">
-      <div class="card rounded-2xl overflow-hidden">
-        <div class="py-4 px-6 text-center" style="background:rgb(var(--c-sage-700))">
-          <p class="eyebrow" style="color:rgb(var(--c-paper))" id="quizStage">Trivia</p>
-        </div>
-        <div class="p-6 sm:p-10" id="quizBody"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ RSVP ══════════ -->
-<section id="rsvp" class="py-24 sm:py-36">
-  <div class="wrap">
-    <div class="grid lg:grid-cols-[1.1fr_1fr] gap-14 lg:gap-20">
-
-      <div class="reveal">
-        <p class="eyebrow text-gold">Kindly reply by 20 October 2026</p>
-        <h2 class="font-display font-light mt-3" style="font-size:clamp(2.1rem,6vw,3.4rem)">RSVP</h2>
-        <p class="mt-4 text-ink-soft leading-relaxed max-w-md">
-          One form per invitation. A few short questions — about a minute.
-        </p>
-
-        <!-- Progress -->
-        <div id="rsvpProgress" class="mt-10">
-          <div class="flex items-center gap-2" id="pips" aria-hidden="true"></div>
-          <p class="eyebrow text-ink-faint mt-3" id="stepLabel"></p>
-        </div>
-
-        <form id="rsvpForm" class="mt-8" novalidate>
-          <!-- STEP 1 -->
-          <div class="step space-y-6" data-step="who">
-            <div>
-              <label class="label" for="g-name">Your full name</label>
-              <input class="field" id="g-name" name="name" required placeholder="As it appears on your invitation"
-                     autocomplete="name" aria-describedby="e-name">
-              <p class="err" id="e-name" hidden>Add your name so we can find your invitation.</p>
-            </div>
-            <div>
-              <label class="label" for="g-email">Email</label>
-              <input class="field" id="g-email" name="email" type="email" required placeholder="you@example.com"
-                     autocomplete="email" inputmode="email" aria-describedby="e-email">
-              <p class="err" id="e-email" hidden>We need a working email to send the details.</p>
-            </div>
-            <fieldset>
-              <legend class="label">Will you be joining us?</legend>
-              <div class="flex flex-wrap gap-3">
-                <label class="chip"><input type="radio" name="attending" value="yes" checked> Joyfully accepts</label>
-                <label class="chip"><input type="radio" name="attending" value="no"> Regretfully declines</label>
-              </div>
-            </fieldset>
-          </div>
-
-          <!-- STEP 2 -->
-          <div class="step space-y-6" data-step="details" hidden>
-            <fieldset>
-              <legend class="label">Which events will you attend?</legend>
-              <div class="flex flex-wrap gap-3">
-                <label class="chip"><input type="checkbox" name="events" value="Mehendi" checked> Mehendi</label>
-                <label class="chip"><input type="checkbox" name="events" value="Sangeet" checked> Sangeet</label>
-                <label class="chip"><input type="checkbox" name="events" value="Haldi"> Haldi</label>
-                <label class="chip"><input type="checkbox" name="events" value="Ceremony" checked> Ceremony</label>
-                <label class="chip"><input type="checkbox" name="events" value="Reception" checked> Reception</label>
-              </div>
-            </fieldset>
-            <div class="grid sm:grid-cols-2 gap-5">
-              <div>
-                <label class="label" for="g-count">Guests in your party</label>
-                <select class="field" id="g-count" name="party">
-                  <option value="1">Just me</option>
-                  <option value="2">Two of us</option>
-                  <option value="3">Three</option>
-                  <option value="4">Four</option>
-                </select>
-              </div>
-              <div id="plusOneWrap" class="collapse">
-                <div>
-                  <label class="label" for="g-plus">Name of your plus-one</label>
-                  <input class="field" id="g-plus" name="plusone" placeholder="Their full name">
-                </div>
-              </div>
-            </div>
-            <div class="grid sm:grid-cols-2 gap-5">
-              <div>
-                <label class="label" for="g-diet">Dietary needs</label>
-                <select class="field" id="g-diet" name="diet">
-                  <option>No restrictions</option>
-                  <option>Pure vegetarian</option>
-                  <option>Jain</option>
-                  <option>Vegan</option>
-                  <option>Gluten-free</option>
-                  <option>Nut allergy</option>
-                  <option>Other — noted below</option>
-                </select>
-              </div>
-              <div>
-                <label class="label" for="g-diet-notes">Anything else the kitchen should know</label>
-                <input class="field" id="g-diet-notes" name="dietnotes" placeholder="Allergies, preferences, kids' meals">
-              </div>
-            </div>
-          </div>
-
-          <!-- STEP 3 -->
-          <div class="step space-y-6" data-step="extras" hidden>
-            <div id="songWrap">
-              <label class="label" for="g-song">One song for the DJ</label>
-              <input class="field" id="g-song" name="song" placeholder="Song and artist — the one that gets you up">
-              <p class="text-xs text-ink-faint mt-2">Every request goes onto the reception playlist. Yes, we will check who asked for what.</p>
-            </div>
-            <div>
-              <label class="label" for="g-note">A note for us</label>
-              <textarea class="field" id="g-note" name="note" rows="4" placeholder="Optional, but always read"></textarea>
-            </div>
-          </div>
-
-          <!-- Controls -->
-          <div class="mt-10 flex flex-wrap gap-3" id="rsvpControls">
-            <button type="button" class="btn btn-out" id="rsvpBack" hidden>Back</button>
-            <button type="button" class="btn btn-solid" id="rsvpNext" data-magnetic>Continue</button>
-            <button type="submit" class="btn btn-solid" id="rsvpSubmit" hidden data-magnetic>Send your RSVP</button>
-          </div>
-        </form>
-
-        <!-- Success -->
-        <div id="rsvpDone" class="card p-8 mt-8" hidden style="background:rgb(var(--c-surface-alt));border-color:rgb(var(--c-sage-300))">
-          <svg class="tick" width="56" height="56" viewBox="0 0 64 64" aria-hidden="true">
-            <circle cx="32" cy="32" r="27"/><path d="M20 33.5l8.5 8.5L44 25"/>
-          </svg>
-          <p class="font-display font-light mt-5" style="font-size:clamp(1.5rem,4vw,2rem)">Thank you — your RSVP is in.</p>
-          <p class="text-ink-soft mt-2" id="rsvpDoneMsg"></p>
-          <button type="button" id="rsvpAgain" class="eyebrow text-sage-700 mt-6 hover:text-gold">Submit another reply +</button>
-        </div>
-      </div>
-
-      <aside class="reveal" data-d="1">
-        <div class="card p-7 sm:p-8">
-          <p class="eyebrow text-gold">The reception playlist</p>
-          <h3 class="font-display font-light mt-2" style="font-size:clamp(1.35rem,3.4vw,1.6rem)">Bollywood hits, already queued</h3>
-          <p class="mt-3 text-sm text-ink-soft leading-relaxed">
-            Your request from the form lands here within a day or two. Have a listen and make sure your song isn't already taken.
-          </p>
-          <div class="mt-6">
-            <iframe title="Wedding reception playlist — Bollywood wedding songs" class="w-full" style="border-radius:8px"
-              src="https://open.spotify.com/embed/playlist/0L1eQfqHmPox8RvPlrn40M?utm_source=generator&theme=0"
-              height="380" frameborder="0" loading="lazy"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-          </div>
-        </div>
-
-        <div class="card p-7 sm:p-8 mt-5" style="background:rgb(var(--c-surface-alt))">
-          <p class="eyebrow text-gold">Save the date</p>
-          <h3 class="font-display font-light mt-2" style="font-size:clamp(1.35rem,3.4vw,1.6rem)">Put us in your calendar</h3>
-          <p class="mt-3 text-sm text-ink-soft leading-relaxed">Adds the wedding day, 2 December 2026, with the venue and a reminder the week before.</p>
-          <a id="gcalBtn2" class="btn btn-out mt-6 w-full" target="_blank" rel="noopener">Add to Google Calendar</a>
-          <a id="icsBtn" class="btn btn-out mt-3 w-full" download="shivam-ayushi-wedding.ics">Download for Apple or Outlook</a>
-        </div>
-      </aside>
-    </div>
-  </div>
-</section>
-
 <!-- ══════════ GUESTBOOK ══════════ -->
 <section id="guestbook" class="py-24 sm:py-36 border-y" style="border-color:rgb(var(--c-line-soft));background:rgb(var(--c-surface))">
   <div class="wrap">
@@ -926,7 +704,6 @@
       <a href="#schedule" class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">Schedule</a>
       <a href="#travel"   class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">Travel</a>
       <a href="#gallery"  class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">Gallery</a>
-      <a href="#rsvp"     class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">RSVP</a>
     </nav>
     <svg class="mx-auto mt-10" style="width:13px;height:13px;color:rgb(var(--c-blush-light))" viewBox="0 0 24 24" aria-hidden="true">
       <path fill="currentColor" d="M12 21s-7.5-4.6-10-9.1C.5 8.4 2 4.9 5.5 4A5 5 0 0112 7a5 5 0 016.5-3C22 4.9 23.5 8.4 22 11.9 19.5 16.4 12 21 12 21z"/>
@@ -1062,37 +839,21 @@
       { src: 'images/groom/groom-06.jpg', cap: 'Shivam' }
     ],
 
-    quiz: [
-      { q: 'Where did Shivam and Ayushi first meet?',
-        options: ["A mutual friend's birthday dinner", 'College orientation', 'A work conference', 'A dating app'], correct: 0 },
-      { q: 'Where was their first date?',
-        options: ['A beach in Goa', 'Sinhagad Fort, at sunrise', 'A rooftop restaurant', 'A cricket match'], correct: 1 },
-      { q: 'Where did Shivam propose?',
-        options: ['Paris', 'By the Thames, in London', 'A houseboat in Kerala', 'At home, over dinner'], correct: 1 },
-      { q: "What's the wedding date?",
-        options: ['2 December 2026', '14 February 2026', '25 December 2026', '2 December 2025'], correct: 0 },
-      { q: "Where's the wedding taking place?",
-        options: ['Pune', 'Mumbai', 'Ujjain, Madhya Pradesh', 'Jaipur'], correct: 2 },
-      { q: 'How does a song reach the reception DJ?',
-        options: ["It doesn't — the couple picks everything", 'Guests add it in the RSVP form', 'Only via the wedding planner', "Requests aren't taken"], correct: 1 }
-    ],
-
     faqs: [
-      ['Can I bring a plus-one?', 'If your invitation names two guests, absolutely — add their name in the RSVP form. If you are unsure, ask us; we would rather sort it now than at the seating chart stage.'],
-      ['Are children invited?', "Yes, and there is a supervised kids' corner at the sangeet and reception with food, games and a quiet room for naps. Tell us ages in the RSVP notes."],
+      ['Can I bring a plus-one?', 'If your invitation names two guests, absolutely — just let us know their name by email. If you are unsure, ask us; we would rather sort it now than at the seating chart stage.'],
+      ['Are children invited?', "Yes, and there is a supervised kids' corner at the sangeet and reception with food, games and a quiet room for naps. Let us know their ages by email."],
       ['What time should I actually arrive for the ceremony?', 'The day baraat arrives from 1:00 pm, with the phere ceremony from 3:00 pm to 5:00 pm — please plan to be seated by 3:00 pm. The night baraat and reception follow from 7:00 pm.'],
       ['Is there parking at the venue?', 'Free on-site parking is available for wedding guests at Parmeshwari Garden & Resort. Cabs drop at the main gate — leave a buffer of twenty minutes for local traffic near the temples.'],
       ['Will there be a bar?', 'A full bar runs at the sangeet and reception. The mehendi, haldi and ceremony are dry, with fresh juice, chai and coffee throughout.'],
       ['What is the weather like in December?', 'Pleasant days around 28°C and cool evenings near 12°C. Both evening events are partly outdoors, so bring a shawl, stole or jacket.'],
       ['Do you have a gift registry?', 'Your presence is genuinely the gift. If you would like to do something anyway, we are collecting for a local charity — there is a donation link in your invitation.'],
-      ['Is the venue accessible?', 'Yes. The venue is step-free with accessible washrooms. Let us know in the RSVP if you need seating near the aisle or a wheelchair on site.'],
+      ['Is the venue accessible?', 'Yes. The venue is step-free with accessible washrooms. Email us if you need seating near the aisle or a wheelchair on site.'],
       ['Can I post photos online?', 'Please do, after the ceremony — tag #ShivamAndAyushi2026. During the pheras we are asking for phones away so our photographer gets a clean shot and you get to actually watch.']
     ],
 
     railSections: [
       { id: 'top', label: 'Top' }, { id: 'story', label: 'Our Story' }, { id: 'schedule', label: 'Schedule' },
-      { id: 'travel', label: 'Travel' }, { id: 'gallery', label: 'Gallery' }, { id: 'quiz', label: 'Quiz' },
-      { id: 'rsvp', label: 'RSVP' }, { id: 'guestbook', label: 'Guestbook' }, { id: 'faq', label: 'FAQ' }
+      { id: 'travel', label: 'Travel' }, { id: 'gallery', label: 'Gallery' }, { id: 'guestbook', label: 'Guestbook' }, { id: 'faq', label: 'FAQ' }
     ]
   };
 
@@ -1644,212 +1405,6 @@
     if (Math.abs(dx) > 45) stepLb(dx < 0 ? 1 : -1);
     x0 = null;
   }, { passive: true });
-
-  /* ═══════════════════ RSVP (multi-step) ═══════════════════ */
-  const form = $('#rsvpForm');
-  const partySel = $('#g-count');
-  const plusWrap = $('#plusOneWrap');
-  const steps = $$('#rsvpForm .step');
-  const pips = $('#pips');
-  const stepLabel = $('#stepLabel');
-  const backBtn = $('#rsvpBack'), nextBtn = $('#rsvpNext'), submitBtn = $('#rsvpSubmit');
-  let cursor = 0;
-
-  const attending = () => form.attending.value !== 'no';
-  const flow = () => attending() ? ['who', 'details', 'extras'] : ['who', 'extras'];
-
-  const syncPlus = () => plusWrap.classList.toggle('is-open', partySel.value !== '1');
-  partySel.addEventListener('change', syncPlus); syncPlus();
-
-  form.querySelectorAll('input[name="attending"]').forEach(r =>
-    r.addEventListener('change', () => {
-      $('#songWrap').hidden = !attending();
-      paintFlow();
-    }));
-
-  function paintFlow() {
-    const f = flow();
-    cursor = Math.min(cursor, f.length - 1);
-    steps.forEach(s => { s.hidden = s.dataset.step !== f[cursor]; });
-
-    pips.innerHTML = '';
-    f.forEach((_, i) => {
-      const p = el('div', 'pip' + (i < cursor ? ' done' : i === cursor ? ' current' : ''));
-      pips.appendChild(p);
-    });
-    stepLabel.textContent = 'Step ' + (cursor + 1) + ' of ' + f.length;
-
-    backBtn.hidden = cursor === 0;
-    const last = cursor === f.length - 1;
-    nextBtn.hidden = last;
-    submitBtn.hidden = !last;
-  }
-
-  /* Inline validation — validates as you type, once the field has been touched */
-  function setErr(input, msgEl, bad) {
-    input.setAttribute('aria-invalid', bad ? 'true' : 'false');
-    msgEl.hidden = !bad;
-    return !bad;
-  }
-  const nameEl = $('#g-name'), emailEl = $('#g-email');
-  const okName  = () => nameEl.value.trim().length > 0;
-  const okEmail = () => /^\S+@\S+\.\S+$/.test(emailEl.value.trim());
-
-  [[nameEl, $('#e-name'), okName], [emailEl, $('#e-email'), okEmail]].forEach(([input, msg, test]) => {
-    let touched = false;
-    input.addEventListener('blur', () => { touched = true; setErr(input, msg, !test()); });
-    input.addEventListener('input', () => { if (touched) setErr(input, msg, !test()); });
-  });
-
-  function validateStep() {
-    if (flow()[cursor] !== 'who') return true;
-    const a = setErr(nameEl, $('#e-name'), !okName());
-    const b = setErr(emailEl, $('#e-email'), !okEmail());
-    if (!a) nameEl.focus(); else if (!b) emailEl.focus();
-    return a && b;
-  }
-
-  nextBtn.addEventListener('click', () => {
-    if (!validateStep()) return;
-    cursor++;
-    paintFlow();
-    $('#rsvpProgress').scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
-    const firstField = steps.find(s => !s.hidden).querySelector('input,select,textarea');
-    if (firstField) firstField.focus({ preventScroll: true });
-  });
-  backBtn.addEventListener('click', () => {
-    cursor = Math.max(0, cursor - 1);
-    paintFlow();
-    $('#rsvpProgress').scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
-  });
-  paintFlow();
-
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    if (!validateStep()) return;
-
-    const going = attending();
-    const evts = [...form.querySelectorAll('input[name="events"]:checked')].map(i => i.value);
-    const song = $('#g-song').value.trim();
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending…';
-    try {
-      const res = await supabaseInsert('rsvps', {
-        name: nameEl.value.trim(),
-        email: emailEl.value.trim(),
-        attending: going,
-        events: going ? evts : [],
-        party: going ? Number(partySel.value) : null,
-        plus_one: going ? ($('#g-plus').value.trim() || null) : null,
-        diet: going ? $('#g-diet').value : null,
-        diet_notes: going ? ($('#g-diet-notes').value.trim() || null) : null,
-        song: going ? (song || null) : null,
-        note: $('#g-note').value.trim() || null
-      });
-      if (!res.ok) throw new Error('RSVP failed: ' + res.status);
-
-      $('#rsvpDoneMsg').textContent = going
-        ? 'We have you down for ' + (evts.length ? evts.join(', ').toLowerCase() : 'the wedding')
-          + (song ? '. "' + song + '" is going to the DJ.' : '.')
-        : "We'll miss you — thank you for letting us know.";
-
-      form.hidden = true;
-      $('#rsvpProgress').hidden = true;
-      $('#rsvpDone').hidden = false;
-      $('#rsvpDone').scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
-      toast(going ? 'RSVP sent. See you in December.' : 'RSVP sent.');
-    } catch (err) {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Send your RSVP';
-      toast('Could not send your RSVP — please try again.');
-    }
-  });
-
-  $('#rsvpAgain').addEventListener('click', () => {
-    form.reset();
-    syncPlus();
-    $('#songWrap').hidden = false;
-    cursor = 0;
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Send your RSVP';
-    setErr(nameEl, $('#e-name'), false);
-    setErr(emailEl, $('#e-email'), false);
-    $('#rsvpDone').hidden = true;
-    form.hidden = false;
-    $('#rsvpProgress').hidden = false;
-    paintFlow();
-    nameEl.focus();
-  });
-
-  /* ═══════════════════ QUIZ ═══════════════════ */
-  const QUIZ = CONFIG.quiz;
-  const quizStage = $('#quizStage'), quizBody = $('#quizBody');
-  let qStep = -1, qScore = 0;
-
-  const bar = pct => {
-    const wrap = el('div', 'bar mt-8');
-    const i = el('i'); i.style.width = pct + '%';
-    wrap.appendChild(i);
-    return wrap;
-  };
-
-  function renderQuiz() {
-    quizBody.innerHTML = '';
-    if (qStep === -1) {
-      quizStage.textContent = 'Trivia';
-      const h = el('p', 'font-display font-light text-center leading-snug');
-      h.style.fontSize = 'clamp(1.2rem,4vw,1.6rem)';
-      h.innerHTML = 'How well do you know<br>Shivam &amp; Ayushi?';
-      quizBody.append(h, el('p', 'mt-3 text-sm text-ink-soft text-center', QUIZ.length + ' quick questions.'), bar(0));
-      const wrap = el('div', 'mt-8 text-center');
-      const b = el('button', 'btn btn-solid', 'Start quiz'); b.type = 'button';
-      b.addEventListener('click', () => { qStep = 0; renderQuiz(); });
-      wrap.appendChild(b); quizBody.appendChild(wrap);
-
-    } else if (qStep < QUIZ.length) {
-      const item = QUIZ[qStep];
-      quizStage.textContent = 'Question ' + (qStep + 1) + ' of ' + QUIZ.length;
-      const q = el('p', 'font-display font-light text-center leading-snug', item.q);
-      q.style.fontSize = 'clamp(1.05rem,3.4vw,1.3rem)';
-      quizBody.appendChild(q);
-
-      const opts = el('div', 'mt-8 space-y-3');
-      const buttons = item.options.map((opt, i) => {
-        const b = el('button', 'quiz-opt'); b.type = 'button';
-        b.appendChild(el('span', 'font-display mr-2', String.fromCharCode(65 + i) + '.'));
-        b.appendChild(document.createTextNode(opt));
-        b.addEventListener('click', () => {
-          buttons.forEach(x => x.disabled = true);
-          if (i === item.correct) { b.classList.add('is-correct'); qScore++; }
-          else { b.classList.add('is-incorrect'); buttons[item.correct].classList.add('is-correct'); }
-          setTimeout(() => { qStep++; renderQuiz(); }, reduce ? 150 : 750);
-        });
-        opts.appendChild(b);
-        return b;
-      });
-      quizBody.append(opts, bar((qStep / QUIZ.length) * 100));
-
-    } else {
-      const total = QUIZ.length;
-      const msg = [
-        [total, 'Perfect score. Were you actually there?'],
-        [Math.ceil(total * .66), "Impressively close — you've clearly been paying attention."],
-        [Math.ceil(total * .33), 'A solid guess. Read Our Story again before the sangeet.'],
-        [0, 'Time to scroll back up to Our Story.']
-      ].find(([min]) => qScore >= min)[1];
-
-      quizStage.textContent = 'Your score';
-      const sc = el('p', 'font-display font-light text-center', qScore + ' / ' + total);
-      sc.style.fontSize = 'clamp(2.4rem,9vw,3.4rem)';
-      quizBody.append(sc, el('p', 'mt-4 text-ink-soft text-center leading-relaxed', msg), bar(100));
-      const wrap = el('div', 'mt-8 text-center');
-      const b = el('button', 'btn btn-out', 'Try again'); b.type = 'button';
-      b.addEventListener('click', () => { qStep = -1; qScore = 0; renderQuiz(); });
-      wrap.appendChild(b); quizBody.appendChild(wrap);
-    }
-  }
-  renderQuiz();
 
   /* ═══════════════════ GUESTBOOK ═══════════════════ */
   let messages = [];

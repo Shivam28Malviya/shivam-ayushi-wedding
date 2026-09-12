@@ -345,6 +345,14 @@
   html.reduce #mobileMenu { transition: none; }
   body.locked { overflow: hidden; }
 
+  /* ══════════ LANGUAGE TOGGLE ══════════ */
+  .lang-toggle { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 32px;
+                 padding-inline: .75rem; border: 1px solid rgb(var(--c-line)); border-radius: 999px;
+                 font-family: Jost, sans-serif; font-size: .68rem; letter-spacing: .1em;
+                 color: rgb(var(--c-sage-700)); background: transparent; cursor: pointer;
+                 transition: border-color .2s, background .2s; }
+  .lang-toggle:hover { border-color: rgb(var(--c-sage-300)); background: rgb(var(--c-surface-alt)); }
+
   /* ══════════ LIGHTBOX ══════════ */
   #lightbox { transition: opacity .3s ease; }
   #lightbox[hidden] { display: none; }
@@ -414,40 +422,41 @@
     <p class="font-display fade-up mt-5" style="font-size:clamp(2.2rem,7.5vw,3.8rem);line-height:1.05;animation-delay:.15s">
       <span class="italic">Shivam</span> <span class="text-gold mx-1">&amp;</span> <span class="italic">Ayushi</span>
     </p>
-    <p id="introTitle" class="font-display font-light mt-4 fade-up" style="font-size:clamp(1.3rem,4.5vw,1.9rem);animation-delay:.25s">
+    <p id="introTitle" class="font-display font-light mt-4 fade-up" style="font-size:clamp(1.3rem,4.5vw,1.9rem);animation-delay:.25s" data-i18n="introDate">
       2 December 2026
     </p>
-    <button id="introBtn" class="btn btn-out mt-8 fade-up" style="animation-delay:.35s">Tap to enter</button>
+    <button id="introBtn" class="btn btn-out mt-8 fade-up" style="animation-delay:.35s" data-i18n="tapToEnter">Tap to enter</button>
   </div>
 </div>
 
 <!-- ══════════ THE THREAD ══════════ -->
-<nav id="rail" aria-label="Page sections">
+<nav id="rail" aria-label="Page sections" data-i18n-attr="aria-label:pageSections">
   <div class="track"></div><div class="fill"></div>
   <div id="railKnots"></div>
 </nav>
 
-<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[70] focus:bg-surface focus:text-ink focus:px-4 focus:py-3 focus:border focus:border-line">Skip to content</a>
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[70] focus:bg-surface focus:text-ink focus:px-4 focus:py-3 focus:border focus:border-line" data-i18n="skipToContent">Skip to content</a>
 
 <!-- ══════════ NAV ══════════ -->
 <header id="nav" class="fixed top-0 inset-x-0 z-50">
   <div class="wrap" style="max-width:1240px">
     <div class="flex items-center justify-between" style="height:var(--nav-h)">
-      <a href="#top" class="font-display text-[1.35rem] tracking-tight py-2" aria-label="Back to top">
+      <a href="#top" class="font-display text-[1.35rem] tracking-tight py-2" aria-label="Back to top" data-i18n-attr="aria-label:backToTop">
         <span class="italic">S</span><span class="text-gold mx-[2px]">&amp;</span><span class="italic">A</span>
       </a>
 
       <ul class="hidden md:flex items-center gap-6 lg:gap-8" id="navLinks">
-        <li><a href="#story"    class="nav-a eyebrow eyebrow-tight">Story</a></li>
-        <li><a href="#schedule" class="nav-a eyebrow eyebrow-tight">Schedule</a></li>
-        <li><a href="#travel"   class="nav-a eyebrow eyebrow-tight">Travel</a></li>
-        <li><a href="#gallery"   class="nav-a eyebrow eyebrow-tight">Gallery</a></li>
-        <li><a href="#guestbook" class="nav-a eyebrow eyebrow-tight">Guestbook</a></li>
-        <li><a href="#faq"       class="nav-a eyebrow eyebrow-tight">FAQ</a></li>
+        <li><a href="#story"    class="nav-a eyebrow eyebrow-tight" data-i18n="navStory">Story</a></li>
+        <li><a href="#schedule" class="nav-a eyebrow eyebrow-tight" data-i18n="navSchedule">Schedule</a></li>
+        <li><a href="#travel"   class="nav-a eyebrow eyebrow-tight" data-i18n="navTravel">Travel</a></li>
+        <li><a href="#gallery"   class="nav-a eyebrow eyebrow-tight" data-i18n="navGallery">Gallery</a></li>
+        <li><a href="#guestbook" class="nav-a eyebrow eyebrow-tight" data-i18n="navGuestbook">Guestbook</a></li>
+        <li><a href="#faq"       class="nav-a eyebrow eyebrow-tight" data-i18n="navFaq">FAQ</a></li>
+        <li><button type="button" class="lang-toggle" data-i18n-attr="aria-label:langToggleLabel">हिं</button></li>
       </ul>
 
       <button id="burger" class="md:hidden w-12 h-12 -mr-2 flex flex-col items-center justify-center gap-[6px]"
-              aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+              data-i18n-attr="aria-label:openMenu" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <span class="block w-6 h-px bg-ink transition-transform duration-300"></span>
         <span class="block w-6 h-px bg-ink transition-opacity duration-300"></span>
         <span class="block w-6 h-px bg-ink transition-transform duration-300"></span>
@@ -462,13 +471,14 @@
      instant the page scrolled past the "solid" threshold. -->
 <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 bg-paper" style="padding-top:calc(var(--nav-h) + env(safe-area-inset-top))">
   <div class="flex flex-col h-full pb-10 px-8 overflow-y-auto" style="padding-bottom:max(2.5rem,env(safe-area-inset-bottom))">
-    <a href="#story"     class="m-link">Our Story</a>
-    <a href="#schedule"  class="m-link">Schedule</a>
-    <a href="#travel"    class="m-link">Travel &amp; Stay</a>
-    <a href="#gallery"   class="m-link">Gallery</a>
-    <a href="#guestbook" class="m-link">Guestbook</a>
-    <a href="#faq"       class="m-link">FAQ</a>
-    <p class="mt-auto pt-8 eyebrow text-ink-faint">2 December 2026 · Ujjain</p>
+    <a href="#story"     class="m-link" data-i18n="mobileOurStory">Our Story</a>
+    <a href="#schedule"  class="m-link" data-i18n="navSchedule">Schedule</a>
+    <a href="#travel"    class="m-link" data-i18n="mobileTravelStay">Travel &amp; Stay</a>
+    <a href="#gallery"   class="m-link" data-i18n="navGallery">Gallery</a>
+    <a href="#guestbook" class="m-link" data-i18n="navGuestbook">Guestbook</a>
+    <a href="#faq"       class="m-link" data-i18n="navFaq">FAQ</a>
+    <button type="button" class="lang-toggle mt-8" style="align-self:flex-start" data-i18n-attr="aria-label:langToggleLabel">हिं</button>
+    <p class="mt-auto pt-8 eyebrow text-ink-faint" data-i18n="mobileDateLine">2 December 2026 · Ujjain</p>
   </div>
 </div>
 
@@ -488,7 +498,7 @@
          style="background:linear-gradient(180deg, rgb(var(--c-ink)/.42) 0%, rgb(var(--c-ink)/.14) 38%, rgb(var(--c-blush-pale)/.28) 64%, rgb(var(--c-paper)/.98) 100%)"></div>
 
     <div id="heroCopy" class="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-      <p class="eyebrow text-white/90 fade-up" style="animation-delay:.15s;text-shadow:0 1px 12px rgb(0 0 0/.4)">Together with our families</p>
+      <p class="eyebrow text-white/90 fade-up" style="animation-delay:.15s;text-shadow:0 1px 12px rgb(0 0 0/.4)" data-i18n="heroTogether">Together with our families</p>
 
       <h1 class="font-display text-white mt-6 leading-[.9]" style="text-shadow:0 2px 30px rgb(0 0 0/.36)">
         <span class="mask"><span class="block" style="animation-delay:.28s;font-size:clamp(3rem,13vw,8rem)">Shivam</span></span>
@@ -499,10 +509,10 @@
       <svg class="mt-7 fade-up" style="animation-delay:.64s;width:16px;height:16px;color:rgb(var(--c-blush-light))" viewBox="0 0 24 24" aria-hidden="true">
         <path fill="currentColor" d="M12 21s-7.5-4.6-10-9.1C.5 8.4 2 4.9 5.5 4A5 5 0 0112 7a5 5 0 016.5-3C22 4.9 23.5 8.4 22 11.9 19.5 16.4 12 21 12 21z"/>
       </svg>
-      <p class="mt-5 text-white/95 uppercase fade-up" style="animation-delay:.72s;letter-spacing:.32em;font-size:clamp(.65rem,2.4vw,.85rem);text-shadow:0 1px 12px rgb(0 0 0/.45)">
+      <p class="mt-5 text-white/95 uppercase fade-up" style="animation-delay:.72s;letter-spacing:.32em;font-size:clamp(.65rem,2.4vw,.85rem);text-shadow:0 1px 12px rgb(0 0 0/.45)" data-i18n="heroDateLine">
         02 · 12 · 2026 &nbsp;—&nbsp; Ujjain
       </p>
-      <p class="mt-6 font-display italic text-white font-light fade-up" style="animation-delay:.82s;font-size:clamp(1.25rem,4vw,2rem);text-shadow:0 2px 16px rgb(0 0 0/.45)">
+      <p class="mt-6 font-display italic text-white font-light fade-up" style="animation-delay:.82s;font-size:clamp(1.25rem,4vw,2rem);text-shadow:0 2px 16px rgb(0 0 0/.45)" data-i18n="heroMarried">
         We're getting married!!!
       </p>
     </div>
@@ -511,29 +521,29 @@
   <!-- Countdown -->
   <div class="wrap" style="max-width:1000px">
     <div class="card relative z-10 px-4 sm:px-10 py-8 sm:py-10 reveal" style="margin-top:clamp(-5rem,-9vw,-3.5rem)">
-      <p class="eyebrow text-center text-gold mb-8">Counting down to the baraat</p>
+      <p class="eyebrow text-center text-gold mb-8" data-i18n="countdownEyebrow">Counting down to the baraat</p>
       <div id="countdown" class="grid grid-cols-4 divide-x" style="border-color:rgb(var(--c-line-soft))">
         <div class="text-center px-1">
           <div class="cd-num font-display font-light justify-center" id="cdD" style="font-size:clamp(1.8rem,7vw,3.4rem)" aria-hidden="true"></div>
-          <div class="eyebrow text-ink-faint mt-3">Days</div>
+          <div class="eyebrow text-ink-faint mt-3" data-i18n="cdDays">Days</div>
         </div>
         <div class="text-center px-1">
           <div class="cd-num font-display font-light justify-center" id="cdH" style="font-size:clamp(1.8rem,7vw,3.4rem)" aria-hidden="true"></div>
-          <div class="eyebrow text-ink-faint mt-3">Hours</div>
+          <div class="eyebrow text-ink-faint mt-3" data-i18n="cdHours">Hours</div>
         </div>
         <div class="text-center px-1">
           <div class="cd-num font-display font-light justify-center" id="cdM" style="font-size:clamp(1.8rem,7vw,3.4rem)" aria-hidden="true"></div>
-          <div class="eyebrow text-ink-faint mt-3">Minutes</div>
+          <div class="eyebrow text-ink-faint mt-3" data-i18n="cdMinutes">Minutes</div>
         </div>
         <div class="text-center px-1">
           <div class="cd-num font-display font-light justify-center" id="cdS" style="font-size:clamp(1.8rem,7vw,3.4rem)" aria-hidden="true"></div>
-          <div class="eyebrow text-ink-faint mt-3">Seconds</div>
+          <div class="eyebrow text-ink-faint mt-3" data-i18n="cdSeconds">Seconds</div>
         </div>
       </div>
       <p class="sr-only" id="cdLive" role="status" aria-live="polite"></p>
       <div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
-        <a id="gcalBtn" class="btn btn-solid" target="_blank" rel="noopener" data-magnetic>Add to Google Calendar</a>
-        <a id="icsBtn" class="btn btn-out" download="shivam-ayushi-wedding.ics" data-magnetic>Download for Apple or Outlook</a>
+        <a id="gcalBtn" class="btn btn-solid" target="_blank" rel="noopener" data-magnetic data-i18n="addToCalendar">Add to Google Calendar</a>
+        <a id="icsBtn" class="btn btn-out" download="shivam-ayushi-wedding.ics" data-magnetic data-i18n="downloadIcs">Download for Apple or Outlook</a>
       </div>
     </div>
   </div>
@@ -543,9 +553,9 @@
 <section id="story" class="py-24 sm:py-36">
   <div class="wrap" style="max-width:1080px">
     <header class="max-w-xl reveal">
-      <p class="eyebrow text-gold">Chapter one</p>
-      <h2 class="font-display font-light mt-4" style="font-size:clamp(2.1rem,6vw,3.6rem)">Our story</h2>
-      <p class="mt-5 text-ink-soft leading-relaxed" style="font-size:clamp(1rem,2.6vw,1.1rem)">
+      <p class="eyebrow text-gold" data-i18n="storyEyebrow">Chapter one</p>
+      <h2 class="font-display font-light mt-4" style="font-size:clamp(2.1rem,6vw,3.6rem)" data-i18n="storyHeading">Our story</h2>
+      <p class="mt-5 text-ink-soft leading-relaxed" style="font-size:clamp(1rem,2.6vw,1.1rem)" data-i18n="storyIntro">
         Eight years, three cities and one very persistent group chat. Here's the short version.
       </p>
     </header>
@@ -554,23 +564,23 @@
 </section>
 
 <!-- ══════════ EDITORIAL DATE ══════════ -->
-<section aria-label="Wedding date" class="py-20 sm:py-28 border-y overflow-hidden" style="border-color:rgb(var(--c-line-soft));background:rgb(var(--c-surface-alt))">
+<section aria-label="Wedding date" data-i18n-attr="aria-label:saveTheDate" class="py-20 sm:py-28 border-y overflow-hidden" style="border-color:rgb(var(--c-line-soft));background:rgb(var(--c-surface-alt))">
   <div class="wrap">
-    <p class="eyebrow text-gold reveal">Save the date</p>
+    <p class="eyebrow text-gold reveal" data-i18n="saveTheDate">Save the date</p>
 
     <div class="mt-8 grid sm:grid-cols-2 gap-x-10 gap-y-10 reveal" data-d="1">
       <div>
-        <p class="font-display italic text-ink" style="font-size:clamp(1.6rem,4.2vw,2.4rem);line-height:1.15">Police Community Hall</p>
-        <p class="mt-2 text-sm text-ink-soft">Bhopal, Madhya Pradesh</p>
-        <p class="eyebrow text-sage-700 mt-3">30 Nov &amp; 3 Dec</p>
-        <a class="btn btn-out !py-2.5 !px-4 !min-h-0 mt-4" target="_blank" rel="noopener"
+        <p class="font-display italic text-ink" style="font-size:clamp(1.6rem,4.2vw,2.4rem);line-height:1.15" data-i18n="policeHallName">Police Community Hall</p>
+        <p class="mt-2 text-sm text-ink-soft" data-i18n="bhopalCity">Bhopal, Madhya Pradesh</p>
+        <p class="eyebrow text-sage-700 mt-3" data-i18n="bhopalDates">30 Nov &amp; 3 Dec</p>
+        <a class="btn btn-out !py-2.5 !px-4 !min-h-0 mt-4" target="_blank" rel="noopener" data-i18n="getDirections"
            href="https://maps.app.goo.gl/JUgNaXEkaHemDUAh7">Get directions</a>
       </div>
       <div>
-        <p class="font-display italic text-ink" style="font-size:clamp(1.6rem,4.2vw,2.4rem);line-height:1.15">Parmeshwari Garden &amp; Resort</p>
-        <p class="mt-2 text-sm text-ink-soft">Ujjain, Madhya Pradesh</p>
-        <p class="eyebrow text-sage-700 mt-3">1 &amp; 2 Dec</p>
-        <a class="btn btn-out !py-2.5 !px-4 !min-h-0 mt-4" target="_blank" rel="noopener"
+        <p class="font-display italic text-ink" style="font-size:clamp(1.6rem,4.2vw,2.4rem);line-height:1.15" data-i18n="parmeshwariName">Parmeshwari Garden &amp; Resort</p>
+        <p class="mt-2 text-sm text-ink-soft" data-i18n="ujjainCity">Ujjain, Madhya Pradesh</p>
+        <p class="eyebrow text-sage-700 mt-3" data-i18n="ujjainDates">1 &amp; 2 Dec</p>
+        <a class="btn btn-out !py-2.5 !px-4 !min-h-0 mt-4" target="_blank" rel="noopener" data-i18n="getDirections"
            href="https://maps.app.goo.gl/HF5HxmQJ4HE9XyqV6">Get directions</a>
       </div>
     </div>
@@ -581,9 +591,9 @@
 <section id="schedule" class="py-24 sm:py-36">
   <div class="wrap">
     <header class="max-w-xl reveal">
-      <p class="eyebrow text-gold">Four days, two cities</p>
-      <h2 class="font-display font-light mt-4" style="font-size:clamp(2.1rem,6vw,3.6rem)">The schedule</h2>
-      <p class="mt-5 text-ink-soft leading-relaxed">
+      <p class="eyebrow text-gold" data-i18n="scheduleEyebrow">Four days, two cities</p>
+      <h2 class="font-display font-light mt-4" style="font-size:clamp(2.1rem,6vw,3.6rem)" data-i18n="scheduleHeading">The schedule</h2>
+      <p class="mt-5 text-ink-soft leading-relaxed" data-i18n="scheduleIntro">
         Come to everything, or come to what you can. Timings are Indian Standard Time and, we promise, closer to accurate than usual.
       </p>
     </header>
@@ -591,14 +601,14 @@
 
     <!-- Dress code -->
     <div class="mt-24 max-w-2xl reveal">
-      <p class="eyebrow text-gold">What to wear</p>
-      <h3 class="font-display font-light mt-3" style="font-size:clamp(1.6rem,4vw,2.2rem)">A dress code guide</h3>
-      <p class="mt-4 text-ink-soft leading-relaxed">
+      <p class="eyebrow text-gold" data-i18n="whatToWear">What to wear</p>
+      <h3 class="font-display font-light mt-3" style="font-size:clamp(1.6rem,4vw,2.2rem)" data-i18n="dressGuideHeading">A dress code guide</h3>
+      <p class="mt-4 text-ink-soft leading-relaxed" data-i18n="dressGuideIntro">
         No rules you have to follow, only colours we'd love to see. December evenings drop to
         about 10–12°C, so bring a shawl or jacket for the lawn.
       </p>
       <dl id="dressList" class="mt-8 border-t" style="border-color:rgb(var(--c-line-soft))"></dl>
-      <p class="mt-6 text-sm text-ink-faint">One ask: please avoid red and full white for the ceremony.</p>
+      <p class="mt-6 text-sm text-ink-faint" data-i18n="dressAsk">One ask: please avoid red and full white for the ceremony.</p>
     </div>
   </div>
 </section>
@@ -607,9 +617,9 @@
 <section id="travel" class="py-24 sm:py-36 border-y" style="border-color:rgb(var(--c-line-soft));background:rgb(var(--c-surface))">
   <div class="wrap">
     <header class="max-w-2xl reveal">
-      <p class="eyebrow text-gold">Getting here</p>
-      <h2 class="font-display font-light mt-4" style="font-size:clamp(2.1rem,6vw,3.6rem)">Travel</h2>
-      <p class="mt-5 text-ink-soft leading-relaxed">
+      <p class="eyebrow text-gold" data-i18n="travelEyebrow">Getting here</p>
+      <h2 class="font-display font-light mt-4" style="font-size:clamp(2.1rem,6vw,3.6rem)" data-i18n="travelHeading">Travel</h2>
+      <p class="mt-5 text-ink-soft leading-relaxed" data-i18n="travelIntro">
         Indore's Devi Ahilyabai Holkar Airport (IDR) is about 1.5 hours from the venue and the nearest major
         airport. Ujjain Junction is well connected to Delhi, Mumbai and Indore, and about 20 minutes away.
       </p>
@@ -617,8 +627,8 @@
 
     <div class="mt-16 grid lg:grid-cols-[1fr_1.05fr] gap-12 lg:gap-16 items-center">
       <div class="reveal">
-        <p class="eyebrow text-gold">While you're here</p>
-        <h3 class="font-display font-light mt-3" style="font-size:clamp(1.6rem,4vw,2.2rem)">Make a few days of it</h3>
+        <p class="eyebrow text-gold" data-i18n="whileHere">While you're here</p>
+        <h3 class="font-display font-light mt-3" style="font-size:clamp(1.6rem,4vw,2.2rem)" data-i18n="fewDays">Make a few days of it</h3>
         <ul id="travelList" class="mt-8 border-t" style="border-color:rgb(var(--c-line-soft))"></ul>
       </div>
       <div class="frame reveal" data-d="1" style="aspect-ratio:3/4">
@@ -629,8 +639,8 @@
 
     <!-- Where to stay (renders only when CONFIG.hotels has entries) -->
     <div id="stayBlock" class="mt-20" hidden>
-      <p class="eyebrow text-gold reveal">Where to stay</p>
-      <h3 class="font-display font-light mt-3 reveal" style="font-size:clamp(1.6rem,4vw,2.2rem)">Rooms we've held</h3>
+      <p class="eyebrow text-gold reveal" data-i18n="whereToStay">Where to stay</p>
+      <h3 class="font-display font-light mt-3 reveal" style="font-size:clamp(1.6rem,4vw,2.2rem)" data-i18n="roomsHeld">Rooms we've held</h3>
       <div id="hotelList" class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </div>
   </div>
@@ -641,22 +651,22 @@
   <div class="wrap">
     <header class="flex flex-wrap items-end justify-between gap-6 reveal">
       <div class="max-w-lg">
-        <p class="eyebrow text-gold">Eight years, roughly</p>
-        <h2 class="font-display font-light mt-4" style="font-size:clamp(2.1rem,6vw,3.6rem)">Gallery</h2>
-        <p class="mt-5 text-ink-soft leading-relaxed">Open any photo to see it full size. Swipe, scroll, or use the arrow keys.</p>
+        <p class="eyebrow text-gold" data-i18n="galleryEyebrow">Eight years, roughly</p>
+        <h2 class="font-display font-light mt-4" style="font-size:clamp(2.1rem,6vw,3.6rem)" data-i18n="galleryHeading">Gallery</h2>
+        <p class="mt-5 text-ink-soft leading-relaxed" data-i18n="galleryIntro">Open any photo to see it full size. Swipe, scroll, or use the arrow keys.</p>
       </div>
       <div class="hidden sm:flex gap-3">
-        <button class="strip-btn" id="stripPrev" aria-label="Scroll gallery left">&lsaquo;</button>
-        <button class="strip-btn" id="stripNext" aria-label="Scroll gallery right">&rsaquo;</button>
+        <button class="strip-btn" id="stripPrev" aria-label="Scroll gallery left" data-i18n-attr="aria-label:scrollGalleryLeft">&lsaquo;</button>
+        <button class="strip-btn" id="stripNext" aria-label="Scroll gallery right" data-i18n-attr="aria-label:scrollGalleryRight">&rsaquo;</button>
       </div>
     </header>
   </div>
 
-  <div id="strip" class="strip mt-12" tabindex="0" role="region" aria-label="Photo gallery, scrollable"></div>
+  <div id="strip" class="strip mt-12" tabindex="0" role="region" aria-label="Photo gallery, scrollable" data-i18n-attr="aria-label:scrollableGallery"></div>
 
   <div class="wrap">
     <p class="mt-10 text-sm text-ink-soft">
-      After the wedding, we'll add everyone's photos here — upload yours to
+      <span data-i18n="afterWedding">After the wedding, we'll add everyone's photos here — upload yours to</span>
       <span class="text-sage-700">#ShivamAndAyushi2026</span>.
     </p>
   </div>
@@ -666,32 +676,32 @@
 <section id="guestbook" class="py-24 sm:py-36 border-y" style="border-color:rgb(var(--c-line-soft));background:rgb(var(--c-surface))">
   <div class="wrap">
     <header class="max-w-xl reveal">
-      <p class="eyebrow text-gold">Say something</p>
-      <h2 class="font-display font-light mt-4" style="font-size:clamp(2.1rem,6vw,3.6rem)">Guestbook</h2>
-      <p class="mt-5 text-ink-soft leading-relaxed">
+      <p class="eyebrow text-gold" data-i18n="guestbookEyebrow">Say something</p>
+      <h2 class="font-display font-light mt-4" style="font-size:clamp(2.1rem,6vw,3.6rem)" data-i18n="guestbookHeading">Guestbook</h2>
+      <p class="mt-5 text-ink-soft leading-relaxed" data-i18n="guestbookIntro">
         Advice, a memory, a warning about married life. We're printing all of it into a book.
       </p>
     </header>
 
     <form id="gbForm" class="mt-12 grid sm:grid-cols-2 gap-4 items-end max-w-2xl reveal" data-d="1">
       <div>
-        <label class="label" for="gb-name">Your name</label>
-        <input class="field" id="gb-name" required placeholder="Who's writing?">
+        <label class="label" for="gb-name" data-i18n="yourName">Your name</label>
+        <input class="field" id="gb-name" required placeholder="Who's writing?" data-i18n-attr="placeholder:whoWriting">
       </div>
       <div>
-        <label class="label" for="gb-side">You're with</label>
+        <label class="label" for="gb-side" data-i18n="youAreWith">You're with</label>
         <select class="field" id="gb-side">
-          <option value="">Select one</option>
-          <option value="Shivam's family &amp; friends">Shivam's side</option>
-          <option value="Ayushi's family &amp; friends">Ayushi's side</option>
-          <option value="Both">Both / mutual friend</option>
+          <option value="" data-i18n="selectOne">Select one</option>
+          <option value="Shivam's family &amp; friends" data-i18n="shivamsSide">Shivam's side</option>
+          <option value="Ayushi's family &amp; friends" data-i18n="ayushisSide">Ayushi's side</option>
+          <option value="Both" data-i18n="bothMutual">Both / mutual friend</option>
         </select>
       </div>
       <div class="sm:col-span-2">
-        <label class="label" for="gb-msg">Your message</label>
-        <textarea class="field" id="gb-msg" rows="3" required placeholder="Keep it short, or don't"></textarea>
+        <label class="label" for="gb-msg" data-i18n="yourMessage">Your message</label>
+        <textarea class="field" id="gb-msg" rows="3" required placeholder="Keep it short, or don't" data-i18n-attr="placeholder:keepShort"></textarea>
       </div>
-      <button class="btn btn-solid sm:col-span-2 sm:justify-self-start" type="submit" data-magnetic>Leave your message</button>
+      <button class="btn btn-solid sm:col-span-2 sm:justify-self-start" type="submit" data-magnetic data-i18n="leaveMessage">Leave your message</button>
     </form>
 
     <div id="gbWall" class="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
@@ -702,13 +712,13 @@
 <section id="faq" class="py-24 sm:py-36">
   <div class="wrap wrap-narrow">
     <header class="reveal">
-      <p class="eyebrow text-gold">Before you ask</p>
-      <h2 class="font-display font-light mt-4" style="font-size:clamp(2.1rem,6vw,3.6rem)">Questions</h2>
+      <p class="eyebrow text-gold" data-i18n="faqEyebrow">Before you ask</p>
+      <h2 class="font-display font-light mt-4" style="font-size:clamp(2.1rem,6vw,3.6rem)" data-i18n="faqHeading">Questions</h2>
     </header>
     <div id="faqList" class="mt-12 border-t reveal" style="border-color:rgb(var(--c-line-soft))"></div>
 
     <div class="mt-16 reveal">
-      <p class="text-ink-soft">Still stuck? Ask us directly.</p>
+      <p class="text-ink-soft" data-i18n="stillStuck">Still stuck? Ask us directly.</p>
       <a href="mailto:ShivamandAyushi@gmail.com" class="font-display text-sage-700 hover:text-gold transition-colors mt-2 inline-block"
          style="font-size:clamp(1.35rem,4vw,1.9rem)">ShivamandAyushi@gmail.com</a>
     </div>
@@ -723,15 +733,15 @@
     <p class="font-display font-light leading-none" style="font-size:clamp(2rem,7vw,3.4rem)">
       <span class="italic">Shivam</span> <span class="text-gold-light">&amp;</span> <span class="italic">Ayushi</span>
     </p>
-    <p class="eyebrow mt-6" style="color:rgb(var(--c-deep-fg)/.7)">2 December 2026 · Ujjain, Madhya Pradesh</p>
+    <p class="eyebrow mt-6" style="color:rgb(var(--c-deep-fg)/.7)" data-i18n="footerDateLine">2 December 2026 · Ujjain, Madhya Pradesh</p>
     <div class="w-px h-14 mx-auto my-8" style="background:rgb(var(--c-deep-fg)/.25)"></div>
-    <nav class="flex flex-wrap justify-center gap-x-8 gap-y-2" aria-label="Footer">
-      <a href="#story"    class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">Our Story</a>
-      <a href="#schedule" class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">Schedule</a>
-      <a href="#travel"   class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">Travel</a>
-      <a href="#gallery"   class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">Gallery</a>
-      <a href="#guestbook" class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">Guestbook</a>
-      <a href="#faq"       class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">FAQ</a>
+    <nav class="flex flex-wrap justify-center gap-x-8 gap-y-2" aria-label="Footer" data-i18n-attr="aria-label:footerNav">
+      <a href="#story"    class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)" data-i18n="mobileOurStory">Our Story</a>
+      <a href="#schedule" class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)" data-i18n="navSchedule">Schedule</a>
+      <a href="#travel"   class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)" data-i18n="navTravel">Travel</a>
+      <a href="#gallery"   class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)" data-i18n="navGallery">Gallery</a>
+      <a href="#guestbook" class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)" data-i18n="navGuestbook">Guestbook</a>
+      <a href="#faq"       class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)" data-i18n="navFaq">FAQ</a>
     </nav>
     <svg class="mx-auto mt-10" style="width:13px;height:13px;color:rgb(var(--c-blush-light))" viewBox="0 0 24 24" aria-hidden="true">
       <path fill="currentColor" d="M12 21s-7.5-4.6-10-9.1C.5 8.4 2 4.9 5.5 4A5 5 0 0112 7a5 5 0 016.5-3C22 4.9 23.5 8.4 22 11.9 19.5 16.4 12 21 12 21z"/>
@@ -742,10 +752,10 @@
 
 <!-- ══════════ LIGHTBOX ══════════ -->
 <div id="lightbox" hidden class="fixed inset-0 z-[70] items-center justify-center p-4 opacity-0"
-     style="background:rgb(var(--c-ink)/.96)" role="dialog" aria-modal="true" aria-label="Photo viewer">
-  <button id="lbClose" class="absolute top-4 right-4 w-12 h-12 text-3xl leading-none" style="color:rgb(var(--c-paper))" aria-label="Close photo viewer">&times;</button>
-  <button id="lbPrev" class="absolute left-2 sm:left-6 w-12 h-12 text-4xl leading-none" style="color:rgb(var(--c-paper))" aria-label="Previous photo">&lsaquo;</button>
-  <button id="lbNext" class="absolute right-2 sm:right-6 w-12 h-12 text-4xl leading-none" style="color:rgb(var(--c-paper))" aria-label="Next photo">&rsaquo;</button>
+     style="background:rgb(var(--c-ink)/.96)" role="dialog" aria-modal="true" aria-label="Photo viewer" data-i18n-attr="aria-label:photoViewer">
+  <button id="lbClose" class="absolute top-4 right-4 w-12 h-12 text-3xl leading-none" style="color:rgb(var(--c-paper))" aria-label="Close photo viewer" data-i18n-attr="aria-label:closePhotoViewer">&times;</button>
+  <button id="lbPrev" class="absolute left-2 sm:left-6 w-12 h-12 text-4xl leading-none" style="color:rgb(var(--c-paper))" aria-label="Previous photo" data-i18n-attr="aria-label:previousPhoto">&lsaquo;</button>
+  <button id="lbNext" class="absolute right-2 sm:right-6 w-12 h-12 text-4xl leading-none" style="color:rgb(var(--c-paper))" aria-label="Next photo" data-i18n-attr="aria-label:nextPhoto">&rsaquo;</button>
   <img id="lbImg" class="max-h-[82svh] max-w-full object-contain" alt="">
   <p id="lbCap" class="absolute inset-x-0 text-center eyebrow" style="bottom:max(1.5rem,env(safe-area-inset-bottom));color:rgb(var(--c-paper)/.75)"></p>
 </div>
@@ -785,109 +795,345 @@
     // Real story goes here: three moments (when/where, a short body, and an
     // optional "more" paragraph for the "Read more" expander), each with its
     // own photo. Leave img empty until you have the photo — the frame shows
-    // a clean placeholder rather than a broken image.
+    // a clean placeholder rather than a broken image. Text fields are
+    // {en, hi} pairs — see tr() below.
     story: [
-      { when: 'Add the date and place', title: 'How we met', img: '',
+      { when: { en: 'Add the date and place', hi: 'तारीख़ और जगह जोड़ें' },
+        title: { en: 'How we met', hi: 'हम कैसे मिले' }, img: '',
         alt: 'Shivam and Ayushi when they first met', file: 'how-we-met.jpg',
-        body: 'Tell us how you met — this is where that story goes.',
-        more: '' },
-      { when: 'Add the date and place', title: 'The first date', img: '',
+        body: { en: 'Tell us how you met — this is where that story goes.', hi: 'हमें बताएं आप कैसे मिले — आपकी कहानी यहां आएगी।' },
+        more: { en: '', hi: '' } },
+      { when: { en: 'Add the date and place', hi: 'तारीख़ और जगह जोड़ें' },
+        title: { en: 'The first date', hi: 'पहली मुलाक़ात' }, img: '',
         alt: 'Their first date', file: 'first-date.jpg',
-        body: 'Where did you go, and how did it go? Drop it in here.',
-        more: '' },
-      { when: 'Add the date and place', title: 'The proposal', img: '',
+        body: { en: 'Where did you go, and how did it go? Drop it in here.', hi: 'आप कहां गए थे, और कैसा रहा? यहां लिखें।' },
+        more: { en: '', hi: '' } },
+      { when: { en: 'Add the date and place', hi: 'तारीख़ और जगह जोड़ें' },
+        title: { en: 'The proposal', hi: 'प्रपोज़ल' }, img: '',
         alt: 'The proposal', file: 'the-proposal.jpg',
-        body: 'The moment itself — save it for this spot.',
-        more: '' }
+        body: { en: 'The moment itself — save it for this spot.', hi: 'वह ख़ास पल — इसे यहां जोड़ें।' },
+        more: { en: '', hi: '' } }
     ],
 
     schedule: [
-      { day: 'Monday, 30 November', city: 'Bhopal, Madhya Pradesh', venue: 'Police Community Hall (near 1st Smart Park)',
-        mapUrl: 'https://maps.app.goo.gl/JUgNaXEkaHemDUAh7', note: '',
+      { day: { en: 'Monday, 30 November', hi: 'सोमवार, 30 नवंबर' },
+        city: { en: 'Bhopal, Madhya Pradesh', hi: 'भोपाल, मध्य प्रदेश' },
+        venue: { en: 'Police Community Hall (near 1st Smart Park)', hi: 'पुलिस कम्युनिटी हॉल (पहले स्मार्ट पार्क के पास)' },
+        mapUrl: 'https://maps.app.goo.gl/JUgNaXEkaHemDUAh7', note: { en: '', hi: '' },
         events: [
-          { time: '10:00 am onwards', name: 'Ganesh & Mata Poojan', img: 'images/ganesh-mata-poojan.webp', imgAlt: 'Shivam and Ayushi at the Ganesh and Mata Poojan',
-            desc: 'A traditional puja inviting blessings before the celebrations begin.', dress: 'Traditional, comfortable' }
+          { time: { en: '10:00 am onwards', hi: 'सुबह 10:00 बजे से' },
+            name: { en: 'Ganesh & Mata Poojan', hi: 'गणेश एवं माता पूजन' },
+            img: 'images/ganesh-mata-poojan.webp', imgAlt: 'Shivam and Ayushi at the Ganesh and Mata Poojan',
+            desc: { en: 'A traditional puja inviting blessings before the celebrations begin.', hi: 'उत्सव शुरू होने से पहले आशीर्वाद के लिए पारंपरिक पूजा।' },
+            dress: { en: 'Traditional, comfortable', hi: 'पारंपरिक, आरामदायक' } }
         ] },
-      { day: 'Tuesday, 1 December', city: 'Ujjain, Madhya Pradesh', venue: 'Parmeshwari Garden & Resort', note: '',
+      { day: { en: 'Tuesday, 1 December', hi: 'मंगलवार, 1 दिसंबर' },
+        city: { en: 'Ujjain, Madhya Pradesh', hi: 'उज्जैन, मध्य प्रदेश' },
+        venue: { en: 'Parmeshwari Garden & Resort', hi: 'परमेश्वरी गार्डन एंड रिज़ॉर्ट' }, note: { en: '', hi: '' },
         events: [
-          { time: '12:00 pm – 4:00 pm', name: 'Haldi', img: 'images/haldi.webp', imgAlt: 'Shivam and Ayushi at the Haldi ceremony',
-            desc: "Close family and friends. Wear something you don't mind losing to turmeric.", dress: 'Yellow, casual' },
-          { time: '5:00 pm – 7:00 pm', name: 'Mehendi', img: 'images/mehendi.webp', imgAlt: 'Shivam and Ayushi at the Mehendi ceremony',
-            desc: 'Henna and music — settle in, this one takes a while.', dress: 'Bright, breathable' },
-          { time: '9:00 pm – 10:00 pm', name: 'Engagement', img: 'images/engagement.webp', imgAlt: 'Shivam and Ayushi exchanging rings at the engagement',
-            desc: 'Rings exchanged, right before the dance floor opens.', dress: 'Indo-western, cocktail' },
-          { time: '10:00 pm – 12:00 am', name: 'Sangeet', img: 'images/sangeet.webp', imgAlt: 'Shivam and Ayushi dancing at the sangeet',
-            desc: 'Family performances first, open floor after.', dress: 'Indo-western, cocktail' }
+          { time: { en: '12:00 pm – 4:00 pm', hi: 'दोपहर 12:00 – शाम 4:00 बजे' },
+            name: { en: 'Haldi', hi: 'हल्दी' },
+            img: 'images/haldi.webp', imgAlt: 'Shivam and Ayushi at the Haldi ceremony',
+            desc: { en: "Close family and friends. Wear something you don't mind losing to turmeric.", hi: 'क़रीबी परिवार और दोस्त। ऐसे कपड़े पहनें जिन पर हल्दी लगने की चिंता न हो।' },
+            dress: { en: 'Yellow, casual', hi: 'पीला, आरामदायक' } },
+          { time: { en: '5:00 pm – 7:00 pm', hi: 'शाम 5:00 – 7:00 बजे' },
+            name: { en: 'Mehendi', hi: 'मेहंदी' },
+            img: 'images/mehendi.webp', imgAlt: 'Shivam and Ayushi at the Mehendi ceremony',
+            desc: { en: 'Henna and music — settle in, this one takes a while.', hi: 'मेहंदी और संगीत — आराम से बैठें, इसमें थोड़ा समय लगेगा।' },
+            dress: { en: 'Bright, breathable', hi: 'चटख रंग, हल्के कपड़े' } },
+          { time: { en: '9:00 pm – 10:00 pm', hi: 'रात 9:00 – 10:00 बजे' },
+            name: { en: 'Engagement', hi: 'सगाई' },
+            img: 'images/engagement.webp', imgAlt: 'Shivam and Ayushi exchanging rings at the engagement',
+            desc: { en: 'Rings exchanged, right before the dance floor opens.', hi: 'डांस फ्लोर खुलने से ठीक पहले अंगूठियों की अदला-बदली।' },
+            dress: { en: 'Indo-western, cocktail', hi: 'इंडो-वेस्टर्न, कॉकटेल' } },
+          { time: { en: '10:00 pm – 12:00 am', hi: 'रात 10:00 – 12:00 बजे' },
+            name: { en: 'Sangeet', hi: 'संगीत' },
+            img: 'images/sangeet.webp', imgAlt: 'Shivam and Ayushi dancing at the sangeet',
+            desc: { en: 'Family performances first, open floor after.', hi: 'पहले परिवार की प्रस्तुतियां, फिर सबके लिए खुला मंच।' },
+            dress: { en: 'Indo-western, cocktail', hi: 'इंडो-वेस्टर्न, कॉकटेल' } }
         ] },
-      { day: 'Wednesday, 2 December', city: 'Ujjain, Madhya Pradesh', venue: 'Parmeshwari Garden & Resort', note: 'The wedding day',
+      { day: { en: 'Wednesday, 2 December', hi: 'बुधवार, 2 दिसंबर' },
+        city: { en: 'Ujjain, Madhya Pradesh', hi: 'उज्जैन, मध्य प्रदेश' },
+        venue: { en: 'Parmeshwari Garden & Resort', hi: 'परमेश्वरी गार्डन एंड रिज़ॉर्ट' },
+        note: { en: 'The wedding day', hi: 'शादी का दिन' },
         events: [
-          { time: '1:00 pm – 2:00 pm', name: 'Day Baraat', img: 'images/day-baraat.webp', imgAlt: "Shivam's day baraat procession",
-            desc: "The groom's procession arrives at the venue.", dress: 'Traditional formal' },
-          { time: '3:00 pm – 5:00 pm', name: 'Phere', feature: true, img: 'images/phere.webp', imgAlt: 'Shivam and Ayushi at the phere fire ceremony',
-            desc: 'The wedding ceremony — please be seated by 3:00 pm.', dress: 'Traditional formal' },
-          { time: '7:00 pm – 7:30 pm', name: 'Night Baraat', img: 'images/night-baraat.webp', imgAlt: "Shivam's night baraat procession",
-            desc: "A second procession, into the evening's celebrations.", dress: 'Traditional formal' },
-          { time: '7:30 pm – 1:00 am', name: 'Reception', img: 'images/reception.webp', imgAlt: 'Shivam and Ayushi at the reception',
-            desc: 'Dinner, bar, and a dance floor that opens late.', dress: 'Black tie optional' }
+          { time: { en: '1:00 pm – 2:00 pm', hi: 'दोपहर 1:00 – 2:00 बजे' },
+            name: { en: 'Day Baraat', hi: 'दिन की बारात' },
+            img: 'images/day-baraat.webp', imgAlt: "Shivam's day baraat procession",
+            desc: { en: "The groom's procession arrives at the venue.", hi: 'दूल्हे की बारात स्थल पर पहुंचती है।' },
+            dress: { en: 'Traditional formal', hi: 'पारंपरिक औपचारिक' } },
+          { time: { en: '3:00 pm – 5:00 pm', hi: 'दोपहर 3:00 – शाम 5:00 बजे' },
+            name: { en: 'Phere', hi: 'फेरे' }, feature: true,
+            img: 'images/phere.webp', imgAlt: 'Shivam and Ayushi at the phere fire ceremony',
+            desc: { en: 'The wedding ceremony — please be seated by 3:00 pm.', hi: 'विवाह समारोह — कृपया दोपहर 3:00 बजे तक अपनी सीट ले लें।' },
+            dress: { en: 'Traditional formal', hi: 'पारंपरिक औपचारिक' } },
+          { time: { en: '7:00 pm – 7:30 pm', hi: 'शाम 7:00 – 7:30 बजे' },
+            name: { en: 'Night Baraat', hi: 'रात की बारात' },
+            img: 'images/night-baraat.webp', imgAlt: "Shivam's night baraat procession",
+            desc: { en: "A second procession, into the evening's celebrations.", hi: 'शाम के उत्सव की ओर दूसरी बारात।' },
+            dress: { en: 'Traditional formal', hi: 'पारंपरिक औपचारिक' } },
+          { time: { en: '7:30 pm – 1:00 am', hi: 'शाम 7:30 – रात 1:00 बजे' },
+            name: { en: 'Reception', hi: 'रिसेप्शन' },
+            img: 'images/reception.webp', imgAlt: 'Shivam and Ayushi at the reception',
+            desc: { en: 'Dinner, bar, and a dance floor that opens late.', hi: 'डिनर, बार, और देर रात खुलने वाला डांस फ्लोर।' },
+            dress: { en: 'Black tie optional', hi: 'ब्लैक टाई वैकल्पिक' } }
         ] },
-      { day: 'Thursday, 3 December', city: 'Bhopal, Madhya Pradesh', venue: 'Police Community Hall (near 1st Smart Park)',
-        mapUrl: 'https://maps.app.goo.gl/JUgNaXEkaHemDUAh7', note: '',
+      { day: { en: 'Thursday, 3 December', hi: 'गुरुवार, 3 दिसंबर' },
+        city: { en: 'Bhopal, Madhya Pradesh', hi: 'भोपाल, मध्य प्रदेश' },
+        venue: { en: 'Police Community Hall (near 1st Smart Park)', hi: 'पुलिस कम्युनिटी हॉल (पहले स्मार्ट पार्क के पास)' },
+        mapUrl: 'https://maps.app.goo.gl/JUgNaXEkaHemDUAh7', note: { en: '', hi: '' },
         events: [
-          { time: '12:00 pm onwards', name: 'Grah Pravesh, Pooja & Reception', img: 'images/grah-pravesh.webp', imgAlt: "Shivam and Ayushi at the bride's grah pravesh",
-            desc: "The bride's welcome home, a blessing, and a small reception to close the celebrations.", dress: 'Traditional formal' }
+          { time: { en: '12:00 pm onwards', hi: 'दोपहर 12:00 बजे से' },
+            name: { en: 'Grah Pravesh, Pooja & Reception', hi: 'गृह प्रवेश, पूजा एवं रिसेप्शन' },
+            img: 'images/grah-pravesh.webp', imgAlt: "Shivam and Ayushi at the bride's grah pravesh",
+            desc: { en: "The bride's welcome home, a blessing, and a small reception to close the celebrations.", hi: 'दुल्हन का घर में स्वागत, आशीर्वाद, और उत्सव के समापन पर एक छोटा रिसेप्शन।' },
+            dress: { en: 'Traditional formal', hi: 'पारंपरिक औपचारिक' } }
         ] }
     ],
 
     dressCode: [
-      { for: 'Mehendi & Haldi', note: 'Cottons and bright florals. Sleeves you can push up.', swatch: ['#E8B93A','#D96A3E','#E4D46B'] },
-      { for: 'Sangeet',         note: 'Jewel tones, sequins, and shoes built for dancing.',   swatch: ['#5B4A7A','#B08D4F','#2A3B4D'] },
-      { for: 'Ceremony',        note: 'Sage, ivory and gold. Sarees, lehengas, bandhgalas, suits.', swatch: ['#7C8B6F','#EFE6D7','#D3B27A'] },
-      { for: 'Reception',       note: 'Formal. Floor-length, dark suits, or your best sherwani.',   swatch: ['#2A2E27','#6E1F2E','#C9C4BB'] }
+      { for: { en: 'Mehendi & Haldi', hi: 'मेहंदी एवं हल्दी' },
+        note: { en: 'Cottons and bright florals. Sleeves you can push up.', hi: 'कॉटन और चटख फूलों वाले कपड़े। ऐसी बाजू जिन्हें आप ऊपर चढ़ा सकें।' },
+        swatch: ['#E8B93A','#D96A3E','#E4D46B'] },
+      { for: { en: 'Sangeet', hi: 'संगीत' },
+        note: { en: 'Jewel tones, sequins, and shoes built for dancing.', hi: 'गहरे रंग, चमक, और डांस के लिए आरामदायक जूते।' },
+        swatch: ['#5B4A7A','#B08D4F','#2A3B4D'] },
+      { for: { en: 'Ceremony', hi: 'समारोह' },
+        note: { en: 'Sage, ivory and gold. Sarees, lehengas, bandhgalas, suits.', hi: 'सेज, आइवरी और गोल्ड रंग। साड़ी, लहंगा, बंदगला, सूट।' },
+        swatch: ['#7C8B6F','#EFE6D7','#D3B27A'] },
+      { for: { en: 'Reception', hi: 'रिसेप्शन' },
+        note: { en: 'Formal. Floor-length, dark suits, or your best sherwani.', hi: 'औपचारिक। फ़्लोर-लेंथ गाउन, गहरे रंग के सूट, या आपकी बेहतरीन शेरवानी।' },
+        swatch: ['#2A2E27','#6E1F2E','#C9C4BB'] }
     ],
 
     travel: [
-      { name: 'Mahakaleshwar Jyotirlinga Temple', note: 'One of the twelve jyotirlingas. The Bhasma Aarti before sunrise is worth the early start.' },
-      { name: 'Ram Ghat, Shipra River',           note: 'Best at dusk for the evening aarti, with boats along the ghats.' },
-      { name: 'Kal Bhairav Temple',               note: 'A short drive from the venue, known for its distinctive offering tradition.' },
-      { name: 'Vedh Shala (Jantar Mantar)',       note: 'A centuries-old observatory, quiet and easy to combine with the temples nearby.' },
-      { name: 'Sandipani Ashram',                 note: "A peaceful stop linked to Krishna's education, on the edge of the old city." }
+      { name: { en: 'Mahakaleshwar Jyotirlinga Temple', hi: 'महाकालेश्वर ज्योतिर्लिंग मंदिर' },
+        note: { en: 'One of the twelve jyotirlingas. The Bhasma Aarti before sunrise is worth the early start.', hi: 'बारह ज्योतिर्लिंगों में से एक। सूर्योदय से पहले होने वाली भस्म आरती के लिए जल्दी उठना सार्थक है।' } },
+      { name: { en: 'Ram Ghat, Shipra River', hi: 'राम घाट, शिप्रा नदी' },
+        note: { en: 'Best at dusk for the evening aarti, with boats along the ghats.', hi: 'शाम की आरती के लिए सांझ का समय सबसे अच्छा है, घाटों पर नावें भी मिलती हैं।' } },
+      { name: { en: 'Kal Bhairav Temple', hi: 'काल भैरव मंदिर' },
+        note: { en: 'A short drive from the venue, known for its distinctive offering tradition.', hi: 'स्थल से कुछ ही दूरी पर, अपनी विशेष भोग परंपरा के लिए प्रसिद्ध।' } },
+      { name: { en: 'Vedh Shala (Jantar Mantar)', hi: 'वेध शाला (जंतर मंतर)' },
+        note: { en: 'A centuries-old observatory, quiet and easy to combine with the temples nearby.', hi: 'सदियों पुरानी वेधशाला, शांत और आसपास के मंदिरों के साथ देखी जा सकती है।' } },
+      { name: { en: 'Sandipani Ashram', hi: 'सांदीपनि आश्रम' },
+        note: { en: "A peaceful stop linked to Krishna's education, on the edge of the old city.", hi: 'पुराने शहर के किनारे, भगवान कृष्ण की शिक्षा से जुड़ा एक शांत स्थान।' } }
     ],
     travelPhoto: 'images/ujjain-guide.webp',
 
     // Add entries to switch the "Where to stay" block on. Each code gets a copy button.
-    // { name:'Hotel name', note:'2 km from the venue', code:'SHIVAM26', url:'https://…' }
+    // { name:{en,hi}, note:{en,hi}, code:'SHIVAM26', url:'https://…' }
     hotels: [],
 
     photos: [
-      { src: 'images/bride/bride-01.webp', cap: 'Ayushi' },
-      { src: 'images/groom/groom-02.webp', cap: 'Shivam' },
-      { src: 'images/bride/bride-02.webp', cap: 'Ayushi' },
-      { src: 'images/groom/groom-03.webp', cap: 'Shivam' },
-      { src: 'images/bride/bride-03.webp', cap: 'Ayushi' },
-      { src: 'images/groom/groom-04.webp', cap: 'Shivam' },
-      { src: 'images/bride/bride-04.webp', cap: 'Ayushi' },
-      { src: 'images/groom/groom-05.webp', cap: 'Shivam' },
-      { src: 'images/bride/bride-05.webp', cap: 'Ayushi' },
-      { src: 'images/groom/groom-06.webp', cap: 'Shivam' }
+      { src: 'images/bride/bride-01.webp', cap: { en: 'Ayushi', hi: 'आयुषी' } },
+      { src: 'images/groom/groom-02.webp', cap: { en: 'Shivam', hi: 'शिवम' } },
+      { src: 'images/bride/bride-02.webp', cap: { en: 'Ayushi', hi: 'आयुषी' } },
+      { src: 'images/groom/groom-03.webp', cap: { en: 'Shivam', hi: 'शिवम' } },
+      { src: 'images/bride/bride-03.webp', cap: { en: 'Ayushi', hi: 'आयुषी' } },
+      { src: 'images/groom/groom-04.webp', cap: { en: 'Shivam', hi: 'शिवम' } },
+      { src: 'images/bride/bride-04.webp', cap: { en: 'Ayushi', hi: 'आयुषी' } },
+      { src: 'images/groom/groom-05.webp', cap: { en: 'Shivam', hi: 'शिवम' } },
+      { src: 'images/bride/bride-05.webp', cap: { en: 'Ayushi', hi: 'आयुषी' } },
+      { src: 'images/groom/groom-06.webp', cap: { en: 'Shivam', hi: 'शिवम' } }
     ],
 
     faqs: [
-      ['Can I bring a plus-one?', 'If you are unsure whether your invitation covers a plus-one, just email us — we would rather sort it now than at the seating chart stage.'],
-      ['Are children invited?', "Yes, children are very welcome. Let us know their ages by email so we can plan accordingly."],
-      ['What time should I actually arrive for the ceremony?', 'The day baraat arrives from 1:00 pm, with the phere ceremony from 3:00 pm to 5:00 pm — please plan to be seated by 3:00 pm. The night baraat and reception follow from 7:00 pm.'],
-      ['Is there parking at the venue?', 'Free on-site parking is available for wedding guests at Parmeshwari Garden & Resort in Ujjain. Cabs drop at the main gate — leave a buffer of twenty minutes for local traffic near the temples. We will share parking details for the Bhopal days closer to the date.'],
-      ['Will there be a bar?', "We'll share details on drinks and dietary options closer to the date — email us if you have specific questions in the meantime."],
-      ['What is the weather like in December?', 'Pleasant days around 28°C and cool evenings around 10–12°C. Both evening events are partly outdoors, so bring a shawl, stole or jacket.'],
-      ['Do you have a gift registry?', 'Your presence is genuinely the gift — no registry needed.'],
-      ['Is the venue accessible?', 'Email us if you need step-free access, seating near the aisle, or anything else — we will check with the venue and make sure it is sorted.'],
-      ['Can I post photos online?', 'Please do — tag #ShivamAndAyushi2026 so we can find everything after the celebrations.']
+      [{ en: 'Can I bring a plus-one?', hi: 'क्या मैं किसी को साथ ला सकता/सकती हूं?' },
+       { en: 'If you are unsure whether your invitation covers a plus-one, just email us — we would rather sort it now than at the seating chart stage.', hi: 'अगर आप निश्चित नहीं हैं कि आपके निमंत्रण में प्लस-वन शामिल है, तो बस हमें ईमेल करें — हम इसे अभी सुलझाना पसंद करेंगे, सीटिंग चार्ट के समय नहीं।' }],
+      [{ en: 'Are children invited?', hi: 'क्या बच्चे आमंत्रित हैं?' },
+       { en: 'Yes, children are very welcome. Let us know their ages by email so we can plan accordingly.', hi: 'जी हां, बच्चों का स्वागत है। कृपया उनकी उम्र ईमेल से बताएं ताकि हम उसी हिसाब से योजना बना सकें।' }],
+      [{ en: 'What time should I actually arrive for the ceremony?', hi: 'समारोह के लिए मुझे वास्तव में किस समय पहुंचना चाहिए?' },
+       { en: 'The day baraat arrives from 1:00 pm, with the phere ceremony from 3:00 pm to 5:00 pm — please plan to be seated by 3:00 pm. The night baraat and reception follow from 7:00 pm.', hi: 'दिन की बारात दोपहर 1:00 बजे से आती है, और फेरे दोपहर 3:00 से शाम 5:00 बजे तक होंगे — कृपया दोपहर 3:00 बजे तक अपनी सीट ले लें। रात की बारात और रिसेप्शन शाम 7:00 बजे से शुरू होंगे।' }],
+      [{ en: 'Is there parking at the venue?', hi: 'क्या स्थल पर पार्किंग उपलब्ध है?' },
+       { en: 'Free on-site parking is available for wedding guests at Parmeshwari Garden & Resort in Ujjain. Cabs drop at the main gate — leave a buffer of twenty minutes for local traffic near the temples. We will share parking details for the Bhopal days closer to the date.', hi: 'उज्जैन के परमेश्वरी गार्डन एंड रिज़ॉर्ट में शादी के मेहमानों के लिए मुफ़्त पार्किंग उपलब्ध है। कैब मुख्य गेट पर उतारेंगी — मंदिरों के पास के स्थानीय ट्रैफ़िक के लिए बीस मिनट अतिरिक्त रखें। भोपाल के दिनों की पार्किंग जानकारी हम तारीख़ नज़दीक आने पर साझा करेंगे।' }],
+      [{ en: 'Will there be a bar?', hi: 'क्या वहां बार होगा?' },
+       { en: "We'll share details on drinks and dietary options closer to the date — email us if you have specific questions in the meantime.", hi: 'पेय और भोजन से जुड़े विकल्पों की जानकारी हम तारीख़ नज़दीक आने पर साझा करेंगे — इस बीच कोई खास सवाल हो तो हमें ईमेल करें।' }],
+      [{ en: 'What is the weather like in December?', hi: 'दिसंबर में मौसम कैसा रहता है?' },
+       { en: 'Pleasant days around 28°C and cool evenings around 10–12°C. Both evening events are partly outdoors, so bring a shawl, stole or jacket.', hi: 'दिन सुहावने रहते हैं, लगभग 28°C, और शामें ठंडी, लगभग 10–12°C। दोनों शाम के आयोजन आंशिक रूप से खुले में हैं, इसलिए शॉल, स्टोल या जैकेट साथ लाएं।' }],
+      [{ en: 'Do you have a gift registry?', hi: 'क्या आपकी कोई गिफ़्ट रजिस्ट्री है?' },
+       { en: 'Your presence is genuinely the gift — no registry needed.', hi: 'आपका साथ होना ही सबसे बड़ा तोहफ़ा है — किसी रजिस्ट्री की ज़रूरत नहीं।' }],
+      [{ en: 'Is the venue accessible?', hi: 'क्या स्थल दिव्यांगजनों के लिए सुगम है?' },
+       { en: 'Email us if you need step-free access, seating near the aisle, or anything else — we will check with the venue and make sure it is sorted.', hi: 'अगर आपको बिना सीढ़ियों वाला रास्ता, गलियारे के पास सीट, या कुछ और चाहिए, तो हमें ईमेल करें — हम स्थल से बात कर के इसे सुनिश्चित करेंगे।' }],
+      [{ en: 'Can I post photos online?', hi: 'क्या मैं फ़ोटो ऑनलाइन पोस्ट कर सकता/सकती हूं?' },
+       { en: 'Please do — tag #ShivamAndAyushi2026 so we can find everything after the celebrations.', hi: 'ज़रूर करें — #ShivamAndAyushi2026 टैग करें ताकि उत्सव के बाद हम सब कुछ ढूंढ सकें।' }]
     ],
 
     railSections: [
-      { id: 'top', label: 'Top' }, { id: 'story', label: 'Our Story' }, { id: 'schedule', label: 'Schedule' },
-      { id: 'travel', label: 'Travel' }, { id: 'gallery', label: 'Gallery' }, { id: 'guestbook', label: 'Guestbook' }, { id: 'faq', label: 'FAQ' }
+      { id: 'top', label: { en: 'Top', hi: 'ऊपर' } },
+      { id: 'story', label: { en: 'Our Story', hi: 'हमारी कहानी' } },
+      { id: 'schedule', label: { en: 'Schedule', hi: 'कार्यक्रम' } },
+      { id: 'travel', label: { en: 'Travel', hi: 'यात्रा' } },
+      { id: 'gallery', label: { en: 'Gallery', hi: 'गैलरी' } },
+      { id: 'guestbook', label: { en: 'Guestbook', hi: 'गेस्टबुक' } },
+      { id: 'faq', label: { en: 'FAQ', hi: 'सवाल-जवाब' } }
     ]
   };
+
+  /* ═══════════════════ LANGUAGE (EN / हिं) ═══════════════════
+     Static chrome (nav, headings, buttons, aria-labels, JS-only strings
+     like toasts) lives in UI_TEXT below, tagged onto elements with
+     data-i18n (textContent) or data-i18n-attr="attr:key" (an attribute).
+     CONFIG's own copy (story, schedule, faqs, …) is {en, hi} pairs read
+     through tr(). Both go through the same tr() so a field missing a
+     translation just falls back to English rather than showing blank. */
+  const UI_TEXT = {
+    navStory: { en: 'Story', hi: 'हमारी कहानी' },
+    navSchedule: { en: 'Schedule', hi: 'कार्यक्रम' },
+    navTravel: { en: 'Travel', hi: 'यात्रा' },
+    navGallery: { en: 'Gallery', hi: 'गैलरी' },
+    navGuestbook: { en: 'Guestbook', hi: 'गेस्टबुक' },
+    navFaq: { en: 'FAQ', hi: 'सवाल-जवाब' },
+    mobileOurStory: { en: 'Our Story', hi: 'हमारी कहानी' },
+    mobileTravelStay: { en: 'Travel & Stay', hi: 'यात्रा एवं ठहराव' },
+    mobileDateLine: { en: '2 December 2026 · Ujjain', hi: '2 दिसंबर 2026 · उज्जैन' },
+    backToTop: { en: 'Back to top', hi: 'सबसे ऊपर जाएं' },
+    openMenu: { en: 'Open menu', hi: 'मेन्यू खोलें' },
+    skipToContent: { en: 'Skip to content', hi: 'मुख्य सामग्री पर जाएं' },
+    pageSections: { en: 'Page sections', hi: 'पेज के सेक्शन' },
+    goTo: { en: 'Go to', hi: 'यहां जाएं:' },
+
+    heroTogether: { en: 'Together with our families', hi: 'हमारे परिवारों के साथ' },
+    heroDateLine: { en: '02 · 12 · 2026  —  Ujjain', hi: '02 · 12 · 2026  —  उज्जैन' },
+    heroMarried: { en: "We're getting married!!!", hi: 'हमारी शादी हो रही है!!!' },
+    countdownEyebrow: { en: 'Counting down to the baraat', hi: 'बारात की उलटी गिनती' },
+    cdDays: { en: 'Days', hi: 'दिन' },
+    cdHours: { en: 'Hours', hi: 'घंटे' },
+    cdMinutes: { en: 'Minutes', hi: 'मिनट' },
+    cdSeconds: { en: 'Seconds', hi: 'सेकंड' },
+    addToCalendar: { en: 'Add to Google Calendar', hi: 'गूगल कैलेंडर में जोड़ें' },
+    downloadIcs: { en: 'Download for Apple or Outlook', hi: 'Apple या Outlook के लिए डाउनलोड करें' },
+    todayIsTheDay: { en: 'Today is the day.', hi: 'आज वह दिन है।' },
+
+    storyEyebrow: { en: 'Chapter one', hi: 'पहला अध्याय' },
+    storyHeading: { en: 'Our story', hi: 'हमारी कहानी' },
+    storyIntro: { en: "Eight years, three cities and one very persistent group chat. Here's the short version.", hi: 'आठ साल, तीन शहर और एक बेहद ज़िद्दी ग्रुप चैट। यह रही छोटी कहानी।' },
+    readMore: { en: 'Read more +', hi: 'और पढ़ें +' },
+    readLess: { en: 'Read less −', hi: 'कम पढ़ें −' },
+
+    saveTheDate: { en: 'Save the date', hi: 'तारीख़ याद रखें' },
+    getDirections: { en: 'Get directions', hi: 'दिशा-निर्देश पाएं' },
+    policeHallName: { en: 'Police Community Hall', hi: 'पुलिस कम्युनिटी हॉल' },
+    bhopalCity: { en: 'Bhopal, Madhya Pradesh', hi: 'भोपाल, मध्य प्रदेश' },
+    bhopalDates: { en: '30 Nov & 3 Dec', hi: '30 नवंबर एवं 3 दिसंबर' },
+    parmeshwariName: { en: 'Parmeshwari Garden & Resort', hi: 'परमेश्वरी गार्डन एंड रिज़ॉर्ट' },
+    ujjainCity: { en: 'Ujjain, Madhya Pradesh', hi: 'उज्जैन, मध्य प्रदेश' },
+    ujjainDates: { en: '1 & 2 Dec', hi: '1 एवं 2 दिसंबर' },
+
+    scheduleEyebrow: { en: 'Four days, two cities', hi: 'चार दिन, दो शहर' },
+    scheduleHeading: { en: 'The schedule', hi: 'कार्यक्रम' },
+    scheduleIntro: { en: 'Come to everything, or come to what you can. Timings are Indian Standard Time and, we promise, closer to accurate than usual.', hi: 'सभी आयोजनों में आएं, या जितना संभव हो उतने में। समय भारतीय मानक समय (IST) के अनुसार है, और हमारा वादा है — सामान्य से ज़्यादा सटीक।' },
+    whatToWear: { en: 'What to wear', hi: 'क्या पहनें' },
+    dressGuideHeading: { en: 'A dress code guide', hi: 'ड्रेस कोड गाइड' },
+    dressGuideIntro: { en: "No rules you have to follow, only colours we'd love to see. December evenings drop to about 10–12°C, so bring a shawl or jacket for the lawn.", hi: 'कोई सख़्त नियम नहीं, बस कुछ रंग जो हमें पसंद आएंगे। दिसंबर की शामें लगभग 10–12°C तक ठंडी हो जाती हैं, इसलिए लॉन के लिए शॉल या जैकेट साथ लाएं।' },
+    dressAsk: { en: 'One ask: please avoid red and full white for the ceremony.', hi: 'एक निवेदन: समारोह के लिए कृपया लाल और पूरी सफ़ेद पोशाक से बचें।' },
+    ceremonyTag: { en: 'Ceremony', hi: 'समारोह' },
+    dressPrefix: { en: 'Dress: ', hi: 'पोशाक: ' },
+    addIllustration: { en: 'Add illustration', hi: 'चित्र जोड़ें' },
+
+    travelEyebrow: { en: 'Getting here', hi: 'यहां कैसे पहुंचें' },
+    travelHeading: { en: 'Travel', hi: 'यात्रा' },
+    travelIntro: { en: "Indore's Devi Ahilyabai Holkar Airport (IDR) is about 1.5 hours from the venue and the nearest major airport. Ujjain Junction is well connected to Delhi, Mumbai and Indore, and about 20 minutes away.", hi: 'इंदौर का देवी अहिल्याबाई होल्कर एयरपोर्ट (IDR) स्थल से लगभग 1.5 घंटे दूर है और निकटतम प्रमुख हवाई अड्डा है। उज्जैन जंक्शन दिल्ली, मुंबई और इंदौर से अच्छी तरह जुड़ा है, और लगभग 20 मिनट की दूरी पर है।' },
+    whileHere: { en: "While you're here", hi: 'जब आप यहां हों' },
+    fewDays: { en: 'Make a few days of it', hi: 'कुछ दिन और रुकें' },
+    whereToStay: { en: 'Where to stay', hi: 'कहां ठहरें' },
+    roomsHeld: { en: "Rooms we've held", hi: 'हमने कमरे बुक रखे हैं' },
+    ujjainGuideAlt: { en: 'A guide to sacred sites in Ujjain', hi: 'उज्जैन के पवित्र स्थलों की जानकारी' },
+    bookingCode: { en: 'Code', hi: 'कोड' },
+    copyBookingCode: { en: 'Copy booking code', hi: 'बुकिंग कोड कॉपी करें' },
+    bookARoom: { en: 'Book a room', hi: 'कमरा बुक करें' },
+    copiedCode: { en: 'Copied ', hi: 'कॉपी किया ' },
+    bookingCodeToast: { en: 'Booking code: ', hi: 'बुकिंग कोड: ' },
+
+    galleryEyebrow: { en: 'Eight years, roughly', hi: 'लगभग आठ साल' },
+    galleryHeading: { en: 'Gallery', hi: 'गैलरी' },
+    galleryIntro: { en: 'Open any photo to see it full size. Swipe, scroll, or use the arrow keys.', hi: 'किसी भी फ़ोटो को पूरे आकार में देखने के लिए खोलें। स्वाइप करें, स्क्रॉल करें, या ऐरो कीज़ का इस्तेमाल करें।' },
+    scrollGalleryLeft: { en: 'Scroll gallery left', hi: 'गैलरी बाईं ओर स्क्रॉल करें' },
+    scrollGalleryRight: { en: 'Scroll gallery right', hi: 'गैलरी दाईं ओर स्क्रॉल करें' },
+    scrollableGallery: { en: 'Photo gallery, scrollable', hi: 'फ़ोटो गैलरी, स्क्रॉल किया जा सकता है' },
+    afterWedding: { en: "After the wedding, we'll add everyone's photos here — upload yours to", hi: 'शादी के बाद, हम यहां सबकी फ़ोटो जोड़ेंगे — अपनी फ़ोटो अपलोड करें' },
+    openPhoto: { en: 'Open photo', hi: 'फ़ोटो खोलें' },
+    photoPlaceholder: { en: 'photo', hi: 'फ़ोटो' },
+    photoViewer: { en: 'Photo viewer', hi: 'फ़ोटो व्यूअर' },
+    closePhotoViewer: { en: 'Close photo viewer', hi: 'फ़ोटो व्यूअर बंद करें' },
+    previousPhoto: { en: 'Previous photo', hi: 'पिछली फ़ोटो' },
+    nextPhoto: { en: 'Next photo', hi: 'अगली फ़ोटो' },
+
+    guestbookEyebrow: { en: 'Say something', hi: 'कुछ कहें' },
+    guestbookHeading: { en: 'Guestbook', hi: 'गेस्टबुक' },
+    guestbookIntro: { en: "Advice, a memory, a warning about married life. We're printing all of it into a book.", hi: 'सलाह, कोई याद, या शादीशुदा ज़िंदगी की कोई चेतावनी। हम इन सबको एक किताब में छापेंगे।' },
+    yourName: { en: 'Your name', hi: 'आपका नाम' },
+    whoWriting: { en: "Who's writing?", hi: 'कौन लिख रहा है?' },
+    youAreWith: { en: "You're with", hi: 'आप किस तरफ़ से हैं' },
+    selectOne: { en: 'Select one', hi: 'एक चुनें' },
+    shivamsSide: { en: "Shivam's side", hi: 'शिवम की तरफ़ से' },
+    ayushisSide: { en: "Ayushi's side", hi: 'आयुषी की तरफ़ से' },
+    bothMutual: { en: 'Both / mutual friend', hi: 'दोनों / साझा दोस्त' },
+    yourMessage: { en: 'Your message', hi: 'आपका संदेश' },
+    keepShort: { en: "Keep it short, or don't", hi: 'छोटा रखें, या मत रखें' },
+    leaveMessage: { en: 'Leave your message', hi: 'अपना संदेश छोड़ें' },
+    needNameMessage: { en: 'Add your name and a message.', hi: 'अपना नाम और संदेश जोड़ें।' },
+    messageAdded: { en: 'Message added. Thank you.', hi: 'संदेश जोड़ा गया। धन्यवाद।' },
+    messagePostFailed: { en: 'Could not post your message — please try again.', hi: 'आपका संदेश पोस्ट नहीं हो सका — कृपया फिर कोशिश करें।' },
+    messagesLoadFailed: { en: "Messages couldn't be loaded right now — check back soon.", hi: 'अभी संदेश लोड नहीं हो सके — कृपया बाद में देखें।' },
+
+    faqEyebrow: { en: 'Before you ask', hi: 'पूछने से पहले' },
+    faqHeading: { en: 'Questions', hi: 'सवाल' },
+    stillStuck: { en: 'Still stuck? Ask us directly.', hi: 'फिर भी उलझन है? सीधे हमसे पूछें।' },
+
+    footerDateLine: { en: '2 December 2026 · Ujjain, Madhya Pradesh', hi: '2 दिसंबर 2026 · उज्जैन, मध्य प्रदेश' },
+    footerNav: { en: 'Footer', hi: 'फ़ुटर' },
+
+    langToggleLabel: { en: 'Switch to Hindi', hi: 'अंग्रेज़ी में बदलें' },
+    introDate: { en: '2 December 2026', hi: '2 दिसंबर 2026' },
+    tapToEnter: { en: 'Tap to enter', hi: 'अंदर जाने के लिए टैप करें' }
+  };
+
+  /* Works for both the UI_TEXT dictionary above and the {en, hi} fields
+     inside CONFIG. Falls back to English, then to whatever's there, so
+     a missing translation never renders blank. */
+  function tr(field) {
+    if (field && typeof field === 'object') return field[LANG] || field.en || field.hi || '';
+    return field;
+  }
+  function UI(key) { return tr(UI_TEXT[key]); }
+
+  let LANG = (function initialLang() {
+    try {
+      const stored = localStorage.getItem('lang');
+      if (stored === 'en' || stored === 'hi') return stored;
+    } catch (e) {}
+    return (navigator.language || '').toLowerCase().startsWith('hi') ? 'hi' : 'en';
+  })();
+
+  const RENDERERS = [];
+  function onLangChange(fn) { RENDERERS.push(fn); }
+
+  function applyStaticI18n() {
+    $$('[data-i18n]').forEach(node => {
+      const entry = UI_TEXT[node.dataset.i18n];
+      if (entry) node.textContent = tr(entry);
+    });
+    $$('[data-i18n-attr]').forEach(node => {
+      node.dataset.i18nAttr.split(';').forEach(pair => {
+        const [attr, key] = pair.split(':');
+        const entry = UI_TEXT[key];
+        if (entry) node.setAttribute(attr, tr(entry));
+      });
+    });
+  }
+
+  function setLang(lang) {
+    LANG = lang;
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+    root.lang = lang;
+    applyStaticI18n();
+    RENDERERS.forEach(fn => fn());
+    if (typeof observeReveals === 'function') observeReveals();
+    $$('.lang-toggle').forEach(btn => {
+      btn.textContent = lang === 'hi' ? 'EN' : 'हिं';
+      btn.setAttribute('aria-label', UI('langToggleLabel'));
+    });
+  }
 
   /* ═══════════════════ helpers ═══════════════════ */
   const root   = document.documentElement;
@@ -896,6 +1142,17 @@
   const $  = s => document.querySelector(s);
   const $$ = s => [...document.querySelectorAll(s)];
   const el = (tag, cls, txt) => { const n = document.createElement(tag); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; };
+
+  // Sync the static chrome and toggle buttons to the detected/stored language
+  // right away — the dynamic sections below pick it up naturally since they
+  // call tr()/UI() as they render for the first time.
+  root.lang = LANG;
+  applyStaticI18n();
+  $$('.lang-toggle').forEach(btn => {
+    btn.textContent = LANG === 'hi' ? 'EN' : 'हिं';
+    btn.addEventListener('click', () => setLang(LANG === 'hi' ? 'en' : 'hi'));
+  });
+
   const HEART_PATH = 'M12 21s-7.5-4.6-10-9.1C.5 8.4 2 4.9 5.5 4A5 5 0 0112 7a5 5 0 016.5-3C22 4.9 23.5 8.4 22 11.9 19.5 16.4 12 21 12 21z';
   function heartSVG() {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -1036,7 +1293,7 @@
     const diff = target - Date.now();
     if (diff <= 0) {
       $('#countdown').innerHTML =
-        '<p class="col-span-4 font-display font-light text-center" style="font-size:clamp(1.6rem,5vw,2.4rem)">Today is the day.</p>';
+        '<p class="col-span-4 font-display font-light text-center" style="font-size:clamp(1.6rem,5vw,2.4rem)">' + UI('todayIsTheDay') + '</p>';
       return clearInterval(timer);
     }
     const s = Math.floor(diff / 1000);
@@ -1049,6 +1306,7 @@
   }
   tick();
   const timer = setInterval(tick, 1000);
+  onLangChange(() => { if (target - Date.now() <= 0) tick(); });
 
   /* ═══════════════════ CALENDAR ═══════════════════ */
   const W = CONFIG.wedding;
@@ -1109,8 +1367,9 @@
   closeMenu();
 
   /* ═══════════════════ RENDER: STORY ═══════════════════ */
-  (function story() {
+  function story() {
     const list = $('#storyList');
+    list.innerHTML = '';
     const spine = el('div');
     spine.className = 'absolute left-[15px] md:left-1/2 md:-translate-x-1/2 top-2 bottom-10 w-px';
     spine.style.background = 'linear-gradient(rgb(var(--c-line)) 0 62%, transparent)';
@@ -1140,25 +1399,26 @@
       mountImg(img, s.img, s.alt);
 
       const copy = el('div', 'mt-6 md:mt-0 ' + (flip ? '' : 'md:order-1 md:text-right'));
-      copy.appendChild(el('p', 'eyebrow text-gold', s.when));
-      const h3 = el('h3', 'font-display font-light mt-3', s.title);
+      copy.appendChild(el('p', 'eyebrow text-gold', tr(s.when)));
+      const h3 = el('h3', 'font-display font-light mt-3', tr(s.title));
       h3.style.fontSize = 'clamp(1.6rem,4.5vw,2.4rem)';
       copy.appendChild(h3);
-      copy.appendChild(el('p', 'mt-4 text-ink-soft leading-relaxed', s.body));
+      copy.appendChild(el('p', 'mt-4 text-ink-soft leading-relaxed', tr(s.body)));
 
-      if (s.more) {
-        const more = el('p', 'mt-3 text-ink-soft leading-relaxed', s.more);
+      const moreText = tr(s.more);
+      if (moreText) {
+        const more = el('p', 'mt-3 text-ink-soft leading-relaxed', moreText);
         more.hidden = true;
         more.id = 'storyMore' + i;
         copy.appendChild(more);
 
-        const btn = el('button', 'eyebrow text-sage-700 mt-4 hover:text-gold py-2', 'Read more +');
+        const btn = el('button', 'eyebrow text-sage-700 mt-4 hover:text-gold py-2', UI('readMore'));
         btn.type = 'button';
         btn.setAttribute('aria-expanded', 'false');
         btn.setAttribute('aria-controls', more.id);
         btn.addEventListener('click', () => {
           more.hidden = !more.hidden;
-          btn.textContent = more.hidden ? 'Read more +' : 'Read less −';
+          btn.textContent = more.hidden ? UI('readMore') : UI('readLess');
           btn.setAttribute('aria-expanded', String(!more.hidden));
         });
         copy.appendChild(btn);
@@ -1168,23 +1428,26 @@
       li.appendChild(grid);
       list.appendChild(li);
     });
-  })();
+  }
+  story();
+  onLangChange(story);
 
   /* ═══════════════════ RENDER: SCHEDULE ═══════════════════ */
-  (function schedule() {
+  function schedule() {
     const host = $('#scheduleDays');
+    host.innerHTML = '';
     CONFIG.schedule.forEach((day, di) => {
       const block = el('div', 'lg:grid lg:grid-cols-[minmax(0,16rem)_1fr] lg:gap-16 ' + (di ? 'mt-16 lg:mt-24' : ''));
 
       const head = el('div', 'day-head');
       const inner = el('div', 'lg:sticky');
-      const t = el('p', 'font-display font-light', day.day);
+      const t = el('p', 'font-display font-light', tr(day.day));
       t.style.fontSize = 'clamp(1.4rem,3.6vw,1.9rem)';
       inner.appendChild(t);
-      if (day.city) inner.appendChild(el('p', 'eyebrow text-sage-700 mt-2', day.city));
-      if (day.note) inner.appendChild(el('p', 'eyebrow text-gold mt-1', day.note));
+      if (tr(day.city)) inner.appendChild(el('p', 'eyebrow text-sage-700 mt-2', tr(day.city)));
+      if (tr(day.note)) inner.appendChild(el('p', 'eyebrow text-gold mt-1', tr(day.note)));
       if (day.mapUrl) {
-        const dirLink = el('a', 'btn btn-out !py-2.5 !px-4 !min-h-0 mt-4', 'Get directions');
+        const dirLink = el('a', 'btn btn-out !py-2.5 !px-4 !min-h-0 mt-4', UI('getDirections'));
         dirLink.href = day.mapUrl;
         dirLink.target = '_blank';
         dirLink.rel = 'noopener';
@@ -1203,24 +1466,25 @@
         }
         if (i) card.dataset.d = String(Math.min(i, 3));
 
-        const slug = ev.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        // Filenames stay in English/ASCII regardless of the active language.
+        const slug = ev.name.en.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
         const frame = el('div', 'frame frame-contain');
         frame.style.height = 'clamp(180px, 30vw, 280px)';
         const ph = el('div', 'ph');
-        ph.appendChild(el('span', 'eyebrow text-sage-700', 'Add illustration'));
+        ph.appendChild(el('span', 'eyebrow text-sage-700', UI('addIllustration')));
         ph.appendChild(el('span', 'text-xs text-ink-faint', slug + '.png'));
         const img = el('img');
         frame.append(ph, img);
-        mountImg(img, ev.img, ev.imgAlt || ev.name);
+        mountImg(img, ev.img, ev.imgAlt || tr(ev.name));
         card.appendChild(frame);
 
         const body = el('div', 'ev-body');
 
         if (ev.feature) {
-          body.appendChild(el('p', 'eyebrow text-sage-700', 'Ceremony'));
+          body.appendChild(el('p', 'eyebrow text-sage-700', UI('ceremonyTag')));
         }
 
-        const h3 = el('h3', 'font-display font-light', ev.name);
+        const h3 = el('h3', 'font-display font-light', tr(ev.name));
         h3.style.fontSize = 'clamp(1.4rem,3.4vw,1.75rem)';
         h3.style.marginTop = ev.feature ? '.35rem' : '0';
         body.appendChild(h3);
@@ -1241,20 +1505,20 @@
         divider.append(mkLine(), heart, mkLine());
         body.appendChild(divider);
 
-        body.appendChild(el('p', 'eyebrow text-gold mt-4', ev.time));
-        body.appendChild(el('p', 'mt-4 text-ink-soft leading-relaxed', ev.desc));
+        body.appendChild(el('p', 'eyebrow text-gold mt-4', tr(ev.time)));
+        body.appendChild(el('p', 'mt-4 text-ink-soft leading-relaxed', tr(ev.desc)));
 
-        if (day.venue || day.city) {
+        if (tr(day.venue) || tr(day.city)) {
           const place = el('p', 'mt-5 text-sm text-ink-soft');
-          if (day.venue) {
-            place.appendChild(el('span', 'text-ink', day.venue));
+          if (tr(day.venue)) {
+            place.appendChild(el('span', 'text-ink', tr(day.venue)));
             place.appendChild(el('br'));
           }
-          place.appendChild(document.createTextNode(day.city || ''));
+          place.appendChild(document.createTextNode(tr(day.city) || ''));
           body.appendChild(place);
         }
 
-        const dress = el('p', 'eyebrow text-sage-700', 'Dress: ' + ev.dress);
+        const dress = el('p', 'eyebrow text-sage-700', UI('dressPrefix') + tr(ev.dress));
         dress.style.cssText = 'margin-top:1.35rem;padding-top:1.1rem;border-top:1px solid rgb(var(--c-line-soft))';
         body.appendChild(dress);
         card.appendChild(body);
@@ -1264,11 +1528,14 @@
       block.append(head, events);
       host.appendChild(block);
     });
-  })();
+  }
+  schedule();
+  onLangChange(schedule);
 
   /* ═══════════════════ RENDER: DRESS CODE ═══════════════════ */
-  (function dress() {
+  function dress() {
     const dl = $('#dressList');
+    dl.innerHTML = '';
     CONFIG.dressCode.forEach(d => {
       const row = el('div', 'py-5 flex items-center gap-5 border-b');
       row.style.borderColor = 'rgb(var(--c-line-soft))';
@@ -1280,58 +1547,64 @@
         sw.appendChild(s);
       });
       const txt = el('div');
-      txt.appendChild(el('dt', 'font-display text-lg', d.for));
-      txt.appendChild(el('dd', 'text-sm text-ink-soft', d.note));
+      txt.appendChild(el('dt', 'font-display text-lg', tr(d.for)));
+      txt.appendChild(el('dd', 'text-sm text-ink-soft', tr(d.note)));
       row.append(sw, txt);
       dl.appendChild(row);
     });
-  })();
+  }
+  dress();
+  onLangChange(dress);
 
   /* ═══════════════════ RENDER: TRAVEL ═══════════════════ */
-  (function travel() {
+  function travel() {
     const ul = $('#travelList');
+    ul.innerHTML = '';
     CONFIG.travel.forEach((t, i) => {
       const li = el('li', 'py-4 flex gap-5 border-b');
       li.style.borderColor = 'rgb(var(--c-line-soft))';
       li.appendChild(el('span', 'font-display text-gold text-lg w-8 shrink-0', pad(i + 1)));
       const d = el('div');
-      d.appendChild(el('p', 'font-display text-lg', t.name));
-      d.appendChild(el('p', 'text-sm text-ink-soft', t.note));
+      d.appendChild(el('p', 'font-display text-lg', tr(t.name)));
+      d.appendChild(el('p', 'text-sm text-ink-soft', tr(t.note)));
       li.appendChild(d);
       ul.appendChild(li);
     });
-    mountImg($('img[data-src="ujjain"]'), CONFIG.travelPhoto, 'A guide to sacred sites in Ujjain');
+    mountImg($('img[data-src="ujjain"]'), CONFIG.travelPhoto, UI('ujjainGuideAlt'));
 
     if (CONFIG.hotels.length) {
       $('#stayBlock').hidden = false;
       const host = $('#hotelList');
+      host.innerHTML = '';
       CONFIG.hotels.forEach(h => {
         const card = el('article', 'card card-lift p-7 reveal');
-        card.appendChild(el('h4', 'font-display text-xl font-light', h.name));
-        if (h.note) card.appendChild(el('p', 'mt-2 text-sm text-ink-soft leading-relaxed', h.note));
+        card.appendChild(el('h4', 'font-display text-xl font-light', tr(h.name)));
+        if (tr(h.note)) card.appendChild(el('p', 'mt-2 text-sm text-ink-soft leading-relaxed', tr(h.note)));
         if (h.code) {
           const row = el('div', 'mt-5 flex items-center gap-3 flex-wrap');
-          row.appendChild(el('span', 'eyebrow text-ink-faint', 'Code'));
+          row.appendChild(el('span', 'eyebrow text-ink-faint', UI('bookingCode')));
           const b = el('button', 'eyebrow text-sage-700 border rounded-full px-3 py-2 hover:text-gold', h.code);
           b.type = 'button';
           b.style.borderColor = 'rgb(var(--c-line))';
-          b.setAttribute('aria-label', 'Copy booking code ' + h.code);
+          b.setAttribute('aria-label', UI('copyBookingCode') + ' ' + h.code);
           b.addEventListener('click', async () => {
-            try { await navigator.clipboard.writeText(h.code); toast('Copied ' + h.code); }
-            catch { toast('Booking code: ' + h.code); }
+            try { await navigator.clipboard.writeText(h.code); toast(UI('copiedCode') + h.code); }
+            catch { toast(UI('bookingCodeToast') + h.code); }
           });
           row.appendChild(b);
           card.appendChild(row);
         }
         if (h.url) {
-          const a = el('a', 'btn btn-out !py-3 !px-5 mt-5', 'Book a room');
+          const a = el('a', 'btn btn-out !py-3 !px-5 mt-5', UI('bookARoom'));
           a.href = h.url; a.target = '_blank'; a.rel = 'noopener';
           card.appendChild(a);
         }
         host.appendChild(card);
       });
     }
-  })();
+  }
+  travel();
+  onLangChange(travel);
 
   /* ═══════════════════ RENDER: GALLERY + LIGHTBOX ═══════════════════ */
   const photos = CONFIG.photos;
@@ -1340,17 +1613,17 @@
     photos.forEach((p, i) => {
       const btn = el('button', 'shot group');
       btn.type = 'button';
-      btn.setAttribute('aria-label', 'Open photo: ' + p.cap);
+      btn.setAttribute('aria-label', UI('openPhoto') + ': ' + tr(p.cap));
 
       const frame = el('div', 'frame');
       frame.style.aspectRatio = i % 3 === 1 ? '3/4' : '4/5';
-      const ph = el('div', 'ph'); ph.appendChild(el('span', 'eyebrow text-sage-700', 'photo ' + (i + 1)));
+      const ph = el('div', 'ph'); ph.appendChild(el('span', 'eyebrow text-sage-700', UI('photoPlaceholder') + ' ' + (i + 1)));
       const img = el('img', 'transition-transform duration-700 group-hover:scale-[1.04]');
       img.loading = 'lazy';
       frame.append(ph, img);
-      mountImg(img, p.src, p.cap);
+      mountImg(img, p.src, tr(p.cap));
 
-      const cap = el('p', 'eyebrow text-ink-faint mt-3 text-left', p.cap);
+      const cap = el('p', 'eyebrow text-ink-faint mt-3 text-left', tr(p.cap));
       btn.append(frame, cap);
       btn.addEventListener('click', () => openLb(i, img));
       strip.appendChild(btn);
@@ -1369,13 +1642,27 @@
     });
   })();
 
+  // Captions/labels only — rebuilding the whole strip on language switch would
+  // re-bind the prev/next/keydown listeners above a second time.
+  onLangChange(function refreshGalleryText() {
+    $$('#strip .shot').forEach((btn, i) => {
+      const capText = tr(photos[i].cap);
+      btn.setAttribute('aria-label', UI('openPhoto') + ': ' + capText);
+      const capEl = btn.querySelector('p');
+      if (capEl) capEl.textContent = capText;
+      const phSpan = btn.querySelector('.ph span');
+      if (phSpan) phSpan.textContent = UI('photoPlaceholder') + ' ' + (i + 1);
+    });
+    if (lb && !lb.hidden) paintLb();
+  });
+
   const lb = $('#lightbox'), lbImg = $('#lbImg'), lbCap = $('#lbCap');
   let idx = 0, lastTrigger = null, srcThumb = null;
 
   function paintLb() {
     lbImg.src = photos[idx].src;
-    lbImg.alt = photos[idx].cap;
-    lbCap.textContent = photos[idx].cap;
+    lbImg.alt = tr(photos[idx].cap);
+    lbCap.textContent = tr(photos[idx].cap);
   }
   function showLb() {
     lb.hidden = false;
@@ -1454,6 +1741,15 @@
 
   const fmtDate = iso => new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 
+  // Guests submit their side via a fixed English <option value>, kept stable across
+  // language switches; only the tag's on-screen label is translated for display.
+  const SIDE_LABELS = {
+    "Shivam's family & friends": 'shivamsSide',
+    "Ayushi's family & friends": 'ayushisSide',
+    'Both': 'bothMutual'
+  };
+  const sideLabel = raw => (SIDE_LABELS[raw] ? UI(SIDE_LABELS[raw]) : raw);
+
   function renderWall() {
     wall.innerHTML = '';
     messages.forEach((m, i) => {
@@ -1464,7 +1760,7 @@
       const quote = el('span', 'font-display text-3xl text-gold-light leading-none', '“');
       top.appendChild(quote);
       if (m.s) {
-        const tag = el('span', 'eyebrow border rounded-full px-2.5 py-1 whitespace-nowrap', m.s);
+        const tag = el('span', 'eyebrow border rounded-full px-2.5 py-1 whitespace-nowrap', sideLabel(m.s));
         tag.style.borderColor = 'rgb(var(--c-blush-light))';
         tag.style.color = 'rgb(var(--c-blush))';
         tag.style.fontSize = '.56rem';
@@ -1486,6 +1782,8 @@
     observeReveals();
   }
 
+  let guestbookLoadFailed = false;
+
   async function loadGuestbook() {
     try {
       const res = await fetch(
@@ -1495,19 +1793,28 @@
       if (!res.ok) throw new Error('Guestbook failed: ' + res.status);
       const rows = await res.json();
       messages = rows.map(r => ({ n: r.name, s: r.side, m: r.message, d: fmtDate(r.created_at) }));
+      guestbookLoadFailed = false;
       renderWall();
     } catch (err) {
+      guestbookLoadFailed = true;
       wall.innerHTML = '';
-      wall.appendChild(el('p', 'text-sm text-ink-faint sm:col-span-2 lg:col-span-3',
-        "Messages couldn't be loaded right now — check back soon."));
+      wall.appendChild(el('p', 'text-sm text-ink-faint sm:col-span-2 lg:col-span-3', UI('messagesLoadFailed')));
     }
   }
   loadGuestbook();
+  onLangChange(() => {
+    if (guestbookLoadFailed) {
+      wall.innerHTML = '';
+      wall.appendChild(el('p', 'text-sm text-ink-faint sm:col-span-2 lg:col-span-3', UI('messagesLoadFailed')));
+    } else {
+      renderWall();
+    }
+  });
 
   $('#gbForm').addEventListener('submit', async e => {
     e.preventDefault();
     const n = $('#gb-name'), s = $('#gb-side'), m = $('#gb-msg');
-    if (!n.value.trim() || !m.value.trim()) { toast('Add your name and a message.'); return; }
+    if (!n.value.trim() || !m.value.trim()) { toast(UI('needNameMessage')); return; }
     const btn = e.target.querySelector('button[type="submit"]');
     btn.disabled = true;
     try {
@@ -1516,20 +1823,22 @@
       });
       if (!res.ok) throw new Error('Post failed: ' + res.status);
       messages.unshift({ n: n.value.trim(), s: s.value, m: m.value.trim(), d: fmtDate(new Date().toISOString()) });
+      guestbookLoadFailed = false;
       renderWall();
       e.target.reset();
-      toast('Message added. Thank you.');
+      toast(UI('messageAdded'));
       if (wall.firstElementChild) wall.firstElementChild.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
     } catch (err) {
-      toast('Could not post your message — please try again.');
+      toast(UI('messagePostFailed'));
     } finally {
       btn.disabled = false;
     }
   });
 
   /* ═══════════════════ FAQ ═══════════════════ */
-  (function faq() {
+  function faq() {
     const list = $('#faqList');
+    list.innerHTML = '';
     CONFIG.faqs.forEach(([q, a], i) => {
       const item = el('div', 'acc-item border-b');
       item.style.borderColor = 'rgb(var(--c-line-soft))';
@@ -1540,7 +1849,7 @@
       btn.type = 'button';
       btn.setAttribute('aria-expanded', 'false');
       btn.setAttribute('aria-controls', 'acc-' + i);
-      const label = el('span', 'font-display font-light group-hover:text-sage-700 transition-colors', q);
+      const label = el('span', 'font-display font-light group-hover:text-sage-700 transition-colors', tr(q));
       label.style.fontSize = 'clamp(1.05rem,2.8vw,1.25rem)';
       btn.append(label, el('span', 'acc-plus text-gold text-2xl leading-none shrink-0 mt-0.5', '+'));
       h3.appendChild(btn);
@@ -1549,7 +1858,7 @@
       panel.id = 'acc-' + i;
       panel.setAttribute('role', 'region');
       const inner = el('div');
-      inner.appendChild(el('p', 'pb-6 pr-10 text-ink-soft leading-relaxed', a));
+      inner.appendChild(el('p', 'pb-6 pr-10 text-ink-soft leading-relaxed', tr(a)));
       panel.appendChild(inner);
 
       btn.addEventListener('click', () => {
@@ -1564,7 +1873,9 @@
       item.append(h3, panel);
       list.appendChild(item);
     });
-  })();
+  }
+  faq();
+  onLangChange(faq);
 
   /* ═══════════════════ THE THREAD: knots ═══════════════════ */
   function placeKnots() {
@@ -1579,10 +1890,10 @@
       a.href = '#' + s.id;
       a.dataset.t = s.id;
       a.style.top = Math.min((node.offsetTop / docH) * 100, 98) + '%';
-      a.setAttribute('aria-label', 'Go to ' + s.label);
+      a.setAttribute('aria-label', UI('goTo') + ' ' + tr(s.label));
       const knot = el('span', 'knot');
       knot.appendChild(heartSVG());
-      a.append(knot, el('span', 'knot-label', s.label));
+      a.append(knot, el('span', 'knot-label', tr(s.label)));
       a.addEventListener('click', e => {
         e.preventDefault();
         node.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
@@ -1592,6 +1903,7 @@
     });
   }
   placeKnots();
+  onLangChange(placeKnots);
   addEventListener('load', placeKnots);
   let rz;
   addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(placeKnots, 200); });

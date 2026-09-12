@@ -28,29 +28,12 @@
   })();
 </script>
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          ink:     { DEFAULT:'rgb(var(--c-ink)/<alpha-value>)', soft:'rgb(var(--c-ink-soft)/<alpha-value>)', faint:'rgb(var(--c-ink-faint)/<alpha-value>)' },
-          sage:    { 900:'rgb(var(--c-sage-900)/<alpha-value>)', 700:'rgb(var(--c-sage-700)/<alpha-value>)', DEFAULT:'rgb(var(--c-sage)/<alpha-value>)', 300:'rgb(var(--c-sage-300)/<alpha-value>)', 100:'rgb(var(--c-sage-100)/<alpha-value>)' },
-          gold:    { DEFAULT:'rgb(var(--c-gold)/<alpha-value>)', light:'rgb(var(--c-gold-light)/<alpha-value>)', pale:'rgb(var(--c-gold-pale)/<alpha-value>)' },
-          paper:   'rgb(var(--c-paper)/<alpha-value>)',
-          surface: { DEFAULT:'rgb(var(--c-surface)/<alpha-value>)', alt:'rgb(var(--c-surface-alt)/<alpha-value>)' },
-          line:    { DEFAULT:'rgb(var(--c-line)/<alpha-value>)', soft:'rgb(var(--c-line-soft)/<alpha-value>)' },
-          deep:    { DEFAULT:'rgb(var(--c-deep)/<alpha-value>)', fg:'rgb(var(--c-deep-fg)/<alpha-value>)' },
-          danger:  'rgb(var(--c-danger)/<alpha-value>)',
-        },
-        fontFamily: {
-          display: ['Fraunces','Georgia','serif'],
-          sans:    ['Jost','ui-sans-serif','system-ui','sans-serif'],
-        },
-      }
-    }
-  }
-</script>
+<!-- Tailwind is pre-compiled to a static stylesheet (tailwind.css) rather than loaded
+     from the CDN and JIT-compiled on every visit — faster, and no runtime dependency
+     on a third-party script. Regenerated with the Tailwind v3 CLI against this file's
+     own classes (including the ones built as string literals in the JS below) whenever
+     a new utility class is introduced; theme customization is in tailwind.config.js. -->
+<link rel="stylesheet" href="tailwind.css">
 
 <style>
   /* ══════════════════════════════════════════════════════════════
@@ -295,9 +278,6 @@
   .btn-out { border: 1px solid rgb(var(--c-sage)); color: rgb(var(--c-sage-700)); background: transparent; }
   .btn-out:hover { background: rgb(var(--c-surface-alt)); }
   html.reduce .btn { translate: none !important; }
-  .bar { height: 4px; border-radius: 999px; background: rgb(var(--c-line)); overflow: hidden; }
-  .bar > i { display: block; height: 100%; background: rgb(var(--c-sage-700));
-             transition: width .45s var(--ease); }
 
   /* ══════════ ACCORDION ══════════ */
   .acc-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s var(--ease); }
@@ -417,8 +397,9 @@
         <li><a href="#story"    class="nav-a eyebrow eyebrow-tight">Story</a></li>
         <li><a href="#schedule" class="nav-a eyebrow eyebrow-tight">Schedule</a></li>
         <li><a href="#travel"   class="nav-a eyebrow eyebrow-tight">Travel</a></li>
-        <li><a href="#gallery"  class="nav-a eyebrow eyebrow-tight">Gallery</a></li>
-        <li><a href="#faq"      class="nav-a eyebrow eyebrow-tight">FAQ</a></li>
+        <li><a href="#gallery"   class="nav-a eyebrow eyebrow-tight">Gallery</a></li>
+        <li><a href="#guestbook" class="nav-a eyebrow eyebrow-tight">Guestbook</a></li>
+        <li><a href="#faq"       class="nav-a eyebrow eyebrow-tight">FAQ</a></li>
       </ul>
 
       <button id="burger" class="md:hidden w-12 h-12 -mr-2 flex flex-col items-center justify-center gap-[6px]"
@@ -508,6 +489,7 @@
       <p class="sr-only" id="cdLive" role="status" aria-live="polite"></p>
       <div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
         <a id="gcalBtn" class="btn btn-solid" target="_blank" rel="noopener" data-magnetic>Add to Google Calendar</a>
+        <a id="icsBtn" class="btn btn-out" download="shivam-ayushi-wedding.ics" data-magnetic>Download for Apple or Outlook</a>
       </div>
     </div>
   </div>
@@ -555,7 +537,7 @@
 <section id="schedule" class="py-24 sm:py-36">
   <div class="wrap">
     <header class="max-w-xl reveal">
-      <p class="eyebrow text-gold">Two days</p>
+      <p class="eyebrow text-gold">Four days, two cities</p>
       <h2 class="font-display font-light mt-4" style="font-size:clamp(2.1rem,6vw,3.6rem)">The schedule</h2>
       <p class="mt-5 text-ink-soft leading-relaxed">
         Come to everything, or come to what you can. Timings are Indian Standard Time and, we promise, closer to accurate than usual.
@@ -568,8 +550,8 @@
       <p class="eyebrow text-gold">What to wear</p>
       <h3 class="font-display font-light mt-3" style="font-size:clamp(1.6rem,4vw,2.2rem)">A dress code guide</h3>
       <p class="mt-4 text-ink-soft leading-relaxed">
-        No rules you have to follow, only colours we'd love to see. December evenings in Ujjain drop to
-        about 8–10°C, so bring a shawl or jacket for the lawn.
+        No rules you have to follow, only colours we'd love to see. December evenings drop to
+        about 10–12°C, so bring a shawl or jacket for the lawn.
       </p>
       <dl id="dressList" class="mt-8 border-t" style="border-color:rgb(var(--c-line-soft))"></dl>
       <p class="mt-6 text-sm text-ink-faint">One ask: please avoid red and full white for the ceremony.</p>
@@ -703,7 +685,9 @@
       <a href="#story"    class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">Our Story</a>
       <a href="#schedule" class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">Schedule</a>
       <a href="#travel"   class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">Travel</a>
-      <a href="#gallery"  class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">Gallery</a>
+      <a href="#gallery"   class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">Gallery</a>
+      <a href="#guestbook" class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">Guestbook</a>
+      <a href="#faq"       class="eyebrow py-2 hover:text-gold-light transition-colors" style="color:rgb(var(--c-deep-fg)/.7)">FAQ</a>
     </nav>
     <svg class="mx-auto mt-10" style="width:13px;height:13px;color:rgb(var(--c-blush-light))" viewBox="0 0 24 24" aria-hidden="true">
       <path fill="currentColor" d="M12 21s-7.5-4.6-10-9.1C.5 8.4 2 4.9 5.5 4A5 5 0 0112 7a5 5 0 016.5-3C22 4.9 23.5 8.4 22 11.9 19.5 16.4 12 21 12 21z"/>
@@ -740,7 +724,7 @@
       endISO:   '2026-12-03T01:00:00+05:30',
       title:    'Shivam & Ayushi — Wedding',
       location: 'Parmeshwari Garden & Resort, Ujjain, Madhya Pradesh, India',
-      details:  'Day Baraat 1:00 pm · Phere 3:00 pm · Night Baraat 7:00 pm · Reception 7:30 pm. Details at ShivamAyushi.com'
+      details:  'Day Baraat 1:00 pm · Phere 3:00 pm · Night Baraat 7:00 pm · Reception 7:30 pm. Details at shivamandayushi.in'
     },
 
     supabase: {
@@ -773,35 +757,35 @@
       { day: 'Monday, 30 November', city: 'Bhopal, Madhya Pradesh', venue: 'Police Community Hall (near 1st Smart Park)',
         mapUrl: 'https://maps.app.goo.gl/JUgNaXEkaHemDUAh7', note: '',
         events: [
-          { time: '10:00 am onwards', name: 'Ganesh & Mata Poojan', img: 'images/ganesh-mata-poojan.png', imgAlt: 'Shivam and Ayushi at the Ganesh and Mata Poojan',
+          { time: '10:00 am onwards', name: 'Ganesh & Mata Poojan', img: 'images/ganesh-mata-poojan.webp', imgAlt: 'Shivam and Ayushi at the Ganesh and Mata Poojan',
             desc: 'A traditional puja inviting blessings before the celebrations begin.', dress: 'Traditional, comfortable' }
         ] },
       { day: 'Tuesday, 1 December', city: 'Ujjain, Madhya Pradesh', venue: 'Parmeshwari Garden & Resort', note: '',
         events: [
-          { time: '12:00 pm – 4:00 pm', name: 'Haldi', img: 'images/haldi.png', imgAlt: 'Shivam and Ayushi at the Haldi ceremony',
+          { time: '12:00 pm – 4:00 pm', name: 'Haldi', img: 'images/haldi.webp', imgAlt: 'Shivam and Ayushi at the Haldi ceremony',
             desc: "Close family and friends. Wear something you don't mind losing to turmeric.", dress: 'Yellow, casual' },
-          { time: '5:00 pm – 7:00 pm', name: 'Mehendi', img: 'images/mehendi.png', imgAlt: 'Shivam and Ayushi at the Mehendi ceremony',
+          { time: '5:00 pm – 7:00 pm', name: 'Mehendi', img: 'images/mehendi.webp', imgAlt: 'Shivam and Ayushi at the Mehendi ceremony',
             desc: 'Henna and music — settle in, this one takes a while.', dress: 'Bright, breathable' },
-          { time: '9:00 pm – 10:00 pm', name: 'Engagement', img: 'images/engagement.png', imgAlt: 'Shivam and Ayushi exchanging rings at the engagement',
+          { time: '9:00 pm – 10:00 pm', name: 'Engagement', img: 'images/engagement.webp', imgAlt: 'Shivam and Ayushi exchanging rings at the engagement',
             desc: 'Rings exchanged, right before the dance floor opens.', dress: 'Indo-western, cocktail' },
-          { time: '10:00 pm – 12:00 am', name: 'Sangeet', img: 'images/sangeet.png', imgAlt: 'Shivam and Ayushi dancing at the sangeet',
+          { time: '10:00 pm – 12:00 am', name: 'Sangeet', img: 'images/sangeet.webp', imgAlt: 'Shivam and Ayushi dancing at the sangeet',
             desc: 'Family performances first, open floor after.', dress: 'Indo-western, cocktail' }
         ] },
       { day: 'Wednesday, 2 December', city: 'Ujjain, Madhya Pradesh', venue: 'Parmeshwari Garden & Resort', note: 'The wedding day',
         events: [
-          { time: '1:00 pm – 2:00 pm', name: 'Day Baraat', img: 'images/day-baraat.png', imgAlt: "Shivam's day baraat procession",
+          { time: '1:00 pm – 2:00 pm', name: 'Day Baraat', img: 'images/day-baraat.webp', imgAlt: "Shivam's day baraat procession",
             desc: "The groom's procession arrives at the venue.", dress: 'Traditional formal' },
-          { time: '3:00 pm – 5:00 pm', name: 'Phere', feature: true, img: 'images/phere.png', imgAlt: 'Shivam and Ayushi at the phere fire ceremony',
+          { time: '3:00 pm – 5:00 pm', name: 'Phere', feature: true, img: 'images/phere.webp', imgAlt: 'Shivam and Ayushi at the phere fire ceremony',
             desc: 'The wedding ceremony — please be seated by 3:00 pm.', dress: 'Traditional formal' },
-          { time: '7:00 pm – 7:30 pm', name: 'Night Baraat', img: 'images/night-baraat.png', imgAlt: "Shivam's night baraat procession",
+          { time: '7:00 pm – 7:30 pm', name: 'Night Baraat', img: 'images/night-baraat.webp', imgAlt: "Shivam's night baraat procession",
             desc: "A second procession, into the evening's celebrations.", dress: 'Traditional formal' },
-          { time: '7:30 pm – 1:00 am', name: 'Reception', img: 'images/reception.png', imgAlt: 'Shivam and Ayushi at the reception',
+          { time: '7:30 pm – 1:00 am', name: 'Reception', img: 'images/reception.webp', imgAlt: 'Shivam and Ayushi at the reception',
             desc: 'Dinner, bar, and a dance floor that opens late.', dress: 'Black tie optional' }
         ] },
       { day: 'Thursday, 3 December', city: 'Bhopal, Madhya Pradesh', venue: 'Police Community Hall (near 1st Smart Park)',
         mapUrl: 'https://maps.app.goo.gl/JUgNaXEkaHemDUAh7', note: '',
         events: [
-          { time: '12:00 pm onwards', name: 'Grah Pravesh, Pooja & Reception', img: 'images/grah-pravesh.png', imgAlt: "Shivam and Ayushi at the bride's grah pravesh",
+          { time: '12:00 pm onwards', name: 'Grah Pravesh, Pooja & Reception', img: 'images/grah-pravesh.webp', imgAlt: "Shivam and Ayushi at the bride's grah pravesh",
             desc: "The bride's welcome home, a blessing, and a small reception to close the celebrations.", dress: 'Traditional formal' }
         ] }
     ],
@@ -820,35 +804,35 @@
       { name: 'Vedh Shala (Jantar Mantar)',       note: 'A centuries-old observatory, quiet and easy to combine with the temples nearby.' },
       { name: 'Sandipani Ashram',                 note: "A peaceful stop linked to Krishna's education, on the edge of the old city." }
     ],
-    travelPhoto: 'images/ujjain-guide.png',
+    travelPhoto: 'images/ujjain-guide.webp',
 
     // Add entries to switch the "Where to stay" block on. Each code gets a copy button.
     // { name:'Hotel name', note:'2 km from the venue', code:'SHIVAM26', url:'https://…' }
     hotels: [],
 
     photos: [
-      { src: 'images/bride/bride-01.jpg', cap: 'Ayushi' },
-      { src: 'images/groom/groom-02.jpg', cap: 'Shivam' },
-      { src: 'images/bride/bride-02.jpg', cap: 'Ayushi' },
-      { src: 'images/groom/groom-03.jpg', cap: 'Shivam' },
-      { src: 'images/bride/bride-03.jpg', cap: 'Ayushi' },
-      { src: 'images/groom/groom-04.jpg', cap: 'Shivam' },
-      { src: 'images/bride/bride-04.jpg', cap: 'Ayushi' },
-      { src: 'images/groom/groom-05.jpg', cap: 'Shivam' },
-      { src: 'images/bride/bride-05.jpg', cap: 'Ayushi' },
-      { src: 'images/groom/groom-06.jpg', cap: 'Shivam' }
+      { src: 'images/bride/bride-01.webp', cap: 'Ayushi' },
+      { src: 'images/groom/groom-02.webp', cap: 'Shivam' },
+      { src: 'images/bride/bride-02.webp', cap: 'Ayushi' },
+      { src: 'images/groom/groom-03.webp', cap: 'Shivam' },
+      { src: 'images/bride/bride-03.webp', cap: 'Ayushi' },
+      { src: 'images/groom/groom-04.webp', cap: 'Shivam' },
+      { src: 'images/bride/bride-04.webp', cap: 'Ayushi' },
+      { src: 'images/groom/groom-05.webp', cap: 'Shivam' },
+      { src: 'images/bride/bride-05.webp', cap: 'Ayushi' },
+      { src: 'images/groom/groom-06.webp', cap: 'Shivam' }
     ],
 
     faqs: [
-      ['Can I bring a plus-one?', 'If your invitation names two guests, absolutely — just let us know their name by email. If you are unsure, ask us; we would rather sort it now than at the seating chart stage.'],
-      ['Are children invited?', "Yes, and there is a supervised kids' corner at the sangeet and reception with food, games and a quiet room for naps. Let us know their ages by email."],
+      ['Can I bring a plus-one?', 'If you are unsure whether your invitation covers a plus-one, just email us — we would rather sort it now than at the seating chart stage.'],
+      ['Are children invited?', "Yes, children are very welcome. Let us know their ages by email so we can plan accordingly."],
       ['What time should I actually arrive for the ceremony?', 'The day baraat arrives from 1:00 pm, with the phere ceremony from 3:00 pm to 5:00 pm — please plan to be seated by 3:00 pm. The night baraat and reception follow from 7:00 pm.'],
-      ['Is there parking at the venue?', 'Free on-site parking is available for wedding guests at Parmeshwari Garden & Resort. Cabs drop at the main gate — leave a buffer of twenty minutes for local traffic near the temples.'],
-      ['Will there be a bar?', 'A full bar runs at the sangeet and reception. The mehendi, haldi and ceremony are dry, with fresh juice, chai and coffee throughout.'],
-      ['What is the weather like in December?', 'Pleasant days around 28°C and cool evenings near 12°C. Both evening events are partly outdoors, so bring a shawl, stole or jacket.'],
-      ['Do you have a gift registry?', 'Your presence is genuinely the gift. If you would like to do something anyway, we are collecting for a local charity — there is a donation link in your invitation.'],
-      ['Is the venue accessible?', 'Yes. The venue is step-free with accessible washrooms. Email us if you need seating near the aisle or a wheelchair on site.'],
-      ['Can I post photos online?', 'Please do, after the ceremony — tag #ShivamAndAyushi2026. During the pheras we are asking for phones away so our photographer gets a clean shot and you get to actually watch.']
+      ['Is there parking at the venue?', 'Free on-site parking is available for wedding guests at Parmeshwari Garden & Resort in Ujjain. Cabs drop at the main gate — leave a buffer of twenty minutes for local traffic near the temples. We will share parking details for the Bhopal days closer to the date.'],
+      ['Will there be a bar?', "We'll share details on drinks and dietary options closer to the date — email us if you have specific questions in the meantime."],
+      ['What is the weather like in December?', 'Pleasant days around 28°C and cool evenings around 10–12°C. Both evening events are partly outdoors, so bring a shawl, stole or jacket.'],
+      ['Do you have a gift registry?', 'Your presence is genuinely the gift — no registry needed.'],
+      ['Is the venue accessible?', 'Email us if you need step-free access, seating near the aisle, or anything else — we will check with the venue and make sure it is sorted.'],
+      ['Can I post photos online?', 'Please do — tag #ShivamAndAyushi2026 so we can find everything after the celebrations.']
     ],
 
     railSections: [
@@ -888,9 +872,13 @@
     });
   }
 
-  /* Photos fade in only once decoded; the frame drops its skeleton at the same moment. */
-  function mountImg(img, src, alt) {
+  /* Photos fade in only once decoded; the frame drops its skeleton at the same moment.
+     Eager-loads only for the hero (the largest-contentful-paint image) — everything
+     else waits until it's near the viewport. */
+  function mountImg(img, src, alt, eager) {
     img.alt = alt || '';
+    img.loading = eager ? 'eager' : 'lazy';
+    img.decoding = 'async';
     const frame = img.closest('.frame');
     const done = () => { img.classList.add('loaded'); if (frame) frame.classList.add('is-loaded'); };
     const fail = () => { img.style.display = 'none'; if (frame) frame.classList.add('is-loaded'); };
@@ -932,7 +920,12 @@
     }
     btn.addEventListener('click', enter);
     box.addEventListener('click', enter);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape' || e.key === 'Enter') enter(); }, { once: true });
+    const onKey = e => {
+      if (e.key !== 'Escape' && e.key !== 'Enter') return;
+      document.removeEventListener('keydown', onKey);
+      enter();
+    };
+    document.addEventListener('keydown', onKey);
     setTimeout(enter, 10000); // never trap anyone
   })();
 
@@ -942,7 +935,7 @@
   addEventListener('load', () => setTimeout(startHero, 200));
 
   /* ═══════════════════ HERO PHOTO ═══════════════════ */
-  mountImg($('#heroImg'), CONFIG.heroPhoto, 'Shivam and Ayushi');
+  mountImg($('#heroImg'), CONFIG.heroPhoto, 'Shivam and Ayushi', true);
 
   /* ═══════════════════ IN-PAGE LINKS ═══════════════════
      Manual scroll + pushState: some sandboxed/preview hosts block native
@@ -1014,7 +1007,7 @@
     + '&dates=' + stamp(W.startISO) + '/' + stamp(W.endISO)
     + '&details=' + encodeURIComponent(W.details)
     + '&location=' + encodeURIComponent(W.location);
-  ['#gcalBtn', '#gcalBtn2'].forEach(sel => { const a = $(sel); if (a) a.href = gcal; });
+  $('#gcalBtn').href = gcal;
 
   const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//shivamandayushi//EN','BEGIN:VEVENT',
     'UID:' + Date.now() + '@shivamandayushi', 'DTSTAMP:' + stamp(new Date().toISOString()),
@@ -1102,19 +1095,19 @@
       copy.appendChild(h3);
       copy.appendChild(el('p', 'mt-4 text-ink-soft leading-relaxed', s.body));
 
-      const more = el('div', 'collapse');
-      const moreInner = el('div');
-      moreInner.appendChild(el('p', 'mt-3 text-ink-soft leading-relaxed', s.more));
-      more.appendChild(moreInner);
+      const more = el('p', 'mt-3 text-ink-soft leading-relaxed', s.more);
+      more.hidden = true;
+      more.id = 'storyMore' + i;
       copy.appendChild(more);
 
       const btn = el('button', 'eyebrow text-sage-700 mt-4 hover:text-gold py-2', 'Read more +');
       btn.type = 'button';
       btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-controls', more.id);
       btn.addEventListener('click', () => {
-        const open = more.classList.toggle('is-open');
-        btn.textContent = open ? 'Read less −' : 'Read more +';
-        btn.setAttribute('aria-expanded', String(open));
+        more.hidden = !more.hidden;
+        btn.textContent = more.hidden ? 'Read more +' : 'Read less −';
+        btn.setAttribute('aria-expanded', String(!more.hidden));
       });
       copy.appendChild(btn);
 
@@ -1258,7 +1251,7 @@
       li.appendChild(d);
       ul.appendChild(li);
     });
-    mountImg($('img[data-src="ujjain"]'), CONFIG.travelPhoto, 'Ujjain');
+    mountImg($('img[data-src="ujjain"]'), CONFIG.travelPhoto, 'A guide to sacred sites in Ujjain');
 
     if (CONFIG.hotels.length) {
       $('#stayBlock').hidden = false;

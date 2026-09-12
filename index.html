@@ -58,7 +58,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Jost:wght@300;400;500&family=Noto+Serif+Devanagari:wght@300..700&family=Noto+Sans+Devanagari:wght@300;400;500&display=swap" rel="stylesheet">
 
 <!-- Capability flags set before first paint to avoid a flash of hidden content -->
 <script>
@@ -129,6 +129,11 @@
                               overflow: visible; clip: auto; white-space: normal; }
 
   .font-display { font-variation-settings: "SOFT" 0, "WONK" 0; letter-spacing: -0.02em; }
+  /* Fraunces/Jost have no Devanagari glyphs, so Hindi text otherwise falls back to
+     whatever serif/sans the OS happens to have, with unpredictable line metrics —
+     pin it to fonts we control instead. */
+  html[lang="hi"] body { font-family: 'Noto Sans Devanagari', Jost, ui-sans-serif, system-ui, sans-serif; }
+  html[lang="hi"] .font-display { font-family: 'Noto Serif Devanagari', Fraunces, Georgia, serif; letter-spacing: 0; }
   .eyebrow { font-family: Jost, sans-serif; font-size: clamp(.6rem,.55rem + .2vw,.7rem);
              letter-spacing: .38em; text-transform: uppercase; }
   .eyebrow-tight { letter-spacing: .26em; }
@@ -241,6 +246,11 @@
   /* ══════════ HERO LOAD CHOREOGRAPHY ══════════ */
   .mask { display: block; overflow: hidden; padding-block: .04em; }
   .mask > span { display: block; transform: translateY(110%); }
+  /* Devanagari matras/conjuncts sit taller and lower than the Latin metrics this
+     mask was tuned for, so the tight leading-[.9] on the parent heading clips them —
+     give Hindi extra headroom instead of cropping the reveal box for everyone. */
+  html[lang="hi"] .mask { padding-block: .22em; }
+  html[lang="hi"] .mask > span { line-height: 1.35; }
   html.js .hero-ready .mask > span { animation: maskUp 1.05s var(--ease) forwards; }
   html:not(.js) .mask > span { transform: none; }
   @keyframes maskUp { to { transform: none } }
@@ -570,21 +580,21 @@
 
     <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10 reveal" data-d="1">
       <div>
-        <p class="font-display italic text-ink" style="font-size:clamp(1.6rem,4.2vw,2.4rem);line-height:1.15" data-i18n="gangaPalaceName">Ganga Palace</p>
+        <p class="font-display italic text-ink" style="font-size:clamp(1.6rem,4.2vw,2.4rem);line-height:1.15;min-height:2.3em" data-i18n="gangaPalaceName">Ganga Palace</p>
         <p class="mt-2 text-sm text-ink-soft" data-i18n="ujjainCity">Ujjain, Madhya Pradesh</p>
         <p class="eyebrow text-sage-700 mt-3" data-i18n="gangaPalaceDate">30 Nov</p>
         <a class="btn btn-out !py-2.5 !px-4 !min-h-0 mt-4" target="_blank" rel="noopener" data-i18n="getDirections"
            href="https://maps.app.goo.gl/7XsNKhRutSgodU158">Get directions</a>
       </div>
       <div>
-        <p class="font-display italic text-ink" style="font-size:clamp(1.6rem,4.2vw,2.4rem);line-height:1.15" data-i18n="parmeshwariName">Parmeshwari Garden &amp; Resort</p>
+        <p class="font-display italic text-ink" style="font-size:clamp(1.6rem,4.2vw,2.4rem);line-height:1.15;min-height:2.3em" data-i18n="parmeshwariName">Parmeshwari Garden &amp; Resort</p>
         <p class="mt-2 text-sm text-ink-soft" data-i18n="ujjainCity">Ujjain, Madhya Pradesh</p>
         <p class="eyebrow text-sage-700 mt-3" data-i18n="ujjainDates">1 &amp; 2 Dec</p>
         <a class="btn btn-out !py-2.5 !px-4 !min-h-0 mt-4" target="_blank" rel="noopener" data-i18n="getDirections"
            href="https://maps.app.goo.gl/HF5HxmQJ4HE9XyqV6">Get directions</a>
       </div>
       <div>
-        <p class="font-display italic text-ink" style="font-size:clamp(1.6rem,4.2vw,2.4rem);line-height:1.15" data-i18n="policeHallName">Police Community Hall</p>
+        <p class="font-display italic text-ink" style="font-size:clamp(1.6rem,4.2vw,2.4rem);line-height:1.15;min-height:2.3em" data-i18n="policeHallName">Police Community Hall</p>
         <p class="mt-2 text-sm text-ink-soft" data-i18n="bhopalCity">Bhopal, Madhya Pradesh</p>
         <p class="eyebrow text-sage-700 mt-3" data-i18n="bhopalDates">3 Dec</p>
         <a class="btn btn-out !py-2.5 !px-4 !min-h-0 mt-4" target="_blank" rel="noopener" data-i18n="getDirections"

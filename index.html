@@ -779,22 +779,26 @@
     // Soft-lock intro. Plays once per page load. Set false to switch it off.
     intro: { enabled: true },
 
-    // Swap these for real photographs.
-    heroPhoto: 'https://picsum.photos/seed/shivamayushihero/2000/1200',
+    // Real hero photo goes here — a landscape shot of the two of you works best.
+    heroPhoto: '',
 
+    // Real story goes here: three moments (when/where, a short body, and an
+    // optional "more" paragraph for the "Read more" expander), each with its
+    // own photo. Leave img empty until you have the photo — the frame shows
+    // a clean placeholder rather than a broken image.
     story: [
-      { when: 'March 2018 · Pune', title: 'How we met', img: 'https://picsum.photos/seed/howwemet/900/1120',
+      { when: 'Add the date and place', title: 'How we met', img: '',
         alt: 'Shivam and Ayushi when they first met', file: 'how-we-met.jpg',
-        body: "A mutual friend's birthday dinner in Koregaon Park. Shivam spent twenty minutes explaining warehouse software to someone who had not asked. Ayushi listened anyway, then told him his slides needed work. He has been taking her notes ever since.",
-        more: "She left first. He asked the birthday girl for her number the next morning, which took four days of negotiation and one promise to never again mention inventory cycle counts on a first meeting." },
-      { when: 'April 2018 · Sinhagad Fort', title: 'The first date', img: 'https://picsum.photos/seed/firstdate/900/1120',
+        body: 'Tell us how you met — this is where that story goes.',
+        more: '' },
+      { when: 'Add the date and place', title: 'The first date', img: '',
         alt: 'Their first date', file: 'first-date.jpg',
-        body: "He suggested a sunrise trek. She said yes, then discovered he meant a 4:30 am start. They made it to the top for pithla bhakri and kanda bhaji, and stayed talking until the fog burned off.",
-        more: "Neither of them mentions that the descent took three hours because someone's shoes gave up. Eight years on, the same shoes are still in the cupboard, unworn and unforgiven." },
-      { when: 'December 2025 · London', title: 'The proposal', img: 'https://picsum.photos/seed/proposal/900/1120',
+        body: 'Where did you go, and how did it go? Drop it in here.',
+        more: '' },
+      { when: 'Add the date and place', title: 'The proposal', img: '',
         alt: 'The proposal', file: 'the-proposal.jpg',
-        body: "A work trip that turned into a long weekend. On a cold Sunday by the Thames, with the ring in a coat pocket for eleven hours, Shivam finally stopped rehearsing and just asked. Ayushi said yes before he finished the sentence.",
-        more: "The photo was taken by a stranger who insisted on twelve retakes. We owe him everything, and we never got his name." }
+        body: 'The moment itself — save it for this spot.',
+        more: '' }
     ],
 
     schedule: [
@@ -920,10 +924,13 @@
      Eager-loads only for the hero (the largest-contentful-paint image) — everything
      else waits until it's near the viewport. */
   function mountImg(img, src, alt, eager) {
+    const frame = img.closest('.frame');
+    // No image supplied yet: leave the placeholder showing, cleanly (no infinite
+    // shimmer), rather than pointing the browser at an empty/broken src.
+    if (!src) { if (frame) frame.classList.add('ph-static'); return; }
     img.alt = alt || '';
     img.loading = eager ? 'eager' : 'lazy';
     img.decoding = 'async';
-    const frame = img.closest('.frame');
     const done = () => { img.classList.add('loaded'); if (frame) frame.classList.add('is-loaded'); };
     const fail = () => { img.style.display = 'none'; if (frame) frame.classList.add('is-loaded'); };
     img.addEventListener('load', done, { once: true });
@@ -1139,21 +1146,23 @@
       copy.appendChild(h3);
       copy.appendChild(el('p', 'mt-4 text-ink-soft leading-relaxed', s.body));
 
-      const more = el('p', 'mt-3 text-ink-soft leading-relaxed', s.more);
-      more.hidden = true;
-      more.id = 'storyMore' + i;
-      copy.appendChild(more);
+      if (s.more) {
+        const more = el('p', 'mt-3 text-ink-soft leading-relaxed', s.more);
+        more.hidden = true;
+        more.id = 'storyMore' + i;
+        copy.appendChild(more);
 
-      const btn = el('button', 'eyebrow text-sage-700 mt-4 hover:text-gold py-2', 'Read more +');
-      btn.type = 'button';
-      btn.setAttribute('aria-expanded', 'false');
-      btn.setAttribute('aria-controls', more.id);
-      btn.addEventListener('click', () => {
-        more.hidden = !more.hidden;
-        btn.textContent = more.hidden ? 'Read more +' : 'Read less −';
-        btn.setAttribute('aria-expanded', String(!more.hidden));
-      });
-      copy.appendChild(btn);
+        const btn = el('button', 'eyebrow text-sage-700 mt-4 hover:text-gold py-2', 'Read more +');
+        btn.type = 'button';
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-controls', more.id);
+        btn.addEventListener('click', () => {
+          more.hidden = !more.hidden;
+          btn.textContent = more.hidden ? 'Read more +' : 'Read less −';
+          btn.setAttribute('aria-expanded', String(!more.hidden));
+        });
+        copy.appendChild(btn);
+      }
 
       grid.append(media, copy);
       li.appendChild(grid);
@@ -1202,11 +1211,7 @@
         ph.appendChild(el('span', 'text-xs text-ink-faint', slug + '.png'));
         const img = el('img');
         frame.append(ph, img);
-        if (ev.img) {
-          mountImg(img, ev.img, ev.imgAlt || ev.name);
-        } else {
-          frame.classList.add('ph-static');
-        }
+        mountImg(img, ev.img, ev.imgAlt || ev.name);
         card.appendChild(frame);
 
         const body = el('div', 'ev-body');

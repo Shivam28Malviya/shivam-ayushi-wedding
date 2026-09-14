@@ -497,10 +497,9 @@
 <!-- ══════════ HERO ══════════ -->
 <section id="top" class="relative">
   <div class="relative w-full frame" style="height:clamp(30rem,88svh,60rem)">
-    <div class="ph">
-      <span class="eyebrow text-sage-700">Your photo here</span>
-      <span class="text-xs text-ink-faint">hero.jpg · landscape, 2400×1400</span>
-    </div>
+    <!-- No .ph placeholder here: unlike every other frame, the hero has the
+         names and date layered over it, so the "add a photo" label would show
+         through the type. The tinted frame alone reads as intentional. -->
     <div class="absolute inset-0 parallax">
       <img class="hero-img w-full h-full object-cover" alt="Shivam and Ayushi" id="heroImg">
     </div>
@@ -1022,6 +1021,7 @@
     addToCalendar: { en: 'Add to Google Calendar', hi: 'गूगल कैलेंडर में जोड़ें' },
     downloadIcs: { en: 'Download for Apple or Outlook', hi: 'Apple या Outlook के लिए डाउनलोड करें' },
     todayIsTheDay: { en: 'Today is the day.', hi: 'आज वह दिन है।' },
+    daysUntilWedding: { en: '{n} days until the wedding.', hi: 'शादी में {n} दिन बाकी हैं।' },
 
     storyEyebrow: { en: 'Chapter one', hi: 'पहला अध्याय' },
     storyHeading: { en: 'Our story', hi: 'हमारी कहानी' },
@@ -1287,6 +1287,7 @@
   const pad = n => String(n).padStart(2, '0');
   const cd = { d: $('#cdD'), h: $('#cdH'), m: $('#cdM'), s: $('#cdS') };
   let firstPaint = true;
+  let announcedDays = null;
 
   function renderNum(node, str) {
     if (node.dataset.v === str) return;
@@ -1323,11 +1324,18 @@
     renderNum(cd.h, pad(Math.floor(s / 3600) % 24));
     renderNum(cd.m, pad(Math.floor(s / 60) % 60));
     renderNum(cd.s, pad(s % 60));
-    if (firstPaint) { $('#cdLive').textContent = days + ' days until the wedding.'; firstPaint = false; }
+    if (firstPaint) { announcedDays = days; announceDays(); firstPaint = false; }
   }
   tick();
   const timer = setInterval(tick, 1000);
-  onLangChange(() => { if (target - Date.now() <= 0) tick(); });
+  function announceDays() {
+    if (announcedDays === null) return;
+    $('#cdLive').textContent = UI('daysUntilWedding').replace('{n}', announcedDays);
+  }
+  onLangChange(() => {
+    if (target - Date.now() <= 0) { tick(); return; }
+    announceDays();
+  });
 
   /* ═══════════════════ CALENDAR ═══════════════════ */
   const W = CONFIG.wedding;

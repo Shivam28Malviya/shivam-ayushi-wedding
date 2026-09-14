@@ -1,0 +1,43 @@
+# Supabase pauses free-tier projects after ~7 days without activity, which takes
+# the guestbook down silently (it can neither load nor accept messages). A daily
+# read keeps the project counted as active. It also doubles as a monitor: if the
+# endpoint stops returning 200, this job fails and GitHub emails you.
+name: Keep Supabase awake
+
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ping the guestbook endpoint
+        run: |
+          set -euo pipefail
+          # Single source of truth: read the project URL and public anon key
+          # straight out of index.html so they never drift apart.
+          URL=$(sed -n "s/.*url: '\(https:\/\/[^']*\)'.*/\1/p" index.html | head -1)
+          KEY=$(sed -n "s/.*key: '\(ey[^']*\)'.*/\1/p" index.html | head -1)
+
+          if [ -z "$URL" ] || [ -z "$KEY" ]; then
+            echo "Could not parse Supabase url/key out of index.html"
+            exit 1
+          fi
+          echo "Pinging $URL"
+
+          code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 \
+            -H "apikey: $KEY" -H "Authorization: Bearer $KEY" \
+            "$URL/rest/v1/guestbook_messages?select=created_at&limit=1")
+
+          echo "HTTP $code"
+          if [ "$code" != "200" ]; then
+            echo "Guestbook endpoint is not healthy (expected 200)."
+            exit 1
+          fi

@@ -869,21 +869,20 @@
     // a clean placeholder rather than a broken image. Text fields are
     // {en, hi} pairs — see tr() below.
     story: [
-      { when: { en: 'Add the date and place', hi: 'तारीख़ और जगह जोड़ें' },
+      { when: { en: 'Years of family functions', hi: 'सालों के पारिवारिक समारोह' },
         title: { en: 'How we met', hi: 'हम कैसे मिले' }, img: '',
-        alt: 'Shivam and Ayushi when they first met', file: 'how-we-met.jpg',
-        body: { en: 'Tell us how you met — this is where that story goes.', hi: 'हमें बताएं आप कैसे मिले — आपकी कहानी यहां आएगी।' },
-        more: { en: '', hi: '' } },
-      { when: { en: 'Add the date and place', hi: 'तारीख़ और जगह जोड़ें' },
+        alt: 'Shivam and Ayushi', file: 'how-we-met.jpg',
+        body: { en: "For years we were in the same rooms and never said a word to each other. The same weddings, the same family functions — and somehow, not once a hello.",
+                hi: 'सालों तक हम एक ही कमरों में रहे और कभी एक शब्द तक नहीं कहा। वही शादियां, वही पारिवारिक समारोह — और फिर भी कभी एक नमस्ते तक नहीं।' },
+        more: { en: "Then our families sat us down and did it properly. By then the introductions were almost a formality — Shivam's younger sister and Ayushi had been school friends for years, he already knew her parents and her elder sister, she already knew his parents and his sister. Everyone had known everyone, all along. We were the last two to be introduced, and it turned out we were the two worth introducing. A few conversations in, we both quietly knew. Not a maybe — a yes we could build a whole life on.",
+                hi: 'फिर हमारे परिवारों ने हमें ठीक से मिलवाया। तब तक यह परिचय एक औपचारिकता भर था — शिवम की छोटी बहन और आयुषी सालों से स्कूल में साथ थीं, वह उनके माता-पिता और बड़ी बहन को पहले से जानता था, वह उसके माता-पिता और छोटी बहन को। सब एक-दूसरे को हमेशा से जानते थे। सबसे आख़िर में परिचय हम दोनों का हुआ — और शायद यही सबसे ज़रूरी परिचय था। कुछ ही मुलाक़ातों में हम दोनों चुपचाप जान गए। कोई "शायद" नहीं — एक ऐसा "हां", जिस पर पूरी ज़िंदगी बनाई जा सके।' } },
+      { when: { en: '18 July 2026', hi: '18 जुलाई 2026' },
         title: { en: 'The first date', hi: 'पहली मुलाक़ात' }, img: '',
-        alt: 'Their first date', file: 'first-date.jpg',
-        body: { en: 'Where did you go, and how did it go? Drop it in here.', hi: 'आप कहां गए थे, और कैसा रहा? यहां लिखें।' },
-        more: { en: '', hi: '' } },
-      { when: { en: 'Add the date and place', hi: 'तारीख़ और जगह जोड़ें' },
-        title: { en: 'The proposal', hi: 'प्रपोज़ल' }, img: '',
-        alt: 'The proposal', file: 'the-proposal.jpg',
-        body: { en: 'The moment itself — save it for this spot.', hi: 'वह ख़ास पल — इसे यहां जोड़ें।' },
-        more: { en: '', hi: '' } }
+        alt: 'Shivam and Ayushi on their first date', file: 'first-date.jpg',
+        body: { en: 'The day it stopped being something arranged for us and started being something of our own.',
+                hi: 'वह दिन जब यह सब हमारे लिए तय किया गया कुछ नहीं, हमारा अपना कुछ बन गया।' },
+        more: { en: "Everything since has been the best kind of ordinary — a little closer every week, a little more certain every month. The bond didn't arrive all at once; it grew, quietly and stubbornly, the way the good ones do. It is still growing, and we intend to keep it that way.",
+                hi: 'उसके बाद का हर दिन सबसे ख़ूबसूरत तरह से आम रहा है — हर हफ़्ते थोड़ा और क़रीब, हर महीने थोड़ा और यक़ीन। यह बंधन एक साथ नहीं आया; यह धीरे-धीरे, ज़िद के साथ बढ़ा, जैसे अच्छे रिश्ते बढ़ते हैं। यह आज भी बढ़ रहा है, और हम इसे ऐसे ही बढ़ते रहने देना चाहते हैं।' } }
     ],
 
     schedule: [
@@ -1083,7 +1082,7 @@
 
     storyEyebrow: { en: 'Chapter one', hi: 'पहला अध्याय' },
     storyHeading: { en: 'Our story', hi: 'हमारी कहानी' },
-    storyIntro: { en: "Eight years, three cities and one very persistent group chat. Here's the short version.", hi: 'आठ साल, तीन शहर और एक बेहद ज़िद्दी ग्रुप चैट। यह रही छोटी कहानी।' },
+    storyIntro: { en: 'Two families who already knew each other, one proper introduction, and a yes that took surprisingly few conversations. Here\'s the short version.', hi: 'दो परिवार जो पहले से एक-दूसरे को जानते थे, एक औपचारिक परिचय, और एक "हां" जिसमें हैरान कर देने वाली कम बातचीत लगी। यह रही छोटी कहानी।' },
     readMore: { en: 'Read more +', hi: 'और पढ़ें +' },
     readLess: { en: 'Read less −', hi: 'कम पढ़ें −' },
 
@@ -1483,12 +1482,18 @@
 
       const grid = el('div', 'md:grid md:grid-cols-2 md:gap-14 md:items-center');
 
-      const media = el('div', 'frame ' + (flip ? '' : 'md:order-2'));
-      media.style.aspectRatio = '4/5';
-      const ph = el('div', 'ph'); ph.appendChild(el('span', 'eyebrow text-sage-700', s.file));
-      const img = el('img', 'parallax');
-      media.append(ph, img);
-      mountImg(img, s.img, s.alt);
+      // Until a real photo exists the frame is an empty box captioned with a
+      // filename — fine while building, wrong on a page guests are reading. The
+      // entry keeps its side of the timeline and the frame returns with the photo.
+      let media = null;
+      if (s.img) {
+        media = el('div', 'frame ' + (flip ? '' : 'md:order-2'));
+        media.style.aspectRatio = '4/5';
+        const ph = el('div', 'ph'); ph.appendChild(el('span', 'eyebrow text-sage-700', s.file));
+        const img = el('img', 'parallax');
+        media.append(ph, img);
+        mountImg(img, s.img, s.alt);
+      }
 
       const copy = el('div', 'mt-6 md:mt-0 ' + (flip ? '' : 'md:order-1 md:text-right'));
       copy.appendChild(el('p', 'eyebrow text-gold', tr(s.when)));
@@ -1516,7 +1521,8 @@
         copy.appendChild(btn);
       }
 
-      grid.append(media, copy);
+      if (media) grid.append(media, copy);
+      else { if (flip) copy.style.gridColumnStart = '2'; grid.append(copy); }
       li.appendChild(grid);
       list.appendChild(li);
     });

@@ -242,6 +242,46 @@
   .ph { position: absolute; inset: 0; display: grid; place-content: center; gap: .4rem; text-align: center; padding: 1rem; }
   .frame.is-loaded .ph { opacity: 0; }
 
+  /* ══════════ MASTHEAD ══════════ */
+  .masthead { text-align: center; padding-block: clamp(2.25rem,6vw,4.5rem) clamp(1.75rem,4.5vw,3rem); }
+  .mh-our { display: flex; align-items: center; justify-content: center; gap: .9em;
+            font-family: Jost, sans-serif; text-transform: uppercase; letter-spacing: .42em;
+            font-size: clamp(.62rem,1.6vw,.78rem); color: rgb(var(--c-ink-soft)); }
+  .mh-our::before, .mh-our::after { content: ''; height: 1px; width: clamp(1.4rem,4vw,2.6rem);
+                                    background: rgb(var(--c-ink-soft)/.55); }
+  .mh-title { display: flex; align-items: center; justify-content: center;
+              gap: clamp(.35rem,2.5vw,2.25rem); margin-top: clamp(.35rem,1.2vw,.8rem); }
+  .mh-wedding { font-weight: 300; line-height: .95; letter-spacing: .06em; text-transform: uppercase;
+                font-size: clamp(2.4rem,9.5vw,7rem); color: rgb(var(--c-ink)); margin: 0; }
+  .mh-sprig { flex: none; width: clamp(2.8rem,10vw,8.5rem); height: auto;
+              color: rgb(var(--c-gold)); }
+  .mh-sprig-r { transform: scaleX(-1); }
+  .mh-names { font-weight: 300; text-transform: uppercase; letter-spacing: .2em;
+              font-size: clamp(1rem,3.2vw,1.9rem); color: rgb(var(--c-ink-soft));
+              margin-top: clamp(1.1rem,2.8vw,1.9rem); }
+  .mh-amp { color: rgb(var(--c-gold)); }
+  .mh-sub, .mh-meta, .mh-days { font-family: Jost, sans-serif; text-transform: uppercase;
+            letter-spacing: .26em; font-size: clamp(.6rem,1.5vw,.72rem); color: rgb(var(--c-ink-faint)); }
+  .mh-sub { margin-top: 1.1rem; }
+  .mh-meta { margin-top: .8rem; }
+  .mh-days { margin-top: .5rem; color: rgb(var(--c-gold)); }
+  /* Devanagari is not letterspaced the way Latin small-caps are — wide tracking
+     pulls matras away from their consonants and reads as broken type. */
+  html[lang="hi"] .mh-our, html[lang="hi"] .mh-sub,
+  html[lang="hi"] .mh-meta, html[lang="hi"] .mh-days { letter-spacing: .1em; }
+  html[lang="hi"] .mh-names { letter-spacing: .06em; }
+  html[lang="hi"] .mh-wedding { letter-spacing: .02em; }
+  html[lang="hi"] .eyebrow { letter-spacing: .14em; }
+  .hero-frame { height: clamp(20rem,58svh,40rem); }
+  .hero-fade { position: absolute; inset: auto 0 0 0; height: 38%; pointer-events: none;
+               background: linear-gradient(180deg, rgb(var(--c-paper)/0) 0%, rgb(var(--c-paper)/.92) 100%); }
+  .mh-married { text-align: center; margin-top: clamp(1.4rem,3.5vw,2.2rem);
+                font-size: clamp(1.2rem,3.6vw,1.9rem); color: rgb(var(--c-ink)); }
+  /* The countdown card rides up over the bottom of the hero photo — but with no
+     photo set there is nothing to overlap, so it would cover the masthead. */
+  .cd-card { margin-top: clamp(-5rem,-9vw,-3.5rem); }
+  #heroFrame[hidden] ~ .wrap .cd-card { margin-top: clamp(1.75rem,4.5vw,3rem); }
+
   .hero-img { filter: saturate(.78) contrast(1.02); }
   .hero-img.loaded { animation: kenburns 14s var(--ease) forwards; }
   @keyframes kenburns { from { scale: 1.08 } to { scale: 1 } }
@@ -499,41 +539,52 @@
 <main id="main">
 
 <!-- ══════════ HERO ══════════ -->
-<section id="top" class="relative">
-  <div class="relative w-full frame" style="height:clamp(30rem,88svh,60rem)">
-    <!-- No .ph placeholder here: unlike every other frame, the hero has the
-         names and date layered over it, so the "add a photo" label would show
-         through the type. The tinted frame alone reads as intentional. -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+  <symbol id="sprig" viewBox="0 0 150 96">
+    <path d="M6 90C44 84 92 62 144 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    <g fill="currentColor">
+      <path d="M0 0C8-9 22-10 29-3 22 5 8 7 0 0Z" transform="translate(30 79) rotate(-72) scale(0.95)"/>
+      <path d="M0 0C8-9 22-10 29-3 22 5 8 7 0 0Z" transform="translate(40 74) rotate(-8) scale(0.9)"/>
+      <path d="M0 0C8-9 22-10 29-3 22 5 8 7 0 0Z" transform="translate(56 67) rotate(-72) scale(1)"/>
+      <path d="M0 0C8-9 22-10 29-3 22 5 8 7 0 0Z" transform="translate(66 61) rotate(-8) scale(0.92)"/>
+      <path d="M0 0C8-9 22-10 29-3 22 5 8 7 0 0Z" transform="translate(82 53) rotate(-72) scale(0.92)"/>
+      <path d="M0 0C8-9 22-10 29-3 22 5 8 7 0 0Z" transform="translate(92 46) rotate(-8) scale(0.85)"/>
+      <path d="M0 0C8-9 22-10 29-3 22 5 8 7 0 0Z" transform="translate(106 38) rotate(-72) scale(0.8)"/>
+      <path d="M0 0C8-9 22-10 29-3 22 5 8 7 0 0Z" transform="translate(116 31) rotate(-8) scale(0.72)"/>
+      <path d="M0 0C8-9 22-10 29-3 22 5 8 7 0 0Z" transform="translate(128 22) rotate(-72) scale(0.62)"/>
+      <path d="M0 0C8-9 22-10 29-3 22 5 8 7 0 0Z" transform="translate(138 15) rotate(-40) scale(0.55)"/>
+    </g>
+  </symbol>
+</svg>
+
+<section id="top">
+  <div class="masthead wrap">
+    <p class="mh-our fade-up" style="animation-delay:.05s" data-i18n="mhOur">Our</p>
+    <div class="mh-title">
+      <svg class="mh-sprig fade-up" style="animation-delay:.3s" viewBox="0 0 150 96" aria-hidden="true"><use href="#sprig"/></svg>
+      <h1 class="mh-wedding font-display fade-up" style="animation-delay:.15s" data-i18n="mhWedding">Wedding</h1>
+      <svg class="mh-sprig mh-sprig-r fade-up" style="animation-delay:.3s" viewBox="0 0 150 96" aria-hidden="true"><use href="#sprig"/></svg>
+    </div>
+    <p class="mh-names font-display fade-up" style="animation-delay:.4s">
+      <span data-i18n="heroNameShivam">Shivam</span><span class="mh-amp"> &amp; </span><span data-i18n="heroNameAyushi">Ayushi</span>
+    </p>
+    <p class="mh-sub fade-up" style="animation-delay:.5s" data-i18n="heroTogether">Together with our families</p>
+    <p class="mh-meta fade-up" style="animation-delay:.58s" data-i18n="heroDateLine">02 · 12 · 2026 — Ujjain</p>
+    <p class="mh-days fade-up" style="animation-delay:.66s" id="mhDays"></p>
+    <p class="mh-married font-display italic font-light fade-up" style="animation-delay:.74s" data-i18n="heroMarried">We're getting married!!!</p>
+  </div>
+
+  <div class="relative w-full frame hero-frame" id="heroFrame">
     <div class="absolute inset-0 parallax">
       <img class="hero-img w-full h-full object-cover" alt="Shivam and Ayushi" id="heroImg">
     </div>
-    <div class="absolute inset-0" aria-hidden="true"
-         style="background:linear-gradient(180deg, rgb(var(--c-ink)/.42) 0%, rgb(var(--c-ink)/.14) 38%, rgb(var(--c-blush-pale)/.28) 64%, rgb(var(--c-paper)/.98) 100%)"></div>
-
-    <div id="heroCopy" class="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-      <p class="eyebrow text-white/90 fade-up" style="animation-delay:.15s;text-shadow:0 1px 12px rgb(0 0 0/.4)" data-i18n="heroTogether">Together with our families</p>
-
-      <h1 class="font-display text-white mt-6 leading-[.9]" style="text-shadow:0 2px 30px rgb(0 0 0/.36)">
-        <span class="mask"><span class="block" style="animation-delay:.28s;font-size:clamp(3rem,13vw,8rem)" data-i18n="heroNameShivam">Shivam</span></span>
-        <span class="mask"><span class="block italic text-gold-pale my-1 sm:my-2" style="animation-delay:.38s;font-size:clamp(1.5rem,4.5vw,2.6rem)">&amp;</span></span>
-        <span class="mask"><span class="block" style="animation-delay:.46s;font-size:clamp(3rem,13vw,8rem)" data-i18n="heroNameAyushi">Ayushi</span></span>
-      </h1>
-
-      <svg class="mt-7 fade-up" style="animation-delay:.64s;width:16px;height:16px;color:rgb(var(--c-blush-light))" viewBox="0 0 24 24" aria-hidden="true">
-        <path fill="currentColor" d="M12 21s-7.5-4.6-10-9.1C.5 8.4 2 4.9 5.5 4A5 5 0 0112 7a5 5 0 016.5-3C22 4.9 23.5 8.4 22 11.9 19.5 16.4 12 21 12 21z"/>
-      </svg>
-      <p class="mt-5 text-white/95 uppercase fade-up" style="animation-delay:.72s;letter-spacing:.32em;font-size:clamp(.65rem,2.4vw,.85rem);text-shadow:0 1px 12px rgb(0 0 0/.45)" data-i18n="heroDateLine">
-        02 · 12 · 2026 &nbsp;—&nbsp; Ujjain
-      </p>
-      <p class="mt-6 font-display italic text-white font-light fade-up" style="animation-delay:.82s;font-size:clamp(1.25rem,4vw,2rem);text-shadow:0 2px 16px rgb(0 0 0/.45)" data-i18n="heroMarried">
-        We're getting married!!!
-      </p>
-    </div>
+    <div class="hero-fade" aria-hidden="true"></div>
   </div>
+
 
   <!-- Countdown -->
   <div class="wrap" style="max-width:1000px">
-    <div class="card relative z-10 px-4 sm:px-10 py-8 sm:py-10 reveal" style="margin-top:clamp(-5rem,-9vw,-3.5rem)">
+    <div class="card cd-card relative z-10 px-4 sm:px-10 py-8 sm:py-10 reveal">
       <p class="eyebrow text-center text-gold mb-8" data-i18n="countdownEyebrow">Counting down to the baraat</p>
       <div id="countdown" class="grid grid-cols-4 divide-x" style="border-color:rgb(var(--c-line-soft))">
         <div class="text-center px-1">
@@ -1012,6 +1063,9 @@
     pageSections: { en: 'Page sections', hi: 'पेज के सेक्शन' },
     goTo: { en: 'Go to', hi: 'यहां जाएं:' },
 
+    mhOur: { en: 'Our', hi: 'हमारी' },
+    mhWedding: { en: 'Wedding', hi: 'शादी' },
+    daysToGo: { en: '{n} days to go!', hi: '{n} दिन बाकी!' },
     heroNameShivam: { en: 'Shivam', hi: 'शिवम' },
     heroNameAyushi: { en: 'Ayushi', hi: 'आयुषी' },
     heroTogether: { en: 'Together with our families', hi: 'हमारे परिवारों के साथ' },
@@ -1262,13 +1316,16 @@
     setTimeout(enter, 10000); // never trap anyone
   })();
 
-  function startHero() { $('#heroCopy').classList.add('hero-ready'); }
+  function startHero() { $('#top').classList.add('hero-ready'); }
   if (!CONFIG.intro.enabled) startHero();
   // Belt and braces: the names must never stay masked, whatever else fails.
   addEventListener('load', () => setTimeout(startHero, 200));
 
   /* ═══════════════════ HERO PHOTO ═══════════════════ */
-  mountImg($('#heroImg'), CONFIG.heroPhoto, 'Shivam and Ayushi', true);
+  // Without a photo the frame is just a tall empty band under the masthead, so
+  // it stays out of the page until there is something to put in it.
+  if (CONFIG.heroPhoto) mountImg($('#heroImg'), CONFIG.heroPhoto, 'Shivam and Ayushi', true);
+  else $('#heroFrame').hidden = true;
 
   /* ═══════════════════ IN-PAGE LINKS ═══════════════════
      Manual scroll + pushState: some sandboxed/preview hosts block native
@@ -1328,13 +1385,15 @@
     renderNum(cd.h, pad(Math.floor(s / 3600) % 24));
     renderNum(cd.m, pad(Math.floor(s / 60) % 60));
     renderNum(cd.s, pad(s % 60));
-    if (firstPaint) { announcedDays = days; announceDays(); firstPaint = false; }
+    if (announcedDays !== days) { announcedDays = days; announceDays(); }
+    firstPaint = false;
   }
   tick();
   const timer = setInterval(tick, 1000);
   function announceDays() {
     if (announcedDays === null) return;
     $('#cdLive').textContent = UI('daysUntilWedding').replace('{n}', announcedDays);
+    $('#mhDays').textContent = UI('daysToGo').replace('{n}', announcedDays);
   }
   onLangChange(() => {
     if (target - Date.now() <= 0) { tick(); return; }

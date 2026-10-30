@@ -703,7 +703,7 @@
         <ul id="travelList" class="mt-8 border-t" style="border-color:rgb(var(--c-line-soft))"></ul>
       </div>
       <div class="frame reveal" data-d="1" style="aspect-ratio:3/4">
-        <div class="ph"><span class="eyebrow text-sage-700">ujjain.jpg</span></div>
+        <div class="ph" aria-hidden="true"><span class="eyebrow text-sage-700">ujjain.jpg</span></div>
         <img class="parallax" alt="A guide to sacred sites in Ujjain" data-src="ujjain">
       </div>
     </div>
@@ -899,7 +899,8 @@
         ] },
       { day: { en: 'Tuesday, 1 December', hi: 'मंगलवार, 1 दिसंबर' },
         city: { en: 'Ujjain, Madhya Pradesh', hi: 'उज्जैन, मध्य प्रदेश' },
-        venue: { en: 'Parmeshwari Garden & Resort', hi: 'परमेश्वरी गार्डन एंड रिज़ॉर्ट' }, note: { en: '', hi: '' },
+        venue: { en: 'Parmeshwari Garden & Resort', hi: 'परमेश्वरी गार्डन एंड रिज़ॉर्ट' },
+        mapUrl: 'https://maps.app.goo.gl/HF5HxmQJ4HE9XyqV6', note: { en: '', hi: '' },
         events: [
           { time: { en: '12:00 pm – 4:00 pm', hi: 'दोपहर 12:00 – शाम 4:00 बजे' },
             name: { en: 'Haldi', hi: 'हल्दी' },
@@ -925,6 +926,7 @@
       { day: { en: 'Wednesday, 2 December', hi: 'बुधवार, 2 दिसंबर' },
         city: { en: 'Ujjain, Madhya Pradesh', hi: 'उज्जैन, मध्य प्रदेश' },
         venue: { en: 'Parmeshwari Garden & Resort', hi: 'परमेश्वरी गार्डन एंड रिज़ॉर्ट' },
+        mapUrl: 'https://maps.app.goo.gl/HF5HxmQJ4HE9XyqV6',
         note: { en: 'The wedding day', hi: 'शादी का दिन' },
         events: [
           { time: { en: '1:00 pm – 2:00 pm', hi: 'दोपहर 1:00 – 2:00 बजे' },
@@ -1489,7 +1491,8 @@
       if (s.img) {
         media = el('div', 'frame ' + (flip ? '' : 'md:order-2'));
         media.style.aspectRatio = '4/5';
-        const ph = el('div', 'ph'); ph.appendChild(el('span', 'eyebrow text-sage-700', s.file));
+        const ph = el('div', 'ph'); ph.setAttribute('aria-hidden', 'true');
+        ph.appendChild(el('span', 'eyebrow text-sage-700', s.file));
         const img = el('img', 'parallax');
         media.append(ph, img);
         mountImg(img, s.img, s.alt);
@@ -1568,7 +1571,10 @@
         const slug = ev.name.en.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
         const frame = el('div', 'frame frame-contain');
         frame.style.height = 'clamp(180px, 30vw, 280px)';
-        const ph = el('div', 'ph');
+        // Owner-facing "what to drop in here" chrome: opacity alone still leaves it
+        // in the accessibility tree, so screen readers read filenames over photos
+        // that loaded perfectly well.
+        const ph = el('div', 'ph'); ph.setAttribute('aria-hidden', 'true');
         ph.appendChild(el('span', 'eyebrow text-sage-700', UI('addIllustration')));
         ph.appendChild(el('span', 'text-xs text-ink-faint', slug + '.png'));
         const img = el('img');
@@ -1715,7 +1721,8 @@
 
       const frame = el('div', 'frame');
       frame.style.aspectRatio = i % 3 === 1 ? '3/4' : '4/5';
-      const ph = el('div', 'ph'); ph.appendChild(el('span', 'eyebrow text-sage-700', UI('photoPlaceholder') + ' ' + (i + 1)));
+      const ph = el('div', 'ph'); ph.setAttribute('aria-hidden', 'true');
+      ph.appendChild(el('span', 'eyebrow text-sage-700', UI('photoPlaceholder') + ' ' + (i + 1)));
       const img = el('img', 'transition-transform duration-700 group-hover:scale-[1.04]');
       img.loading = 'lazy';
       frame.append(ph, img);

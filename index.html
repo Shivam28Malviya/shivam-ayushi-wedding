@@ -211,7 +211,7 @@
   /* ══════════ MEDIA / FRAMES ══════════ */
   .frame { position: relative; overflow: hidden; background: rgb(var(--c-surface-alt)); }
   .frame img { position: relative; width: 100%; height: 100%; object-fit: cover; display: block;
-               opacity: 0; transition: opacity .7s ease; }
+               opacity: 0; transition: opacity .3s ease; }
   .frame img.loaded { opacity: 1; }
   /* Schedule cards: shrink the photo down without cropping it */
   /* Transparent while a real illustration shows, so no empty tinted bands sit
@@ -997,16 +997,16 @@
     hotels: [],
 
     photos: [
-      { src: 'images/bride/bride-01.webp', cap: { en: 'Ayushi', hi: 'आयुषी' } },
-      { src: 'images/groom/groom-02.webp', cap: { en: 'Shivam', hi: 'शिवम' } },
-      { src: 'images/bride/bride-02.webp', cap: { en: 'Ayushi', hi: 'आयुषी' } },
-      { src: 'images/groom/groom-03.webp', cap: { en: 'Shivam', hi: 'शिवम' } },
-      { src: 'images/bride/bride-03.webp', cap: { en: 'Ayushi', hi: 'आयुषी' } },
-      { src: 'images/groom/groom-04.webp', cap: { en: 'Shivam', hi: 'शिवम' } },
-      { src: 'images/bride/bride-04.webp', cap: { en: 'Ayushi', hi: 'आयुषी' } },
-      { src: 'images/groom/groom-05.webp', cap: { en: 'Shivam', hi: 'शिवम' } },
-      { src: 'images/bride/bride-05.webp', cap: { en: 'Ayushi', hi: 'आयुषी' } },
-      { src: 'images/groom/groom-06.webp', cap: { en: 'Shivam', hi: 'शिवम' } }
+      { src: 'images/bride/bride-01.webp', thumb: 'images/bride/bride-01-sm.webp', cap: { en: 'Ayushi', hi: 'आयुषी' } },
+      { src: 'images/groom/groom-02.webp', thumb: 'images/groom/groom-02-sm.webp', cap: { en: 'Shivam', hi: 'शिवम' } },
+      { src: 'images/bride/bride-02.webp', thumb: 'images/bride/bride-02-sm.webp', cap: { en: 'Ayushi', hi: 'आयुषी' } },
+      { src: 'images/groom/groom-03.webp', thumb: 'images/groom/groom-03-sm.webp', cap: { en: 'Shivam', hi: 'शिवम' } },
+      { src: 'images/bride/bride-03.webp', thumb: 'images/bride/bride-03-sm.webp', cap: { en: 'Ayushi', hi: 'आयुषी' } },
+      { src: 'images/groom/groom-04.webp', thumb: 'images/groom/groom-04-sm.webp', cap: { en: 'Shivam', hi: 'शिवम' } },
+      { src: 'images/bride/bride-04.webp', thumb: 'images/bride/bride-04-sm.webp', cap: { en: 'Ayushi', hi: 'आयुषी' } },
+      { src: 'images/groom/groom-05.webp', thumb: 'images/groom/groom-05-sm.webp', cap: { en: 'Shivam', hi: 'शिवम' } },
+      { src: 'images/bride/bride-05.webp', thumb: 'images/bride/bride-05-sm.webp', cap: { en: 'Ayushi', hi: 'आयुषी' } },
+      { src: 'images/groom/groom-06.webp', thumb: 'images/groom/groom-06-sm.webp', cap: { en: 'Shivam', hi: 'शिवम' } }
     ],
 
     faqs: [
@@ -1726,7 +1726,7 @@
       const img = el('img', 'transition-transform duration-700 group-hover:scale-[1.04]');
       img.loading = 'lazy';
       frame.append(ph, img);
-      mountImg(img, p.src, tr(p.cap));
+      mountImg(img, p.thumb || p.src, tr(p.cap));
 
       const cap = el('p', 'eyebrow text-ink-faint mt-3 text-left', tr(p.cap));
       btn.append(frame, cap);
@@ -1765,9 +1765,18 @@
   let idx = 0, lastTrigger = null, srcThumb = null;
 
   function paintLb() {
-    lbImg.src = photos[idx].src;
-    lbImg.alt = tr(photos[idx].cap);
-    lbCap.textContent = tr(photos[idx].cap);
+    const ph = photos[idx];
+    lbImg.alt = tr(ph.cap);
+    lbCap.textContent = tr(ph.cap);
+    // The strip only downloaded a thumbnail, so paint that first — it is
+    // already cached and appears instantly — then swap in the full-size file
+    // once it arrives, rather than opening to an empty frame.
+    lbImg.src = ph.thumb || ph.src;
+    if (ph.thumb) {
+      const full = new Image();
+      full.addEventListener('load', () => { if (photos[idx] === ph) lbImg.src = ph.src; }, { once: true });
+      full.src = ph.src;
+    }
   }
   function showLb() {
     lb.hidden = false;
